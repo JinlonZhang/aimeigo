@@ -17,8 +17,11 @@
         <i class="fa fa-user fa-16"></i><%= req.session.user.name %>
         <a href="/logout" ><i class="fa fa-sign-out fa-16"></i>退出</a>
         <div class="btn-wrap"><button type="button" class="btn btn-primary">添加</button></div>
-        <div class="side col-md-2">
-            <ul class="nav nav-pills nav-stacked">
+
+        <% include /mod/mod.side.html %>
+
+        <div class="cont col-md-10">
+            <ul class="nav nav-pills">
                 <li><a href="#">衣服</a></li>
                 <li><a href="#">鞋子</a></li>
                 <li><a href="#">包包</a></li>
@@ -27,8 +30,6 @@
                 <li><a href="#">家居</a></li>
                 <li><a href="#">9.9包邮</a></li>
             </ul>
-        </div>
-        <div class="cont col-md-10">
             <table class="table table-striped">
                 <thead>
                     <th>名称</th>
