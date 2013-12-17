@@ -306,7 +306,7 @@
                 for (var i = 0; i < w.result.list.length; i++) {
                     var obj = w.result.list[i];
                     var p = $("<p class='ib ch-fv'><i class='fa fa-exclamation-circle'></i></p>");
-                    var parent = obj.dom.parents(".u-fm-i");
+                    var parent = obj.dom.parents(".form-group");
                     p.append(obj.text);
                     w.messageDom.push(p);
 

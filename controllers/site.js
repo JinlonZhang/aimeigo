@@ -34,12 +34,15 @@ exports.logout = function(req, res){
     res.render('login');
 }
 
+/* api */
+var api = {}
+exports.api = api;
 /**
  * 登录。ajax请求。
  * @param req
  * @param res
  */
-exports.sign = function(req, res){
+api.sign = function(req, res){
     var o = {
         login_name: req.body.login_name,
         pwd: req.body.pwd

@@ -5,5 +5,8 @@
         <li><a href="#">一张截图电影</a></li>
         <li><a href="#">娱乐八卦说</a></li>
         <li><a href="#">每日星座说</a></li>
+		<% if(req.session.user.type == 0){ %>
+		<li><a href="/user">用户</a></li>
+		<% } %>
     </ul>
 </div>

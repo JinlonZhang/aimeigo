@@ -46,14 +46,17 @@ app.use(function(req, res, next){
     var util = {
         dateFormat: Util.dateFormat
     };
+    var url = req.originalUrl;
     res.locals({
         title: '管理平台',
         moment: moment,
         req: req,
         util: util
     });
-    if(req.session && req.session.user){
 
+
+    if(url != '/login' && url != '/api/sign' && !req.session.user){
+        return res.redirect('/login');
     }
 
     next();

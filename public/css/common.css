@@ -19,7 +19,7 @@ ul,li{list-style: none;}
 input, label, select, option, textarea, fieldset, legend{font-family:"verdana","Oxygen",Arial,"Hiragino Sans GB","Microsoft YaHei","STHeiti","宋体", simsun, "sans serif";}
 textarea{resize: none;overflow: auto}
 i,em{font-style: normal;}
-
+th, td{text-align: left;}
 
 a:link,a:visited{text-decoration: none;color: #369;}
 a:hover{text-decoration: underline;color: #00adee}
