@@ -1,9 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>爱美购_后台管理平台</title>
-    <link rel='stylesheet' href='/bootstrap/css/bootstrap.min.css' />
+    <% include ../inc/inc.head.html %>
     <style type="text/css">
         .wrap{width:100%}
         .main{width:1000px;margin:0 auto;}
@@ -16,6 +14,7 @@
 <div class="wrap">
     <div class="main">
         <h3>爱美购管理平台</h3>
+        <i class="fa fa-user fa-16"></i><%= req.session.user.name %>
         <div class="btn-wrap"><button type="button" class="btn btn-primary">添加</button></div>
         <div class="side col-md-2">
             <ul class="nav nav-pills nav-stacked">
@@ -47,7 +46,7 @@
     </div>
 </div>
 
-<script src="js/jquery-1.9.1.min.js" type="text/javascript"></script>
-<script type="text/javascript" src="/bootstrap/js/bootstrap.min.js" ></script>
+<% include ../inc/inc.foot.html %>
+
 </body>
 </html>
