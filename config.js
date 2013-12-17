@@ -10,5 +10,6 @@ module.exports = {
     db: 'mongodb://127.0.0.1/aimeigo',
     dbName: 'aimeigo',
     host: 'localhost',
-    cookieSecret: 'aimeigo'
+    cookieSecret: 'aimeigo',
+    uploadDir: '../upload'
 }

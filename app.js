@@ -24,8 +24,8 @@ app.engine('.html', ejs.__express);
 app.set('view engine', 'html');
 app.use(express.favicon(path.join(__dirname, 'public/img/favicon.ico')));
 app.use(express.logger('dev'));
-//app.use(express.bodyParser({uploadDir: config.uploadDir }));
-app.use(express.bodyParser());
+app.use(express.bodyParser({uploadDir: config.uploadDir }));
+//app.use(express.bodyParser());
 app.use(express.methodOverride());
 //Cookie 解析的中间件
 app.use(express.cookieParser(config.cookieSecret));
