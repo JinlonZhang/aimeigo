@@ -18,11 +18,11 @@ User.initAdmin({
 });
 
 exports.index = function(req, res){
-    res.render('index');
+    res.render('website');
 }
 
 exports.admin = function(req, res){
-    res.render('admin');
+    res.render('index');
 }
 
 exports.login = function(req, res){
