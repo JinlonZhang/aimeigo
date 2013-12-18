@@ -5,13 +5,61 @@
 </head>
 <body>
 
-<form action="/api/item" target="ajax" method="post" enctype="multipart/form-data">
-	<input type="text" name="title" />
-	<input type="file" name="allen" />
-	<button type="submit">提交</button>
-</form>
+<div class="g-bd">
+    <% include ../mod/mod.head.html %>
 
-<iframe name="ajax" style="width:100%;height:100px;">
+    <% include ../mod/mod.side.html %>
+
+    <div class="g-mn">
+        <a href="/item" class="btn btn-default">返回</a>
+        <form class="form-horizontal" role="form" action="/api/item" target="ajax" method="post" enctype="multipart/form-data">
+            <div class="form-group">
+                <label class="col-sm-2 control-label">宝贝名称</label>
+                <div class="col-sm-10">
+                    <input type="text" name="name" class="form-control">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">链接</label>
+                <div class="col-sm-10">
+                    <input type="text" name="href" class="form-control">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">宝贝图片</label>
+                <div class="col-sm-10">
+                    <input type="file" name="img" class="form-control">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">原价</label>
+                <div class="col-sm-4">
+                    <input type="text" name="price" class="form-control">
+                </div>
+                <label class="col-sm-2 control-label">现价</label>
+                <div class="col-sm-4">
+                    <input type="text" name="price2" class="form-control">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">小编推荐</label>
+                <div class="col-sm-10">
+                    <input type="text" name="talk" class="form-control">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2"></label>
+                <div class="col-sm-10">
+                    <button type="submit" class="btn btn-primary">提交</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+<iframe name="ajax" class="hide" style="width:100%;height:100px;">
 
 </iframe>
 

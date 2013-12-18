@@ -21,7 +21,7 @@ textarea{resize: none;overflow: auto}
 i,em{font-style: normal;}
 th, td{text-align: left;}
 
-a:link,a:visited{text-decoration: none;color: #369;}
+a:link,a:visited{text-decoration: none;}
 a:hover{text-decoration: underline;color: #00adee}
 a.a-c:link, a.a-c:visited{color:#369;}
 a.a-c:hover{color:#00adee;}

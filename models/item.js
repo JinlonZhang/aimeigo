@@ -1,5 +1,5 @@
 /**
- * Created by Administrator on 13-10-18.
+ * Created by allen.xu on 13-10-18.
  */
 
 var mongoose = require('mongoose');
@@ -12,10 +12,9 @@ var ItemSchema = new Schema({
     href: String,
     img: String,
     price: String,
-    discount: String,
-    comments: String
-
-
+    price2: String,
+    talk: String,
+    comments: []
 })
 
 mongoose.model('Item', ItemSchema);

@@ -4,9 +4,39 @@
 	<% include ../inc/inc.head.html %>
 </head>
 <body>
+<div class="g-bd">
+    <% include ../mod/mod.head.html %>
 
-list for 淘宝宝贝
+    <% include ../mod/mod.side.html %>
 
+    <div class="g-mn">
+        <a href="/item/detail" class="btn btn-primary">添加</a>
+
+        <ul class="nav nav-pills" style="height: 26px;">
+            <li><a href="/item">全部</a></li>
+            <li><a href="/item?type=1">衣服</a></li>
+            <li><a href="/item?type=2">鞋子</a></li>
+            <li><a href="/item?type=3">包包</a></li>
+            <li><a href="/item?type=4">配饰</a></li>
+            <li><a href="/item?type=5">美妆</a></li>
+            <li><a href="/item?type=6">家居</a></li>
+            <li><a href="/item?type=7">9.9包邮</a></li>
+        </ul>
+        <table class="table table-striped">
+            <thead>
+                <th>图片</th>
+                <th>名称</th>
+                <th>原价</th>
+                <th>现价</th>
+                <th>小编点评</th>
+                <th>操作</th>
+            </thead>
+            <tbody>
+
+            </tbody>
+        </table>
+    </div>
+</div>
 <% include ../inc/inc.foot.html %>
 
 </body>
