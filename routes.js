@@ -3,6 +3,7 @@ var auth = require('./controllers/common').auth;
 var site = require('./controllers/site');
 var item = require('./controllers/item');
 var user = require('./controllers/user');
+var lyric = require('./controllers/lyric');
 
 module.exports = function(app){
     app.get('/', site.index);
@@ -18,5 +19,11 @@ module.exports = function(app){
 
     app.get('/user', user.index);
     app.post('/api/user', user.api.add);
-    //test
+
+    //一句话歌词
+    app.get('/lyric', lyric.index);
+    app.get('/lyric/add', lyric.add);
+    app.get('/lyric/:id', lyric.detail);
+    app.post('/api/lyric', lyric.api.add);
+    app.delete('/lyric/:id', lyric.api.delete);
 }

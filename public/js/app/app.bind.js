@@ -14,6 +14,9 @@
 
 
             w.form = $('.j-form');
+            w.uploadForm = $('.j-uploadForm');
+            w.del = $('.j-delete');
+
             w.action = $('.j-action');
             w.pop = $('.j-pop');
 
@@ -46,12 +49,38 @@
                 })
             })
 
+            w.uploadForm.each(function(){
+                var f = $(this), opt = f.data('opt') || {}, optStr = f.attr('opt') || "{}";
+                f.data('opt',
+                    $.extend(
+                        true,
+                        {},
+                        defaultOpt,
+                        opt,
+                        JSON.parse( optStr )
+                    ));
+
+                new UI.FormValidator({
+                    el: f
+                })
+            })
+
             //下拉框 popup
             w.pop.each(function(){
                 new UI.Popup({
                     el: $(this)
                 })
             });
+
+            //
+            w.uploadForm.each(function(){
+                new UI.AjaxUpload({
+                    el: $(this),
+                    success: function(o, dom){
+                        app.common.ajaxCallBack(o, dom);
+                    }
+                })
+            })
         },
 
         initEvent: function() {
@@ -67,6 +96,17 @@
                 f.find('.j-submit').click(function(){
                     w.formSubmit(f);
                 });
+            });
+
+            w.del.data('opt', {
+                text: '删除成功！',
+                fn: function(){
+                    window.location.reload();
+                }
+            })
+            w.del.bind('click', function(){
+                w.delClick( $(this) );
+                return false;
             });
 
         },
@@ -85,6 +125,21 @@
                     }
                 })
             })
+        },
+
+        delClick: function(dom){
+            var w = this, url = dom.attr('href');
+
+            if(window.confirm('确定删除？')){
+                $.ajax({
+                    type: 'delete',
+                    url: url,
+                    dataType: 'json',
+                    success: function(o){
+                        app.common.ajaxCallBack(o, dom);
+                    }
+                })
+            }
         }
 
     })

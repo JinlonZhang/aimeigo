@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <% include ../inc/inc.head.html %>
+</head>
+<body>
+<div class="g-bd">
+    <% include ../mod/mod.head.html %>
+
+    <% include ../mod/mod.side.html %>
+
+    <div class="g-mn">
+        <a href="/lyric/add" class="btn btn-primary">添加</a>
+
+
+        <table class="table table-striped">
+            <thead>
+                <th>歌曲</th>
+                <th>歌手</th>
+                <th>歌词</th>
+                <th>小编点评</th>
+                <th>操作</th>
+            </thead>
+            <tbody>
+                <% lyricList.forEach(function(lyric){ %>
+                    <tr>
+                        <td><%= lyric.name %></td>
+                        <td><%= lyric.singer %></td>
+                        <td><%= lyric.lyric %></td>
+                        <td><%= lyric.talk %></td>
+                        <td>
+                            <a href="/lyric/<%= lyric._id %>" class="j-delete">删除</a>
+                            <a href="/lyric/<%= lyric._id %>" class="j">编辑</a>
+                        </td>
+                    </tr>
+                <% }) %>
+            </tbody>
+        </table>
+    </div>
+</div>
+<% include ../inc/inc.foot.html %>
+
+</body>
+</html>
