@@ -18,4 +18,5 @@ module.exports = function(app){
 
     app.get('/user', user.index);
     app.post('/api/user', user.api.add);
+    //test
 }
