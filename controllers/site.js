@@ -21,8 +21,24 @@ exports.index = function(req, res){
     res.render('website');
 }
 
+exports.del = function(req, res){
+    console.log(req.params.id);
+    res.json({code:0});
+}
+
 exports.admin = function(req, res){
-    res.render('index');
+    var type = req.query.type || 0;
+    var opt = {
+        sort: {id: -1}
+    }
+    //console.log(type)
+    Item.getItem(type, opt, function(err, itemList){
+        Item.getItemTotal(type, function(err, total){
+            res.render('index', {itemList: itemList, total:total, type:type});
+        })
+
+    })
+    //res.render('index');
 }
 
 exports.login = function(req, res){
@@ -59,6 +75,25 @@ api.sign = function(req, res){
 
         req.session.user = user;
         res.json( Util.resJson(0) );
+    })
+
+}
+
+exports.add = function(req, res){
+    console.log(req.body.price);
+    var o = {
+        name: req.body.name,
+        href: req.body.href,
+        price: req.body.price,
+        discount: req.body.discount,
+        comments: req.body.comments,
+        type: req.body.type
+    }
+
+    Item.add(o, function(err){
+        if(!err){
+            res.json( Util.resJson(0) );
+        }
     })
 
 }

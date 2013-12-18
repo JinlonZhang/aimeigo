@@ -16,19 +16,19 @@
         <h3>爱美购管理平台</h3>
         <i class="fa fa-user fa-16"></i><%= req.session.user.name %>
         <a href="/logout" ><i class="fa fa-sign-out fa-16"></i>退出</a>
-        <div class="btn-wrap"><button type="button" class="btn btn-primary">添加</button></div>
+        <div class="btn-wrap"><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">添加</button></div>
 
         <% include /mod/mod.side.html %>
 
         <div class="cont col-md-10">
             <ul class="nav nav-pills">
-                <li><a href="#">衣服</a></li>
-                <li><a href="#">鞋子</a></li>
-                <li><a href="#">包包</a></li>
-                <li><a href="#">配饰</a></li>
-                <li><a href="#">美妆</a></li>
-                <li><a href="#">家居</a></li>
-                <li><a href="#">9.9包邮</a></li>
+                <li><a href="/admin?type=0">衣服</a></li>
+                <li><a href="/admin?type=1">鞋子</a></li>
+                <li><a href="/admin?type=2">包包</a></li>
+                <li><a href="/admin?type=3">配饰</a></li>
+                <li><a href="/admin?type=4">美妆</a></li>
+                <li><a href="/admin?type=5">家居</a></li>
+                <li><a href="/admin?type=6">9.9包邮</a></li>
             </ul>
             <table class="table table-striped">
                 <thead>
@@ -41,14 +41,122 @@
                     <th>操作</th>
                 </thead>
                 <tbody>
-
+                    <% itemList.forEach(function(item, i){ %>
+                    <tr class="j-tr">
+                        <td><%= item.name %></td>
+                        <td><%= item.href %></td>
+                        <td><%= item.img %></td>
+                        <td><%= item.price %></td>
+                        <td><%= item.discount %></td>
+                        <td><%= item.comments %></td>
+                        <td><a href="javascript://" url = "" class="j-delete" >删除</a>
+                            &nbsp&nbsp
+                            <a href="javascript://" url = "" class="j-delete"  >编辑</a>
+                        </td>
+                    </tr>
+                    <% }) %>
                 </tbody>
             </table>
         </div>
+
+
+
+
     </div>
 </div>
 
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">添加宝贝</h4>
+            </div>
+            '/item' method=post/delete
+            '/item/add'
+            <form action="/add" method="post" class="form-horizontal" id="form">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="l1" class="col-sm-2 control-label">名称</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="l1" placeholder="名称" name="name">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="l2" class="col-sm-2 control-label">链接</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="l2" placeholder="链接" name="href">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="l3" class="col-sm-2 control-label">图片</label>
+                        <div class="col-sm-10">
+                            <input name="img" type="file"id="l3" />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="l4" class="col-sm-2 control-label">原价</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="l4" placeholder="原价" name="price">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="l5" class="col-sm-2 control-label">现价</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="l5" placeholder="现价" name="discount">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="l6" class="col-sm-2 control-label">小编点评</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="l6" placeholder="小编点评" name="comments">
+                        </div>
+                    </div>
+                </div>
+                <input type="hidden" name="type" value="<%= type %>">
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" id="ok">确定</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                </div>
+            </form>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
 <% include /inc/inc.foot.html %>
+<script>
+    $(function(){
+
+        $.ajax({
+            type: 'delete',
+            url: '/item',
+            data: {id: 11},
+            success: function(data){
+                alert(data.code);
+            }
+        })
+
+        $('#ok').bind("click", function(){
+            $.ajax({
+                url: '/add',
+                type: 'post',
+                data: $('#form').serialize() ,
+                dataType: 'json',
+                success: function(o){
+                    if(o.code == 0){
+                        alert("添加成功");
+                        window.location.reload();
+                    }else{
+                        alert(JSON.stringify(o));
+                    }
+                }
+            })
+            return false;
+        })
+    })
+</script>
 
 </body>
 </html>
