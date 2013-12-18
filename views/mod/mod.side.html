@@ -1,12 +1,13 @@
-<div class="side col-md-2">
+<div class="g-sd">
     <ul class="nav nav-pills nav-stacked">
-        <li><a href="#">导购网站</a></li>
+        <li><a href="/admin">首页</a></li>
+        <li><a href="/item">导购网站</a></li>
         <li><a href="#">一句话歌词</a></li>
         <li><a href="#">一张截图电影</a></li>
         <li><a href="#">娱乐八卦说</a></li>
         <li><a href="#">每日星座说</a></li>
 		<% if(req.session.user.type == 0){ %>
-		<li><a href="/user">用户</a></li>
+		    <li><a href="/user">用户</a></li>
 		<% } %>
     </ul>
 </div>
