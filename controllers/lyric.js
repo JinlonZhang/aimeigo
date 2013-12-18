@@ -9,7 +9,7 @@ var proxy = require('../proxy');
 var Lyric = proxy.Lyric;
 
 exports.index = function(req, res){
-    Lyric.getLyricByQuery({}, {}, {}, function(err, lyricList){
+    Lyric.getLyricByQuery({}, {}, {sort: {_id: -1}}, function(err, lyricList){
         res.render('lyric', {lyricList: lyricList})
     })
 }

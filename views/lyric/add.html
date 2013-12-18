@@ -55,12 +55,13 @@
 </div>
 
 
-
-<iframe name="ajax" class="hide-" style="width:100%;height:100px;">
-
-</iframe>
-
 <% include ../inc/inc.foot.html %>
-
+<script>
+    $('.j-uploadForm').data('opt', {
+        fn: function(){
+            window.location.href = '/lyric';
+        }
+    })
+</script>
 </body>
 </html>
