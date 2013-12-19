@@ -18,6 +18,8 @@ mongoose.connect(config.db, function (err) {
 // models
 require('./item');
 require('./user');
+require('./lyric')
 
 exports.Item = mongoose.model('Item');
 exports.User = mongoose.model('User');
+exports.Lyric = mongoose.model('Lyric');
