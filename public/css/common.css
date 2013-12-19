@@ -39,6 +39,8 @@ code,.hide{display: none;}
 .ch-sp{margin:0 8px;}
 .ch-ells{overflow: hidden;text-overflow:ellipsis;white-space:nowrap;}
 .ch-fv{color: red;margin-left:10px;vertical-align: middle;}
+.ch-line{text-decoration:line-through;}
+.ch-lg{font-size:18px;}
 
 .radio{/*vertical-align: -2px;_vertical-align: -3px;*/margin-right: 3px}
 

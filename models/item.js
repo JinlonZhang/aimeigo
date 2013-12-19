@@ -7,7 +7,7 @@ var Schema = mongoose.Schema;
 var ObjectId = Schema.ObjectId;
 
 var ItemSchema = new Schema({
-    type: String, //类别
+    type: {type: String, index: true},  //类别
     name: String,
     href: String,
     price: String,

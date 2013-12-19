@@ -10,13 +10,14 @@ var User = proxy.User;
 
 exports.index = function(req, res){
     var type = req.query.type;
-    var query = {};
+    var query = {}, limit = 10;
 
-    if(type != undefined) query.type = type;
+    if(type != undefined){
+        query.type = type;
+        limit = 30
+    }
 
-
-
-    Item.getItemByQuery(query, {},{limit: 10}, function(err, itemList){
+    Item.getItemByQuery(query, {},{sort: {_id: -1}, limit: limit}, function(err, itemList){
         res.render('item', {itemList:itemList});
     })
 
