@@ -22,12 +22,16 @@ exports.add = function (o, fn) {
     item.save(fn);
 };
 
-exports.getItemByQuery = function(query, field, opt, fn){
-    Item.find(query, field, opt, fn);
-}
-
 exports.deleteById = function(id, fn){
     Item.findByIdAndRemove(id, fn);
+}
+
+exports.modifyById = function(id, o, fn){
+    Item.findByIdAndUpdate(id, {$set: o}, fn);
+}
+
+exports.getItemByQuery = function(query, field, opt, fn){
+    Item.find(query, field, opt, fn);
 }
 
 exports.getItemById = function(id, fn){

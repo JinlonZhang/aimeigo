@@ -36,8 +36,17 @@
             <tbody>
             <% itemList.forEach(function(item, i){ %>
             <tr class="j-tr">
-                <td><img src="/item/<%= item._id %>/img" style="width:100px;height:100px;" /></td>
-                <td><%= item.name %></td>
+                <td>
+                    <a href="<%= item.href %>" target="_blank">
+                        <img src="/item/<%= item._id %>/img" style="width:100px;height:100px;" />
+                    </a>
+                </td>
+
+                <td>
+                    <a href="<%= item.href %>" target="_blank">
+                        <%= item.name %>
+                    </a>
+                </td>
                 <td><%= item.price %></td>
                 <td><%= item.price2 %></td>
                 <td><%= item.talk %></td>

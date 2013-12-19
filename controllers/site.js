@@ -11,6 +11,7 @@ var Item = proxy.Item;
 var User = proxy.User;
 
 User.initAdmin({
+    type: 0,
     name: '管理员',
     login_name: 'admin@aimeigo.cn',
     pwd: Util.md5('1qazxsw2')

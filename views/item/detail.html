@@ -34,7 +34,7 @@
             <div class="form-group">
                 <label class="col-sm-2 control-label">链接</label>
                 <div class="col-sm-10">
-                    <input type="text" name="href" class="form-control">
+                    <input type="text" name="href" class="form-control" value="<%= item.href %>">
                 </div>
             </div>
             <div class="form-group">
@@ -46,23 +46,24 @@
             <div class="form-group">
                 <label class="col-sm-2 control-label">现价</label>
                 <div class="col-sm-4">
-                    <input type="text" name="price2" class="form-control">
+                    <input type="text" name="price2" class="form-control" value="<%= item.price2 %>">
                 </div>
                 <label class="col-sm-2 control-label">原价</label>
                 <div class="col-sm-4">
-                    <input type="text" name="price" class="form-control">
+                    <input type="text" name="price" class="form-control" value="<%= item.price %>" >
                 </div>
 
             </div>
             <div class="form-group">
                 <label class="col-sm-2 control-label">小编推荐</label>
                 <div class="col-sm-10">
-                    <input type="text" name="talk" class="form-control">
+                    <input type="text" name="talk" class="form-control" value="<%= item.talk %>">
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-sm-2"></label>
                 <div class="col-sm-10">
+                    <input type="hidden" name="id" value="<%= item._id %>"/>
                     <button type="submit" class="btn btn-primary">提交</button>
                 </div>
             </div>

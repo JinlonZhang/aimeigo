@@ -11,7 +11,7 @@ var UserSchema = new Schema({
     login_name: {type:String, index: true},
     pwd: String,
 
-    type: {type: Number, default: 1}     //type=0：管理员；type=1,小编
+    type: Number     //type=0：管理员；type=1,小编
 })
 
 mongoose.model('User', UserSchema);

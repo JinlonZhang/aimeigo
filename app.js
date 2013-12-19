@@ -35,8 +35,9 @@ app.use(express.cookieParser(config.cookieSecret));
 app.use(express.session({
     secret : config.cookieSecret,
     key : config.dbName,
-    cookie: {maxAge: 1000 * 60 * 60 * 24 * 30},//30 days
+    cookie: {maxAge: 1000 * 60 * 60 * 24 * 7},//30 days
     store: new MongoStore({
+        host: config.host,
         db: config.dbName
     })
 }));
@@ -54,6 +55,9 @@ app.use(function(req, res, next){
         util: util
     });
 
+    if(url == '/'){
+        return next();
+    }
 
     if(url != '/login' && url != '/api/sign' && !req.session.user){
         return res.redirect('/login');

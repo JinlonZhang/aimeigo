@@ -5,7 +5,6 @@ var models = require('../models');
 var User = models.User;
 
 exports.initAdmin = function(o){
-    o.type = 0;
     var ex = exports;
     ex.getUserByLoginName(o.login_name, function(err, user){
         if(!user){

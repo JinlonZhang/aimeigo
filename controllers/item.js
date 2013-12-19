@@ -38,8 +38,7 @@ var api = {}
 exports.api = api;
 
 api.add = function(req, res){
-    var img = req.files.img;
-    var oldPath = req.files.img.path, newPath;
+    var img = req.files.img, id = req.body.id;
 
     var o = {
         type: req.body.type,
@@ -50,16 +49,21 @@ api.add = function(req, res){
         talk: req.body.talk
     }
 
-
-    Item.add(o, function(err, item){
-        newPath = config.uploadItemDir + item._id + '.jpg';
-
-        fs.rename(oldPath, newPath, function(err) {
+    if(id){
+        Item.modifyById(id, o, function(err){
             res.json( Util.resJson(err) );
-        });
+        })
+    }else{
+        var oldPath = req.files.img.path, newPath;
+        Item.add(o, function(err, item){
+            newPath = config.uploadItemDir + item._id + '.jpg';
+            fs.rename(oldPath, newPath, function(err) {
+                res.json( Util.resJson(err) );
+            });
+        })
+    }
 
 
-    })
 
 }
 
