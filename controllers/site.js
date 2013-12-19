@@ -27,18 +27,7 @@ exports.del = function(req, res){
 }
 
 exports.admin = function(req, res){
-    var type = req.query.type || 0;
-    var opt = {
-        sort: {id: -1}
-    }
-    //console.log(type)
-    Item.getItem(type, opt, function(err, itemList){
-        Item.getItemTotal(type, function(err, total){
-            res.render('index', {itemList: itemList, total:total, type:type});
-        })
-
-    })
-    //res.render('index');
+    res.render('index');
 }
 
 exports.login = function(req, res){

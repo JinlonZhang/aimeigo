@@ -10,38 +10,41 @@
     <% include ../mod/mod.side.html %>
 
     <div class="g-mn">
-        <a href="/item/detail?type=<%= req.query.type%>" class="btn btn-primary">添加</a>
+        <div class="g-btn">
+            <a href="/item/add" class="btn btn-primary"><i class="fa fa-plus"></i>添加</a>
+        </div>
 
-        <ul class="nav nav-pills" style="height: 26px;">
-            <li ><a href="/item?type=1">衣服</a></li>
-            <li><a href="/item?type=2">鞋子</a></li>
-            <li><a href="/item?type=3">包包</a></li>
-            <li><a href="/item?type=4">配饰</a></li>
-            <li><a href="/item?type=5">美妆</a></li>
-            <li><a href="/item?type=6">家居</a></li>
-            <li><a href="/item?type=7">9.9包邮</a></li>
+        <ul class="nav nav-tabs">
+            <li class="<%= req.query.type == undefined ? 'active' : '' %>"><a href="/item">全部</a></li>
+            <li class="<%= req.query.type == '1' ? 'active' : '' %>"><a href="/item?type=1" >女装</a></li>
+            <li class="<%= req.query.type == '2' ? 'active' : '' %>"><a href="/item?type=2">鞋子</a></li>
+            <li class="<%= req.query.type == '3' ? 'active' : '' %>"><a href="/item?type=3">包包</a></li>
+            <li class="<%= req.query.type == '4' ? 'active' : '' %>"><a href="/item?type=4">配饰</a></li>
+            <li class="<%= req.query.type == '5' ? 'active' : '' %>"><a href="/item?type=5">美妆</a></li>
+            <li class="<%= req.query.type == '6' ? 'active' : '' %>"><a href="/item?type=6">家居</a></li>
+            <li class="<%= req.query.type == '7' ? 'active' : '' %>"><a href="/item?type=7">9.9包邮</a></li>
         </ul>
         <table class="table table-striped">
             <thead>
-                <th>图片</th>
-                <th>名称</th>
-                <th>原价</th>
-                <th>现价</th>
+                <th style="width: 110px;">图片</th>
+                <th style="width: 300px;">名称</th>
+                <th style="width: 60px;">原价</th>
+                <th style="width: 60px;">现价</th>
                 <th>小编点评</th>
-                <th>操作</th>
+                <th style="width: 80px;">操作</th>
             </thead>
             <tbody>
             <% itemList.forEach(function(item, i){ %>
             <tr class="j-tr">
-                <td><%= item.img %></td>
+                <td><img src="/item/<%= item._id %>/img" style="width:100px;height:100px;" /></td>
                 <td><%= item.name %></td>
                 <td><%= item.price %></td>
                 <td><%= item.price2 %></td>
                 <td><%= item.talk %></td>
                 <td>
-                    <a href="javascript://" url = "" class="j-delete" >删除</a>
-                    &nbsp&nbsp
-                    <a href="javascript://" url = "" class="j-delete" >编辑</a>
+                    <a href="/api/item/<%= item._id %>" class="j-delete" >删除</a>
+
+                    <a href="/item/<%= item._id %>" >编辑</a>
                 </td>
             </tr>
             <% }) %>

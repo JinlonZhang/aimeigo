@@ -11,24 +11,26 @@
     <% include ../mod/mod.side.html %>
 
     <div class="g-mn">
-        <a href="/item" class="btn btn-default">返回</a>
+        <div class="g-btn">
+            <a href="/item" class="btn btn-default"><i class="fa fa-arrow-left"></i>返回</a>
+        </div>
         <form class="form-horizontal j-uploadForm" role="form" action="/api/item" method="post" enctype="multipart/form-data">
             <div class="form-group">
                 <label class="col-sm-2 control-label">类目</label>
                 <div class="col-sm-10">
-                    <label><input type="radio" name="type" value="1" <%= item.type == '1' ? 'checked' : ''%> >女装</label>
-                    <label><input type="radio" name="type" value="2" <%= item.type == '2' ? 'checked' : ''%>>鞋子</label>
-                    <label><input type="radio" name="type" value="3" <%= item.type == '3' ? 'checked' : ''%>>包包</label>
-                    <label><input type="radio" name="type" value="4" <%= item.type == '4' ? 'checked' : ''%>>配饰</label>
-                    <label><input type="radio" name="type" value="5" <%= item.type == '5' ? 'checked' : ''%>>美妆</label>
-                    <label><input type="radio" name="type" value="6" <%= item.type == '6' ? 'checked' : ''%>>家具</label>
-                    <label><input type="radio" name="type" value="7" <%= item.type == '7' ? 'checked' : ''%>>9.9包邮</label>
+                    <label><input type="radio" name="type" value="1" checked>女装</label>
+                    <label><input type="radio" name="type" value="2" >鞋子</label>
+                    <label><input type="radio" name="type" value="3" >包包</label>
+                    <label><input type="radio" name="type" value="4" >配饰</label>
+                    <label><input type="radio" name="type" value="5" >美妆</label>
+                    <label><input type="radio" name="type" value="6" >家具</label>
+                    <label><input type="radio" name="type" value="7" >9.9包邮</label>
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-sm-2 control-label">宝贝名称</label>
                 <div class="col-sm-10">
-                    <input type="text" name="name" class="form-control" value="<%= item.name %>">
+                    <input type="text" name="name" class="form-control">
                 </div>
             </div>
             <div class="form-group">
@@ -40,7 +42,7 @@
             <div class="form-group">
                 <label class="col-sm-2 control-label">宝贝图片</label>
                 <div class="col-sm-10">
-                    <img src="/item/<%= item._id %>/img" style="width:100px;height:100px;" />
+                    <input type="file" name="img" class="">
                 </div>
             </div>
             <div class="form-group">

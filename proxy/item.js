@@ -7,21 +7,32 @@ var Item = models.Item;
 /**
  * 新增一件宝贝
  * @param {JSON} o 宝贝信息
- * @param {Function} callback 回调函数
+ * @param {Function} fn 回调函数
  */
-exports.add = function (o, callback) {
+exports.add = function (o, fn) {
     var item = new Item();
+
     item.name = o.name;
     item.type = o.type;
     item.href = o.href;
-    item.img = o.img;
     item.price = o.price;
     item.price2 = o.price2;
     item.talk = o.talk;
 
-
-    item.save(callback);
+    item.save(fn);
 };
+
+exports.getItemByQuery = function(query, field, opt, fn){
+    Item.find(query, field, opt, fn);
+}
+
+exports.deleteById = function(id, fn){
+    Item.findByIdAndRemove(id, fn);
+}
+
+exports.getItemById = function(id, fn){
+    Item.findOne({_id: id}, fn);
+}
 
 exports.getItemByType = function(type, fn){
     Item.find({type:type}, {}, {sort: {id: -1}}, fn);

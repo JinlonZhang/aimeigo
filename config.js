@@ -11,5 +11,6 @@ module.exports = {
     dbName: 'aimeigo',
     host: 'localhost',
     cookieSecret: 'aimeigo',
-    uploadDir: '../upload'
+    uploadDir: '../upload/',
+    uploadItemDir: '../upload/item/'
 }

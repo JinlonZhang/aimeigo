@@ -14,9 +14,14 @@ module.exports = function(app){
     app.post('/api/sign', site.api.sign);
 
     app.get('/item', item.index);
-    app.get('/item/detail', item.detail);
-    app.post('/api/item', auth.userRequired, item.api.add);
+    app.get('/item/add', item.add);
+    app.get('/item/:id', item.detail);
 
+    app.get('/item/:id/img', item.api.getImg);
+    app.post('/api/item', auth.userRequired, item.api.add);
+    app.delete('/api/item/:id', auth.userRequired, item.api.delete);
+
+    //用户
     app.get('/user', user.index);
     app.post('/api/user', user.api.add);
 
