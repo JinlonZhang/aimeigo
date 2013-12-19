@@ -10,11 +10,10 @@
     <% include ../mod/mod.side.html %>
 
     <div class="g-mn">
-        <a href="/item/detail" class="btn btn-primary">添加</a>
+        <a href="/item/detail?type=<%= req.query.type%>" class="btn btn-primary">添加</a>
 
         <ul class="nav nav-pills" style="height: 26px;">
-            <li><a href="/item">全部</a></li>
-            <li><a href="/item?type=1">衣服</a></li>
+            <li ><a href="/item?type=1">衣服</a></li>
             <li><a href="/item?type=2">鞋子</a></li>
             <li><a href="/item?type=3">包包</a></li>
             <li><a href="/item?type=4">配饰</a></li>
@@ -32,6 +31,20 @@
                 <th>操作</th>
             </thead>
             <tbody>
+            <% itemList.forEach(function(item, i){ %>
+            <tr class="j-tr">
+                <td><%= item.img %></td>
+                <td><%= item.name %></td>
+                <td><%= item.price %></td>
+                <td><%= item.price2 %></td>
+                <td><%= item.talk %></td>
+                <td>
+                    <a href="javascript://" url = "" class="j-delete" >删除</a>
+                    &nbsp&nbsp
+                    <a href="javascript://" url = "" class="j-delete" >编辑</a>
+                </td>
+            </tr>
+            <% }) %>
 
             </tbody>
         </table>

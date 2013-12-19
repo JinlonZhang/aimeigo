@@ -16,18 +16,18 @@ exports.add = function (o, callback) {
     item.href = o.href;
     item.img = o.img;
     item.price = o.price;
-    item.discount = o.discount;
-    item.comments = o.comments;
+    item.price2 = o.price2;
+    item.talk = o.talk;
 
 
     item.save(callback);
 };
 
-exports.getItem = function(type, opt, fn){
-    Item.find({type:type}, {}, opt, fn);
+exports.getItemByType = function(type, fn){
+    Item.find({type:type}, {}, {sort: {id: -1}}, fn);
 }
 
-exports.getItemTotal = function(type, fn){
+exports.getItemTotalByType = function(type, fn){
     Item.find({type:type}, {_id:1}, {}, function(err, itemList){
         return fn(err, itemList.length);
     });

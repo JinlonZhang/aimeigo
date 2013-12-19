@@ -8,7 +8,11 @@ var Item = proxy.Item;
 var User = proxy.User;
 
 exports.index = function(req, res){
-    res.render('item')
+    var type = req.query.type;
+    Item.getItemByType(type, function(err, itemList){
+        res.render('item', {itemList:itemList});
+    })
+
 }
 exports.detail = function(req, res){
     res.render('item/detail');
@@ -21,5 +25,19 @@ exports.api = api;
 api.add = function(req, res){
     console.log(req.body);
     console.log(req.files);
-    res.json( Util.resJson(0) );
+    var o = {
+        type: req.body.type,
+        name: req.body.name,
+        href: req.body.href,
+        img: req.files.img,
+        price: req.body.price,
+        price2: req.body.price2,
+        talk: req.body.talk
+    }
+    Item.add(o, function(err){
+        if(!err){
+            res.json( Util.resJson(0, {msg:'添加成功！'}) );
+        }
+    })
+
 }
