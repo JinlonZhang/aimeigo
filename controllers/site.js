@@ -12,24 +12,12 @@ var User = proxy.User;
 var EventProxy = require('eventproxy');
 var moment = require('moment');
 
-User.initAdmin({
-    type: 0,
-    name: '管理员',
-    login_name: 'admin@aimeigo.cn',
-    pwd: Util.md5('1qazxsw2')
-
-});
-
 exports.index = function(req, res){
     var list = [], now = moment();
 //    now.hour(0);now.minute(0);now.second(0);
 //    console.log(now.format('YYYY-MM-DD HH:mm:ss'));
 
     var ep = new EventProxy();
-
-    for(var i = 0; i<7;i++){
-        list[i] = [];
-    }
 
     ep.assign('1','2','3','4','5','6','7', function(a, b, c, d, e, f, g){
         list = [

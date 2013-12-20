@@ -63,6 +63,22 @@
                 </div>
             </div>
             <div class="form-group">
+                <label class="col-sm-2 control-label">网友评论</label>
+                <div class="col-sm-10">
+                    <div><button type="button" id="random" class="btn btn-default">随即生成</button>
+                    </div>
+
+                        <input type="text" name="comments" class="form-control">
+
+                        <input type="text" name="comments" class="form-control">
+
+                        <input type="text" name="comments" class="form-control">
+
+                        <input type="text" name="comments" class="form-control">
+
+                </div>
+            </div>
+            <div class="form-group">
                 <label class="col-sm-2"></label>
                 <div class="col-sm-10">
                     <button type="submit" class="btn btn-primary">提交</button>
@@ -78,6 +94,29 @@
         fn: function(){
             window.location.href = '/item'
         }
+    })
+    var l = [
+            '多推荐些 都还可以！',
+            '这个价位蛮值得！',
+            '感谢各位编辑 天天帮我们找这些实惠的东东',
+            '看着这么好 搞得我每天内心都好纠结~',
+            '已经拍了，期待收货！！！',
+            '收了收了！太喜欢了！',
+            '收藏个先~！',
+            '性价比不错哦~~~~',
+            '太貌美了！Hold不住~',
+            '这个不错！想买了',
+            '好美！真心喜欢。',
+            '心水~心水~，必败单品',
+            '白菜价啊，想入手了。',
+            '蛮特别的'
+    ];
+
+    var c = $('[name="comments"]')
+    $('#random').click(function(){
+        c.each(function(){
+            this.value = l[ Math.floor( Math.random() * (l.length-1) ) ];
+        })
     })
 </script>
 </body>

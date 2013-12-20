@@ -18,6 +18,7 @@ exports.add = function (o, fn) {
     item.price = o.price;
     item.price2 = o.price2;
     item.talk = o.talk;
+    item.comments = o.comments;
 
     item.save(fn);
 };

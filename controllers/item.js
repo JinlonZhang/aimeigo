@@ -47,7 +47,16 @@ api.add = function(req, res){
         href: req.body.href,
         price: req.body.price,
         price2: req.body.price2,
-        talk: req.body.talk
+        talk: req.body.talk,
+        comments: []
+    }
+
+    for (var i = 0; i < req.body.comments.length; i++) {
+        var obj = req.body.comments[i];
+        o.comments.push({
+            text: obj,
+            avatar: Math.floor( Math.random() * 200 )
+        })
     }
 
     if(id){

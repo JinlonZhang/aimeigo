@@ -13,6 +13,9 @@ var ItemSchema = new Schema({
     price: String,
     price2: String,
     talk: String,
+
+
+    buy_total: {type: Number, default: 0},  //点击“去看看“的计数
     comments: []
 })
 
