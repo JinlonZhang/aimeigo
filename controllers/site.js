@@ -9,6 +9,8 @@ var Util = require('../lib').Util;
 var proxy = require('../proxy');
 var Item = proxy.Item;
 var User = proxy.User;
+var EventProxy = require('eventproxy');
+var moment = require('moment');
 
 User.initAdmin({
     type: 0,
@@ -19,7 +21,64 @@ User.initAdmin({
 });
 
 exports.index = function(req, res){
-    res.render('website');
+    var list = [], now = moment();
+//    now.hour(0);now.minute(0);now.second(0);
+//    console.log(now.format('YYYY-MM-DD HH:mm:ss'));
+
+    var ep = new EventProxy();
+
+    for(var i = 0; i<7;i++){
+        list[i] = [];
+    }
+
+    ep.assign('1','2','3','4','5','6','7', function(a, b, c, d, e, f, g){
+        list = [
+            {
+                type: 1,
+                name: '衣服',
+                list: a
+            },
+            {
+                type: 2,
+                name: '鞋子',
+                list: b
+            },
+            {
+                type: 3,
+                name: '包包',
+                list: c
+            },
+            {
+                type: 4,
+                name: '配饰',
+                list: d
+            },
+            {
+                type: 5,
+                name: '美妆',
+                list: e
+            },
+            {
+                type: 6,
+                name: '家居',
+                list: f
+            },
+            {
+                type: 7,
+                name: '9.9包邮',
+                list: g
+            }
+        ];
+        res.render('website', {List: list});
+    })
+
+    Item.getItemByQuery({type: '1'}, {}, {sort: {_id: -1}, limit: 6}, ep.done('1'));
+    Item.getItemByQuery({type: '2'}, {}, {sort: {_id: -1}, limit: 6}, ep.done('2'));
+    Item.getItemByQuery({type: '3'}, {}, {sort: {_id: -1}, limit: 6}, ep.done('3'));
+    Item.getItemByQuery({type: '4'}, {}, {sort: {_id: -1}, limit: 6}, ep.done('4'));
+    Item.getItemByQuery({type: '5'}, {}, {sort: {_id: -1}, limit: 6}, ep.done('5'));
+    Item.getItemByQuery({type: '6'}, {}, {sort: {_id: -1}, limit: 6}, ep.done('6'));
+    Item.getItemByQuery({type: '7'}, {}, {sort: {_id: -1}, limit: 6}, ep.done('7'));
 }
 
 exports.del = function(req, res){
