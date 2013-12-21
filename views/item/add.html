@@ -71,10 +71,10 @@
                     <button type="button" id="randomShare" class="btn btn-default">随即</button>
                 </div>
                 <div class="col-sm-2">
-                    <input type="text" name="share_total" class="form-control">
+                    <input type="text" name="share_total" class="form-control" value="<%= Math.floor(Math.random() * 600) + 200 %>" />
                 </div>
                 <div class="col-sm-2">
-                    <input type="text" name="collect_total" class="form-control">
+                    <input type="text" name="collect_total" class="form-control" value="<%= Math.floor(Math.random() * 300) + 200 %>" />
                 </div>
             </div>
             <div class="form-group">
@@ -152,6 +152,11 @@
                     this.value = l[ Math.floor( Math.random() * (l.length-1) ) ];
                 })
             })
+
+			$('#randomShare').click(function(){
+				$('[name="share_total"]').val( Math.floor( Math.random() * 600 ) + 200 );
+				$('[name="collect_total"]').val( Math.floor( Math.random() * 200 ) + 300 );
+			})
         }
     }
 
