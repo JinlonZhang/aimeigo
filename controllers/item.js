@@ -48,7 +48,13 @@ api.add = function(req, res){
         price: req.body.price,
         price2: req.body.price2,
         talk: req.body.talk,
+        share_total: req.body.share_total,
+        collect_total: req.body.collect_total,
         comments: []
+    }
+
+    if(o.name == ""){
+        return res.json( Util.resJson(-1, {msg: '宝贝名称不能为空。'}) )
     }
 
     for (var i = 0; i < req.body.comments.length; i++) {

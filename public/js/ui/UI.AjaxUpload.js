@@ -46,7 +46,7 @@
 
             var iframe = $('iframe[name="ajax"]');
             if(iframe.get(0) == undefined){
-                iframe = $('<iframe class="hide-" name="ajax"></iframe>');
+                iframe = $('<iframe class="hide" name="ajax"></iframe>');
                 $(document.body).append(iframe);
             }
 

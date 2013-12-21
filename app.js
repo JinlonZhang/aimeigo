@@ -35,7 +35,7 @@ app.use(express.cookieParser(config.cookieSecret));
 app.use(express.session({
     secret : config.cookieSecret,
     key : config.dbName,
-    cookie: {maxAge: 1000 * 60 * 60 * 24 * 7},//30 days
+    cookie: {maxAge: 1000 * 60 * 60 * 6},//6小时
     store: new MongoStore({
         host: config.host,
         db: config.dbName
@@ -43,6 +43,8 @@ app.use(express.session({
 }));
 
 app.use(express.static(path.join(__dirname, 'public')));
+app.use('/pic', express.static(config.uploadItemDir));
+
 app.use(function(req, res, next){
     var util = {
         dateFormat: Util.dateFormat
