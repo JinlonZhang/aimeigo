@@ -61,7 +61,7 @@ api.add = function(req, res){
         var obj = req.body.comments[i];
         o.comments.push({
             text: obj,
-            avatar: Math.floor( Math.random() * 200 )
+            img: Math.floor( Math.random() * 200 )
         })
     }
 
