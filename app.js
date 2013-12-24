@@ -54,7 +54,8 @@ app.use(function(req, res, next){
         title: '管理平台',
         moment: moment,
         req: req,
-        util: util
+        util: util,
+        uri:'http://www.aimeigo.cn'
     });
 
     if(url == '/'){

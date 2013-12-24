@@ -61,6 +61,33 @@
                 </div>
             </div>
             <div class="form-group">
+                <label class="col-sm-2 control-label">分享/收藏</label>
+                <div class="col-sm-1">
+                    <button type="button" id="randomShare" class="btn btn-default">随机</button>
+                </div>
+                <div class="col-sm-2">
+                    <input type="text" name="share_total" class="form-control" value="<%= Math.floor(Math.random() * 600) + 200 %>" />
+                </div>
+                <div class="col-sm-2">
+                    <input type="text" name="collect_total" class="form-control" value="<%= Math.floor(Math.random() * 300) + 200 %>" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">网友评论</label>
+                <div class="col-sm-1">
+                    <button type="button" id="random" class="btn btn-default">随机</button>
+                </div>
+                <div class="col-sm-4">
+                    <input type="text" name="comments" class="form-control">
+
+                    <input type="text" name="comments" class="form-control">
+
+                    <input type="text" name="comments" class="form-control">
+
+                    <input type="text" name="comments" class="form-control">
+                </div>
+            </div>
+            <div class="form-group">
                 <label class="col-sm-2"></label>
                 <div class="col-sm-10">
                     <input type="hidden" name="id" value="<%= item._id %>"/>
@@ -72,12 +99,6 @@
 </div>
 
 <% include ../inc/inc.foot.html %>
-<script>
-    $('.j-uploadForm').data('opt', {
-        fn: function(){
-            window.location.href = '/item'
-        }
-    })
-</script>
+<% include ../mod/mod.script.html %>
 </body>
 </html>

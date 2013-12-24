@@ -1,0 +1,62 @@
+<script>
+    var page = {
+
+        data: [
+            '多推荐些 都还可以！',
+            '这个价位蛮值得！',
+            '感谢各位编辑 天天帮我们找这些实惠的东东',
+            '看着这么好 搞得我每天内心都好纠结~',
+            '已经拍了，期待收货！！！',
+            '收了收了！太喜欢了！',
+            '收藏个先~！',
+            '性价比不错哦~~~~',
+            '太貌美了！Hold不住~',
+            '这个不错！想买了',
+            '好美！真心喜欢。',
+            '心水~心水~，必败单品',
+            '白菜价啊，想入手了。',
+            '蛮特别的'
+        ],
+
+        init: function(){
+            var w = this;
+
+            w.initHTML();
+            w.initEvent();
+        },
+
+        initHTML: function(){
+            var w = this;
+
+            $('.j-uploadForm').data('opt', {
+                fn: function(){
+                    window.location.href = '/item'
+                }
+            });
+
+
+
+        },
+
+        initEvent: function(){
+            var w = this;
+
+            var c = $('[name="comments"]'), l = w.data;
+            $('#random').click(function(){
+                c.each(function(){
+                    this.value = l[ Math.floor( Math.random() * (l.length-1) ) ];
+                })
+            })
+
+            $('#randomShare').click(function(){
+                $('[name="share_total"]').val( Math.floor( Math.random() * 600 ) + 200 );
+                $('[name="collect_total"]').val( Math.floor( Math.random() * 200 ) + 300 );
+            })
+        }
+    }
+
+    $(function(){
+        page.init();
+    });
+
+</script>

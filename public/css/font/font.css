@@ -1,0 +1,43 @@
+
+@font-face {
+    font-family: 'icomoon';
+    src: url('icomoon.eot?v=4.0.3');
+    src: url('icomoon.eot?#iefix&v=4.0.3') format('embedded-opentype'),
+    url('icomoon.woff?v=4.0.3') format('woff'),
+    url('icomoon.ttf?v=4.0.3') format('truetype'),
+    url('icomoon.svg?v=4.0.3#fontawesomeregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+.ico {
+    margin-right:4px;
+    display: inline-block;
+    font-family: 'icomoon';
+    font-style: normal;
+    font-weight: normal;
+    line-height: 1;
+    font-size:14px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+.ico-l{margin-right:5px;}
+.ico-r{margin-left: 5px;}
+.ico-c{width:100%;margin-top:5px;}
+.ico-orange{color:#da7c0c}
+.ico-white{color:#fff}
+.ico-pink{color:#d635a5}
+
+.ico-16{font-size: 16px;}
+.ico-18{font-size: 18px;}
+.ico-20{font-size: 20px;}
+
+.ico-1:before{content: "\a0001"}
+.ico-2:before{content: "\a0002"}
+.ico-3:before{content: "\a0003"}
+.ico-4:before{content: "\a0004"}
+.ico-5:before{content: "\a0005"}
+.ico-6:before{content: "\a0006"}
+.ico-7:before{content: "\a0007"}
+.ico-fav:before{content: "\a0008"}
+.ico-share:before{content: "\a0009"}

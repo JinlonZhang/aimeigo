@@ -3,6 +3,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>爱美购</title>
+    <link rel='stylesheet' href='/css/font/font.css' />
     <style type="text/css">
 
         *{margin:0; padding:0;}
@@ -15,7 +16,7 @@
         img{border: none;}
         ul,li{list-style: none;}
         a:link,a:visited{color: #545454;text-decoration: none;}
-        em{font-style: normal;}
+        em, i{font-style: normal;}
 
         .wrap{width:100%;}
         .head{width:100%;height:65px;border-bottom: 2px solid #fc4148;background:#d12974 url("img/head_bg.jpg") center no-repeat}
@@ -27,24 +28,64 @@
         .nav ul li a:hover{background-color:#353434;}
         .nav ul li.now{background-color: #ec3165}
         .nav ul li.now a:hover{background-color: #ec3165;}
+        .wp{width: 760px;margin:0 auto;}
+        .it{background: #fff;overflow:hidden;margin:0px 0 10px 0;padding:24px 10px;height: 320px;position: relative}
+        .tit{margin-bottom: 15px;font-size:14px;}
+        .img-wp{float: left;width:280px;height:280px;background: #000;}
+        .img{width: 280px;width: 280px;background: #fff;}
+        .con{margin-left:305px;}
+        .talk{}
+        .auth{color:#E63;font-weight: normal;}
+        .comm{margin: 16px 0 0 10px;}
+        .comm p{margin-bottom: 4px;}
+        .comm-img{vertical-align: middle;width:20px;height:20px;}
+        .ch-pr1{margin-left:20px;text-decoration: line-through;color: #cdcdcd;}
+        .ch-pr2{margin-left:10px;color:#f00;font-weight: 700;}
+        .btn{position:absolute;left:335px;bottom:40px;width:550px;font-size:16px;}
+        .btn-pr{width:70px;text-align:center;font-size:22px;display: inline-block}
+
+        .foot{border-top:1px solid #ddd;}
+        .foot-i{width:760px;margin: 0 auto;padding:15px 0}
+        .foot-i p{text-align:center;font-size: 12px;color: #545454;line-height: 22px}
+
+        .a-btn{width:100px;display: inline-block;height:40px;position: relative}
+        .a-btn em{width:40px;height:40px;display:inline-block;text-align:center;background: url("img/btn.png") -8px -7px no-repeat;color: #FFF;font-size: 12px;}
+
+        .a-btn .num{padding:2px 3px;margin-left:5px;
+            color:#fc4148;font-weight:bold;border:1px solid #fc4148;font-size:12px;
+            border-radius: 2px;background-color: #FFF;
+            position: absolute;top: 10px;
+        }
+        .btn-go{position: relative;
+            width:150px;height:50px;display:inline-block;
+            background: url("img/btn.png") no-repeat -3px -65px;
+            line-height:50px;
+            float: right;
+
+        }
+        a.btn-go:link,.btn-go:visited{color: #FFF;}
+        .btn-go i{color: #FFF;}
+        .btn-go em{position: absolute;top:-2px;margin-left: 10px;}
+        a.a-btn:hover{opacity: 0.9;}
+        a.btn-go:hover{opacity: 0.9;}
         .main{width:928px;margin: 0 auto;padding:0 10px 30px 10px;border: solid #ddd;border-width: 0 1px }
-        .section{width:100%;padding-top:10px;overflow: hidden}
-        .section h3{font-size: 16px;letter-spacing:5px;color: #545454;padding-left:5px;
-            line-height: 36px; border-bottom: 1px solid #ddd}
-        .sec-i{margin-top:5px;}
-        .block{width:275px;float: left;position: relative;border: 2px solid transparent;margin-right:8px;padding:10px;}
-        .last{margin-right: 0;}
-        .block:hover{border-color: #e64c4c;box-shadow: 0 0 5px rgba(0,0,0,0.5)}
-        .block a{display: block}
-        .tit{font-size: 12px;}
-        .block .tit{height:35px;width:100%;overflow: hidden}
-        a.tit:hover{text-decoration: underline}
-        .price{margin-top: 10px;}
-        .price i{color: #c00;font-size: 18px;font-style: normal}
-        .price em{color: #c00;font-size: 24px;}
-        a.button{background-color: #e64c4c;display:block;position: absolute;right:10px;bottom:10px;
-            width:80px;height:30px;border-radius: 3px;color: #FFF;text-align: center;line-height: 30px;}
-        a.button:hover{background-color: #cd2525}
+        /*.section{width:100%;padding-top:10px;overflow: hidden}*/
+        /*.section h3{font-size: 16px;letter-spacing:5px;color: #545454;padding-left:5px;*/
+            /*line-height: 36px; border-bottom: 1px solid #ddd}*/
+        /*.sec-i{margin-top:5px;}*/
+        /*.block{width:275px;float: left;position: relative;border: 2px solid transparent;margin-right:8px;padding:10px;}*/
+        /*.last{margin-right: 0;}*/
+        /*.block:hover{border-color: #e64c4c;box-shadow: 0 0 5px rgba(0,0,0,0.5)}*/
+        /*.block a{display: block}*/
+        /*.tit{font-size: 12px;}*/
+        /*.block .tit{height:35px;width:100%;overflow: hidden}*/
+        /*a.tit:hover{text-decoration: underline}*/
+        /*.price{margin-top: 10px;}*/
+        /*.price i{color: #c00;font-size: 18px;font-style: normal}*/
+        /*.price em{color: #c00;font-size: 24px;}*/
+        /*a.button{background-color: #e64c4c;display:block;position: absolute;right:10px;bottom:10px;*/
+            /*width:80px;height:30px;border-radius: 3px;color: #FFF;text-align: center;line-height: 30px;}*/
+        /*a.button:hover{background-color: #cd2525}*/
 
         .foot{border-top:1px solid #ddd;}
         .foot-i{width:950px;margin: 0 auto;padding:15px 0}
@@ -75,37 +116,78 @@
 </div>
 <div class="nav" id="nav">
     <ul>
-        <li class="now"><a href="javascript://">全部</a></li>
-        <li class=""><a href="javascript://">衣服</a></li>
-        <li><a href="javascript://">鞋子</a></li>
-        <li><a href="javascript://">包包</a></li>
-        <li><a href="javascript://" >配饰</a></li>
-        <li><a href="javascript://" >美妆</a></li>
-        <li><a href="javascript://" >家居</a></li>
-        <li><a href="javascript://" >9.9包邮</a></li>
+        <li class="now j-nav" t=""><a href="javascript://">全部</a></li>
+        <li class="j-nav" t="1"><a href="javascript://"><i class="ico ico-1 ico-16 ico-l"></i>衣服</a></li>
+        <li class="j-nav" t="2"><a href="javascript://"><i class="ico ico-2 ico-16 ico-l"></i>鞋子</a></li>
+        <li class="j-nav" t="3"><a href="javascript://"><i class="ico ico-3 ico-16 ico-l"></i>包包</a></li>
+        <li class="j-nav" t="4"><a href="javascript://" ><i class="ico ico-4 ico-16 ico-l"></i>配饰</a></li>
+        <li class="j-nav" t="5"><a href="javascript://" ><i class="ico ico-5 ico-16 ico-l"></i>美妆</a></li>
+        <li class="j-nav" t="6"><a href="javascript://" ><i class="ico ico-6 ico-16 ico-l"></i>家居</a></li>
+        <li class="j-nav" t="7"><a href="javascript://" ><i class="ico ico-7 ico-16 ico-l"></i>9.9包邮</a></li>
     </ul>
 </div>
 
 <div class="main">
-    <% List.forEach(function(entry, i){ %>
-        <div class="section" id="nav<%= entry.type %>">
-            <h3><%= entry.name %></h3>
-            <div class="sec-i">
-                <% entry.list.forEach(function(item, i){ %>
-                    <div class="block">
-                        <a href="<%= item.href %>" target="_blank">
-                            <img src="/pic/<%= item._id %>.jpg" width="280" height="280"/>
-                        </a>
-                        <a href="<%= item.href %>" target="_blank" class="tit">
-                            <b>【包邮】</b><%= item.name %>
-                        </a>
-                        <p class="price"><i>￥</i><em><%= item.price2 %></em></p>
-                        <a href="<%= item.href %>" target="_blank" class="button">去看看</a>
-                    </div>
+    <% itemList.forEach(function(item){ %>
+    <div class="it j-it" t="<%= item.type %>" _id="<%= item._id %>">
+        <div class="tit">
+            <a href="<%= item.href %>" target="_blank">
+                <i class="ico ico-<%= item.type %> ico-20 ico-l ico-pink"></i>
+                <%= item.name %>
+                <i class="ch-pr1">原价 <%= item.price %>元</i>
+                <i class="ch-pr2">现价 <i style="font-size:20px;"><%= item.price2 %></i>元</i>
+            </a>
+        </div>
+        <div class="img-wp">
+            <a href="<%= item.href %>" target="_blank">
+                <img src="/pic/<%= item._id %>.jpg" class="img" />
+            </a>
+        </div>
+        <div class="con">
+            <div class="talk">
+                <% if(item.talk != ""){ %>
+                <b class="auth">小编推荐</b>：<%= item.talk %>
+                <% } %>
+            </div>
+            <div class="comm">
+                <% item.comments.forEach(function(comm){ %>
+                <p>
+                    <img src="/avatar/<%= comm.img %>.jpg" class="comm-img" />
+                    <%= comm.text %>
+                </p>
                 <% }) %>
             </div>
         </div>
+        <div class="btn">
+            <%
+            var p = {
+            url:'http://www.aimeigo.cn',
+            showcount:'0',/*是否显示分享总数,显示：'1'，不显示：'0' */
+            desc: '我看这个宝贝不错~' + item.talk,/*默认分享理由(可选)*/
+            summary:'爱美购逛生活，每天都有新推荐~',/*分享摘要(可选)*/
+            title: item.name,/*分享标题(可选)*/
+            site:'爱美购逛生活',/*分享来源 如：腾讯网(可选)*/
+            pics: uri + '/pic/' + item._id + '.jpg', /*分享图片的路径(可选)*/
+            style:'202',
+            width:105,
+            height:31
+            };
+            var s = [];
+            for(var i in p){
+            s.push(i + '=' + encodeURIComponent(p[i]||''));
+            }
+            var url = 'http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?' + s.join('&');
+            %>
+            <a href="<%= url %>" class="a-btn j-btn" t="0" target="_blank"><em><i class="ico ico-share ico-16 ico-c"></i>分享</em><i class="j-total num"><%= item.share_total %></i></a>
+            <a href="<%= url %>" class="a-btn j-btn" t="0" target="_blank"><em><i class="ico ico-fav ico-16 ico-c"></i>收藏</em><i class="j-total num"><%= item.collect_total %></i></a>
+
+            <a href="<%= item.href %>" class="btn-go" target="_blank">
+                <i class="btn-pr">￥<%= item.price2 %></i><em>去看看</em>
+            </a>
+        </div>
+    </div>
     <% }) %>
+
 
 </div>
 <div class="foot">
@@ -119,18 +201,107 @@
 </div>
 <script type="text/javascript" src="http://tajs.qq.com/stats?sId=29378225" charset="UTF-8"></script>
 <script src="js/lib/jquery-1.9.1.min.js" type="text/javascript"></script>
-<script src="js/lib/animatescroll.js" type="text/javascript"></script>
 <script type="text/javascript">
-    $(document).ready(function(){
 
-        $("#nav").find("li").bind("click", function(){
-            var i = $(this).index();
-            i==0 &&  $("#nav1").animatescroll({padding:50});
-            $("#nav" + i).animatescroll({padding:50});
-            $(this).siblings().removeClass("now");
-            $(this).addClass("now");
-        })
-        var throttle = function(fn, delay){
+
+    var page = {
+
+        url: {
+            qzshare: 'http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey',
+            share: '/api/item/share',
+            buy: '/api/item/buy'
+        },
+
+        init: function(){
+            var w = this;
+
+            w.nav = $('.j-nav');
+            w.item = $('.j-it');
+            w.fixed();
+            w.goTop();
+            w.initEvent();
+        },
+
+        initEvent: function(){
+            var w = this;
+
+            w.nav.click(function(){
+                w.navClick(this);
+            });
+
+            w.item.each(function(){
+                var it = $(this), id = it.attr('_id');
+                it.find('.j-btn').click(function(){
+                    w.btnClick($(this), id);
+                })
+            });
+        },
+
+        navClick: function(dom){
+            var w = this;
+
+            var d = $(dom), t = d.attr('t');
+
+            if(t == ""){
+                w.item.show();
+            }else{
+                w.item.hide().filter(function(){
+                    return $(this).attr('t') == t;
+                }).show();
+            }
+
+            w.nav.removeClass('now');
+            d.addClass('now');
+        },
+
+        btnClick: function(dom, id){
+            var w = this, total = dom.find('.j-total'), type = dom.attr('t');
+
+            /*
+             分享对话框。必须要上线后才可以调用
+             fusion2.dialog.sendStory({
+             title :"我的星佳城市升级了！",
+             img:"http://app24341.qzoneapp.com/app24341/feed_clown.png",
+             summary :"2011年全球游戏巨制《星佳城市》—自由发展农工商，铺路盖楼有理想，全球玩家都在玩，快来星佳做市长！",
+             msg:"我的星佳城市已经升到80级了，快来一起当市长吧！",
+             button :"进入应用",
+             source :"ref=story&act=default",
+             context:"send-story-12345",
+             onShown : function (opt)
+             {
+             alert("Shown");
+             },
+             onSuccess : function (opt){
+             alert("Succeeded: " + opt.context);
+             }
+             });
+             */
+            $.ajax({
+                type: 'post',
+                url: w.url.share,
+                dataType: 'json',
+                data: {id: id, type: type},
+                success: function(o){
+                    total.text(o.total);
+                }
+            })
+        },
+
+        buyClick: function(dom, id){
+            var w = this;
+
+            $.ajax({
+                type: 'post',
+                url: w.url.buy,
+                dataType: 'json',
+                data: {id: id},
+                success: function(o){
+                    $(dom).parents('.j-it').find('.j-buyTotal').text(o.total);
+                }
+            })
+        },
+
+        throttle:function(fn, delay){
             var timer = null;
 
             return function(){
@@ -140,29 +311,43 @@
                     fn.apply(context, args);
                 }, delay);
             }
+        },
+
+        fixed:function(){
+            var w = this;
+
+            window.onscroll = w.throttle(function(){
+                var x = $(document).scrollTop(),nav = $("#nav");
+                if(x >= 90){
+                    nav.css({
+                        position: "fixed",
+                        top: 0
+                    });
+                }else{
+                    nav.css({
+                        position: "relative"
+                    });
+                }
+            })
+        },
+
+        goTop:function(){
+            var w = this;
+
+            $("#top").hide();
+            $(window).scroll(function() {
+                $(this).scrollTop() > 100 ? $("#top").show() : $("#top").hide();
+            });
+
+            $("#top").click(function(){
+                $("html,body").animate({scrollTop:0},1000);
+            });
         }
-        window.onscroll = throttle(function(){
-            var x = $(document).scrollTop(),nav = $("#nav");
-            if(x >= 90){
-                nav.css({
-                    position: "fixed",
-                    top: 0
-                });
-            }else{
-                nav.css({
-                    position: "relative"
-                });
-            }
-        })
 
-        $("#top").hide();
-        $(window).scroll(function() {
-            $(this).scrollTop() > 100 ? $("#top").show() : $("#top").hide();
-        });
-        $("#top").click(function(){
-            $("html,body").animate({scrollTop:0},1000);
-        });
+    }
 
+    $(document).ready(function(){
+        page.init();
     })
 </script>
 </body>
