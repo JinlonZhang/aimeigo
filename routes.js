@@ -21,6 +21,9 @@ module.exports = function(app){
     app.post('/api/item', auth.userRequired, item.api.add);
     app.delete('/api/item/:id', auth.userRequired, item.api.delete);
 
+    app.post('/api/item/buy', item.api.buy);
+    app.post('/api/item/share', item.api.share);
+
     //用户
     app.get('/user', user.index);
     app.post('/api/user', user.api.add);

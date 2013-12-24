@@ -44,6 +44,7 @@ app.use(express.session({
 
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/pic', express.static(config.uploadItemDir));
+app.use('/avatar', express.static(config.avatarDir));
 
 app.use(function(req, res, next){
     var util = {

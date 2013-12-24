@@ -9,7 +9,7 @@
         *{margin:0; padding:0;}
         *, *:active, *:focus{outline: 0 none;}
         body {
-            background-color: #FFF;
+            background-color: #faedf2;
             font-size:14px;
             font-family:"Oxygen",Arial,"Hiragino Sans GB","Hiragino Sans GB W3","Microsoft YaHei","STHeiti","宋体", simsun, "sans serif";
         }
@@ -22,26 +22,27 @@
         .head{width:100%;height:65px;border-bottom: 2px solid #fc4148;background:#d12974 url("img/head_bg.jpg") center no-repeat}
         .logo{width:950px;height:100%;background:url("img/ico.png") no-repeat 0px 3px;margin:0 auto;}
         .nav{background-color: #141313;width:100%;height:36px;position:relative;z-index: 99;box-shadow: 0 1px 3px rgba(0,0,0,0.5)}
-        .nav ul{width:950px;margin:0 auto;overflow: hidden;}
+        .nav ul{width:800px;margin:0 auto;overflow: hidden;}
         .nav ul li{float: left;width:100px;height:36px;line-height: 36px;text-align: center}
         .nav ul li a{color: #fefefe;width:100%;height:100%;display: block}
         .nav ul li a:hover{background-color:#353434;}
         .nav ul li.now{background-color: #ec3165}
         .nav ul li.now a:hover{background-color: #ec3165;}
         .wp{width: 760px;margin:0 auto;}
-        .it{background: #fff;overflow:hidden;margin:0px 0 10px 0;padding:24px 10px;height: 320px;position: relative}
+        .main{width:798px;margin: 0 auto;border: solid #ddd;border-width: 0 1px; background: #fff;}
+        .it{overflow:hidden;padding:24px 20px;height: 320px;position: relative}
         .tit{margin-bottom: 15px;font-size:14px;}
         .img-wp{float: left;width:280px;height:280px;background: #000;}
-        .img{width: 280px;width: 280px;background: #fff;}
+        .img{width: 280px;height: 280px;background: #fff;}
         .con{margin-left:305px;}
         .talk{}
         .auth{color:#E63;font-weight: normal;}
         .comm{margin: 16px 0 0 10px;}
         .comm p{margin-bottom: 4px;}
-        .comm-img{vertical-align: middle;width:20px;height:20px;}
+        .comm-img{vertical-align: middle;width:25px;height:25px;}
         .ch-pr1{margin-left:20px;text-decoration: line-through;color: #cdcdcd;}
         .ch-pr2{margin-left:10px;color:#f00;font-weight: 700;}
-        .btn{position:absolute;left:335px;bottom:40px;width:550px;font-size:16px;}
+        .btn{position:absolute;right:30px;bottom:40px;width:420px;font-size:16px;}
         .btn-pr{width:70px;text-align:center;font-size:22px;display: inline-block}
 
         .foot{border-top:1px solid #ddd;}
@@ -68,7 +69,6 @@
         .btn-go em{position: absolute;top:-2px;margin-left: 10px;}
         a.a-btn:hover{opacity: 0.9;}
         a.btn-go:hover{opacity: 0.9;}
-        .main{width:928px;margin: 0 auto;padding:0 10px 30px 10px;border: solid #ddd;border-width: 0 1px }
         /*.section{width:100%;padding-top:10px;overflow: hidden}*/
         /*.section h3{font-size: 16px;letter-spacing:5px;color: #545454;padding-left:5px;*/
             /*line-height: 36px; border-bottom: 1px solid #ddd}*/
@@ -88,7 +88,7 @@
         /*a.button:hover{background-color: #cd2525}*/
 
         .foot{border-top:1px solid #ddd;}
-        .foot-i{width:950px;margin: 0 auto;padding:15px 0}
+        .foot-i{width:800px;margin: 0 auto;padding:15px 0}
         .foot-i p{text-align:center;font-size: 12px;color: #545454;line-height: 30px}
 
         .go-top{
@@ -140,7 +140,7 @@
         </div>
         <div class="img-wp">
             <a href="<%= item.href %>" target="_blank">
-                <img src="/pic/<%= item._id %>.jpg" class="img" />
+                <img src="/pic/<%= item._id %>.jpg" class="img"  />
             </a>
         </div>
         <div class="con">
@@ -179,7 +179,7 @@
             var url = 'http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?' + s.join('&');
             %>
             <a href="<%= url %>" class="a-btn j-btn" t="0" target="_blank"><em><i class="ico ico-share ico-16 ico-c"></i>分享</em><i class="j-total num"><%= item.share_total %></i></a>
-            <a href="<%= url %>" class="a-btn j-btn" t="0" target="_blank"><em><i class="ico ico-fav ico-16 ico-c"></i>收藏</em><i class="j-total num"><%= item.collect_total %></i></a>
+            <a href="<%= url %>" class="a-btn j-btn" t="1" target="_blank"><em><i class="ico ico-fav ico-16 ico-c"></i>收藏</em><i class="j-total num"><%= item.collect_total %></i></a>
 
             <a href="<%= item.href %>" class="btn-go" target="_blank">
                 <i class="btn-pr">￥<%= item.price2 %></i><em>去看看</em>

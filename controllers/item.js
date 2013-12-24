@@ -61,7 +61,7 @@ api.add = function(req, res){
         var obj = req.body.comments[i];
         o.comments.push({
             text: obj,
-            img: Math.floor( Math.random() * 200 )
+            img: Math.floor( Math.random() * 700 )
         })
     }
 
@@ -128,4 +128,33 @@ api.getImg = function(req, res){
             })
         }
     });
+}
+
+api.buy = function(req, res){
+    var id = req.body.id;
+
+    Item.getItemById(id, function(err, item){
+        var random = Math.floor(Math.random() * 15) + 1;
+        item.buy_total += random;
+        item.save();
+
+        res.json({code: 0, total: item.buy_total});
+    })
+}
+
+api.share = function(req, res){
+    var id = req.body.id, type = req.body.type;
+
+    Item.getItemById(id, function(err, item){
+        var total, random = Math.floor(Math.random() * 15) + 1;
+        if(type == 0){
+            total = item.share_total += random;
+        }else{
+            total = item.collect_total += random;
+        }
+
+        item.save();
+
+        res.json({code: 0, total: total});
+    })
 }

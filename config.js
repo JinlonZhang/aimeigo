@@ -13,7 +13,8 @@ var devConfig = {
     host: 'localhost',
     cookieSecret: 'aimeigo',
     uploadDir: '../upload/',
-    uploadItemDir: '../upload/item/'
+    uploadItemDir: '../upload/item/',
+    avatarDir:'../upload/avatar/'
 }
 var onlineConfig = {
     db: 'mongodb://10.221.152.189/aimeigo',
@@ -21,7 +22,8 @@ var onlineConfig = {
     host: '10.221.152.189',
     cookieSecret: 'aimeigo',
     uploadDir: '/data/',
-    uploadItemDir: '/data/item/'
+    uploadItemDir: '/data/item/',
+    avatarDir:'/data/avatar/'
 }
 
 if(dev == 1){
