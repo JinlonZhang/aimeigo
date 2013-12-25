@@ -50,9 +50,9 @@ api.add = function(req, res){
         talk: req.body.talk,
         share_total: req.body.share_total,
         collect_total: req.body.collect_total,
-        comments: []
+        comments: [],
+        date: req.body.date
     }
-
     if(o.name == ""){
         return res.json( Util.resJson(-1, {msg: '宝贝名称不能为空。'}) )
     }

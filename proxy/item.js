@@ -21,6 +21,7 @@ exports.add = function (o, fn) {
     item.share_total = o.share_total;
     item.collect_total = o.collect_total;
     item.comments = o.comments;
+    item.date = o.date;
 
     item.save(fn);
 };
@@ -50,5 +51,8 @@ exports.getItemTotalByType = function(type, fn){
         return fn(err, itemList.length);
     });
 }
+
+
+
 
 

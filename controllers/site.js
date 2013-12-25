@@ -13,24 +13,22 @@ var EventProxy = require('eventproxy');
 var moment = require('moment');
 
 exports.index = function(req, res){
-    var list = [], now = moment();
-//    now.hour(0);now.minute(0);now.second(0);
-//    console.log(now.format('YYYY-MM-DD HH:mm:ss'));
-
+    var list = [], now = moment().format('YYYY-MM-DD hh:mm:ss');
+    //now.hour(0);now.minute(0);now.second(0);
+    console.log('now' + now);
     var ep = new EventProxy();
 
     ep.assign('1','2','3','4','5','6','7', function(a, b, c, d, e, f, g){
         list = [].concat(a, b, c, d, e, f, g);
         res.render('website', {itemList: list});
     })
-
-    Item.getItemByQuery({type: '1'}, {}, {sort: {_id: -1}, limit: 10}, ep.done('1'));
-    Item.getItemByQuery({type: '2'}, {}, {sort: {_id: -1}, limit: 5}, ep.done('2'));
-    Item.getItemByQuery({type: '3'}, {}, {sort: {_id: -1}, limit: 5}, ep.done('3'));
-    Item.getItemByQuery({type: '4'}, {}, {sort: {_id: -1}, limit: 5}, ep.done('4'));
-    Item.getItemByQuery({type: '5'}, {}, {sort: {_id: -1}, limit: 5}, ep.done('5'));
-    Item.getItemByQuery({type: '6'}, {}, {sort: {_id: -1}, limit: 5}, ep.done('6'));
-    Item.getItemByQuery({type: '7'}, {}, {sort: {_id: -1}, limit: 10}, ep.done('7'));
+    Item.getItemByQuery({type: '1',date:{$lt: now}}, {}, {sort: {_id: -1}, limit: 10}, ep.done('1'));
+    Item.getItemByQuery({type: '2',date:{$lt: now}}, {}, {sort: {_id: -1}, limit: 5}, ep.done('2'));
+    Item.getItemByQuery({type: '3',date:{$lt: now}}, {}, {sort: {_id: -1}, limit: 5}, ep.done('3'));
+    Item.getItemByQuery({type: '4',date:{$lt: now}}, {}, {sort: {_id: -1}, limit: 5}, ep.done('4'));
+    Item.getItemByQuery({type: '5',date:{$lt: now}}, {}, {sort: {_id: -1}, limit: 5}, ep.done('5'));
+    Item.getItemByQuery({type: '6',date:{$lt: now}}, {}, {sort: {_id: -1}, limit: 5}, ep.done('6'));
+    Item.getItemByQuery({type: '7',date:{$lt: now}}, {}, {sort: {_id: -1}, limit: 10}, ep.done('7'));
 
 }
 

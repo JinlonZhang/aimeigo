@@ -31,6 +31,7 @@
                 <th style="width: 300px;">名称</th>
 
                 <th style="width: 100px;">现价 / 原价</th>
+                <th style="width: 100px;">发布时间</th>
                 <th>小编点评</th>
                 <th style="width: 100px;">操作</th>
             </thead>
@@ -59,14 +60,12 @@
                     <i class="ch-line ch-info"><%= item.price %></i>
                 </td>
 
+                <td><%= item.date %></td>
 
                 <td><%= item.talk %></td>
                 <td>
                     <a href="/item/<%= item._id %>" class="btn btn-primary btn-sm" ><i class="fa fa-pencil"></i></a>
                     <a href="/api/item/<%= item._id %>" class="btn btn-danger btn-sm j-delete" ><i class="fa fa-trash-o"></i></a>
-
-
-
 
                 </td>
             </tr>
