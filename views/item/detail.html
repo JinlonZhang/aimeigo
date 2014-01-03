@@ -22,7 +22,19 @@
                     <label><input type="radio" name="type" value="4" <%= item.type == '4' ? 'checked' : ''%>>配饰</label>
                     <label><input type="radio" name="type" value="5" <%= item.type == '5' ? 'checked' : ''%>>美妆</label>
                     <label><input type="radio" name="type" value="6" <%= item.type == '6' ? 'checked' : ''%>>家具</label>
+                    <label><input type="radio" name="type" value="8" <%= item.type == '8' ? 'checked' : ''%>>零食</label>
                     <label><input type="radio" name="type" value="7" <%= item.type == '7' ? 'checked' : ''%>>9.9包邮</label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">发布时间</label>
+                <div class="col-sm-10" id="date">
+                    <label><input type="radio" name="date" value="<%= date.d0%>" <%=util.dateFormat(item.date) == date.d0 ? 'checked':'' %> >今天</label>
+                    <label><input type="radio" name="date" value="<%= date.d1%>" <%=util.dateFormat(item.date) == date.d1 ? 'checked':'' %> >明天</label>
+                    <label><input type="radio" name="date" value="<%= date.d2%>" <%=util.dateFormat(item.date) == date.d2 ? 'checked':'' %> >后天</label>
+                    <label><input type="radio" name="date" value="<%= date.d3%>" <%=util.dateFormat(item.date) == date.d3 ? 'checked':'' %> >3天后</label>
+                    <!--<label><input type="radio" name="date" value="" id="define" >自定义</label>-->
+                    <!--<label><input type="text" name="date" style="display: inline" class="form-control j-date" readonly value="<%= util.dateFormat(item.date) %>"></label>-->
                 </div>
             </div>
             <div class="form-group">
@@ -58,12 +70,6 @@
                 <label class="col-sm-2 control-label">小编推荐</label>
                 <div class="col-sm-10">
                     <input type="text" name="talk" class="form-control" value="<%= item.talk %>">
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-sm-2 control-label">发布时间</label>
-                <div class="col-sm-10">
-                    <input type="text" name="date" class="form-control j-date" value="<%= item.date %>" readonly>
                 </div>
             </div>
             <div class="form-group">

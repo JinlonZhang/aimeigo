@@ -52,7 +52,16 @@ exports.getItemTotalByType = function(type, fn){
     });
 }
 
+exports.getItemByDate = function(date, fn){
+    Item.find({date: new Date(date)}, {},{sort: {id: -1}},fn)
+}
 
+exports.getItemTotalByQuery = function(query, fn){
+//    Item.count(query, {},{}, fn);
+    Item.find(query, {_id:1}, {}, function(err, itemList){
+        return fn(err, itemList.length);
+    });
 
+}
 
 

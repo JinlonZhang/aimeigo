@@ -16,9 +16,11 @@
             w.form = $('.j-form');
             w.uploadForm = $('.j-uploadForm');
             w.del = $('.j-delete');
+            w.clear = $('.j-clear');
 
             w.action = $('.j-action');
             w.pop = $('.j-pop');
+
 
             w.initHTML();
             w.initEvent();
@@ -109,6 +111,18 @@
                 return false;
             });
 
+            w.clear.data('opt', {
+                text: '清除成功！',
+                fn: function(){
+                    window.location.reload();
+                }
+            });
+
+            w.clear.bind('click', function(){
+                w.clearClick($(this));
+                return false;
+            })
+
         },
 
         formSubmit: function(f){
@@ -134,6 +148,20 @@
                 $.ajax({
                     type: 'delete',
                     url: url,
+                    dataType: 'json',
+                    success: function(o){
+                        app.common.ajaxCallBack(o, dom);
+                    }
+                })
+            }
+        },
+
+        clearClick: function(dom){
+
+            if(window.confirm('确定删除？')){
+                $.ajax({
+                    type: 'post',
+                    url: '/api/item/clear',
                     dataType: 'json',
                     success: function(o){
                         app.common.ajaxCallBack(o, dom);

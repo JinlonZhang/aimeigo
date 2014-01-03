@@ -39,5 +39,6 @@
 .ico-5:before{content: "\a0005"}
 .ico-6:before{content: "\a0006"}
 .ico-7:before{content: "\a0007"}
-.ico-fav:before{content: "\a0008"}
-.ico-share:before{content: "\a0009"}
+.ico-8:before{content: "\a0008"}
+.ico-fav:before{content: "\e600"}
+.ico-share:before{content: "\e601"}

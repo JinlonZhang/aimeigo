@@ -19,7 +19,7 @@ var ItemSchema = new Schema({
     buy_total: {type: Number, default: 0},  //点击“去看看“的计数
     comments: [],
 
-    date:String
+    date: Date
 })
 
 mongoose.model('Item', ItemSchema);

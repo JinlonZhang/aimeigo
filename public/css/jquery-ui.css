@@ -261,7 +261,24 @@
 .ui-icon-gripsmall-diagonal-se { background-position: -64px -224px; }
 .ui-icon-grip-diagonal-se { background-position: -80px -224px; }
 
-
+.ui-icon-circle-triangle-e,.ui-icon-circle-triangle-w{
+margin-right:4px;
+    display: inline-block;
+    font-family: FontAwesome;
+    font-style: normal;
+    font-weight: normal;
+    line-height: 1;
+    font-size:14px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-indent: 0;
+}
+.ui-icon-circle-triangle-e:before {
+    content: "\f054";
+}
+.ui-icon-circle-triangle-w:before {
+    content: "\f053";
+}
 /* Misc visuals
 ----------------------------------*/
 

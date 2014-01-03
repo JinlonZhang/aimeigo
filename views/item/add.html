@@ -14,7 +14,7 @@
         <div class="g-btn">
             <a href="/item" class="btn btn-default"><i class="fa fa-arrow-left"></i>返回</a>
         </div>
-        <div class="alert alert-warning" id="msg" style="display: none;">
+        <div class="alert alert-warning" id="msg" style="display:;">
 
         </div>
         <form class="form-horizontal j-uploadForm" role="form" action="/api/item" method="post" enctype="multipart/form-data">
@@ -27,7 +27,19 @@
                     <label><input type="radio" name="type" value="4" >配饰</label>
                     <label><input type="radio" name="type" value="5" >美妆</label>
                     <label><input type="radio" name="type" value="6" >家具</label>
+                    <label><input type="radio" name="type" value="8" >零食</label>
                     <label><input type="radio" name="type" value="7" >9.9包邮</label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">发布时间</label>
+                <div class="col-sm-10" id="date">
+                    <label><input type="radio" name="date" value="<%= date.d0%>" checked>今天</label>
+                    <label><input type="radio" name="date" value="<%= date.d1%>" >明天</label>
+                    <label><input type="radio" name="date" value="<%= date.d2%>" >后天</label>
+                    <label><input type="radio" name="date" value="<%= date.d3%>" >3天后</label>
+                    <!--<label><input type="radio" name="date" value="" id="define" >自定义</label>-->
+                    <!--<label class="hide"><input type="text" name="date" style="display: inline" class="form-control j-date" readonly value=""></label>-->
                 </div>
             </div>
             <div class="form-group">
@@ -65,12 +77,7 @@
                     <input type="text" name="talk" class="form-control">
                 </div>
             </div>
-            <div class="form-group">
-                <label class="col-sm-2 control-label">发布时间</label>
-                <div class="col-sm-10">
-                    <input type="text" name="date" class="form-control j-date" readonly>
-                </div>
-            </div>
+
             <div class="form-group">
                 <label class="col-sm-2 control-label">分享/收藏</label>
                 <div class="col-sm-1">

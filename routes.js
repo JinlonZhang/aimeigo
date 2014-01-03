@@ -21,6 +21,8 @@ module.exports = function(app){
     app.post('/api/item', auth.userRequired, item.api.add);
     app.delete('/api/item/:id', auth.userRequired, item.api.delete);
 
+    app.post('/api/item/clear', auth.userRequired, item.api.clear)
+
     app.post('/api/item/buy', item.api.buy);
     app.post('/api/item/share', item.api.share);
 

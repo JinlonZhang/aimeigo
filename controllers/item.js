@@ -7,39 +7,83 @@ var config = require('../config');
 var proxy = require('../proxy');
 var Item = proxy.Item;
 var User = proxy.User;
+var EventProxy = require('eventproxy');
+var moment = require('moment');
+var _ = require('underscore');
 
 exports.index = function(req, res){
-    var type = req.query.type;
-    var query = {}, limit = 10;
+    var type = req.query.type, date = new Date(req.query.date);
+    var query = {}, limit = 100, query2 = {};
 
-    if(type != undefined){
+    if(req.query.date != undefined && req.query.date != ''){
+        query.date = date;
+        query2.date = date;
+    }
+    if(type != undefined && type != ''){
         query.type = type;
         limit = 30
     }
+    var dateTime = {}, i = 0;
+    while(i<4){
+        var d = moment().add('days', i).format('YYYY-MM-DD');
+        dateTime['d' + i] = d;
+        i++;
+    }
+    var ep = new EventProxy();
+    ep.assign('list', 't0', 't1','t2','t3','t4','t5','t6','t7','t8', function(list, t0,t1, t2, t3, t4, t5, t6, t7, t8){
+        var total= {t0:t0,t1:t1,t2:t2,t3:t3,t4:t4,t5:t5,t6:t6,t7:t7,t8:t8};
 
-    Item.getItemByQuery(query, {},{sort: {_id: -1}, limit: limit}, function(err, itemList){
-        res.render('item', {itemList:itemList});
+        res.render('item', {itemList:list, total:total, date:dateTime});
     })
 
+    Item.getItemByQuery(query, {},{sort: {_id: -1}, limit: limit}, function(err, itemList){
+        ep.emit('list',itemList);
+    });
+
+    Item.getItemTotalByQuery(query2,ep.done('t0'))
+    Item.getItemTotalByQuery(_.extend(query2,{type:1}),ep.done('t1'))
+    Item.getItemTotalByQuery(_.extend(query2,{type:2}),ep.done('t2'))
+    Item.getItemTotalByQuery(_.extend(query2,{type:3}),ep.done('t3'))
+    Item.getItemTotalByQuery(_.extend(query2,{type:4}),ep.done('t4'))
+    Item.getItemTotalByQuery(_.extend(query2,{type:5}),ep.done('t5'))
+    Item.getItemTotalByQuery(_.extend(query2,{type:6}),ep.done('t6'))
+    Item.getItemTotalByQuery(_.extend(query2,{type:7}),ep.done('t7'))
+    Item.getItemTotalByQuery(_.extend(query2,{type:8}),ep.done('t8'))
 
 
 }
 exports.add = function(req, res){
-    res.render('item/add');
+    var date = {},i=0;
+    while(i<4){
+        var d = moment().add('days', i).format('YYYY-MM-DD');
+        date['d' + i] = d;
+        i++;
+    }
+    //console.log(date);
+    res.render('item/add',{date:date});
+
 }
 exports.detail = function(req, res){
+    var date = {},i=0;
+    while(i<4){
+        var d = moment().add('days', i).format('YYYY-MM-DD');
+        date['d' + i] = d;
+        i++;
+    }
     Item.getItemById(req.params.id, function(err, item){
-        res.render('item/detail', {item: item});
+        res.render('item/detail', {item: item,date: date});
     })
 
 }
+
+
 
 /* API */
 var api = {}
 exports.api = api;
 
 api.add = function(req, res){
-    var img = req.files.img, id = req.body.id;
+    var img = req.files.img, id = req.body.id, date = req.body.date;
 
     var o = {
         type: req.body.type,
@@ -51,7 +95,7 @@ api.add = function(req, res){
         share_total: req.body.share_total,
         collect_total: req.body.collect_total,
         comments: [],
-        date: req.body.date
+        date: date
     }
     if(o.name == ""){
         return res.json( Util.resJson(-1, {msg: '宝贝名称不能为空。'}) )
@@ -97,9 +141,8 @@ api.delete = function(req, res){
         });
 
     });
-
-
 }
+
 
 api.getImg = function(req, res){
     var id = req.params.id, path = config.uploadItemDir + id + '.jpg';
@@ -156,5 +199,29 @@ api.share = function(req, res){
         item.save();
 
         res.json({code: 0, total: total});
+    })
+}
+
+api.clear = function(req, res){
+    var date = moment().add('day',1).format('YYYY-MM-DD');
+
+    Item.getItemByQuery({date:{$gte:date}}, {},{sort:{id:-1}}, function(err, itemList){
+        if(itemList.length==0){
+            res.json( {code:-1, msg:'暂无数据需要清理！'} );
+        }
+        itemList.forEach(function(item){
+            var id = item._id;var path = config.uploadItemDir + id + '.jpg';
+            //console.log(id);
+            Item.deleteById(id, function(err){
+                //console.log(path);
+                fs.exists(path, function(exists){
+                    if(exists){
+                        fs.unlinkSync(path);
+                    }
+                    res.json( Util.resJson(err) );
+                });
+
+            });
+        })
     })
 }
