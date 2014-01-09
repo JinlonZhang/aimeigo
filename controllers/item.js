@@ -13,7 +13,7 @@ var _ = require('underscore');
 
 exports.index = function(req, res){
     var type = req.query.type, date = new Date(req.query.date);
-    var query = {}, limit = 100, query2 = {};
+    var query = {}, limit = 10, query2 = {};
 
     if(req.query.date != undefined && req.query.date != ''){
         query.date = date;
@@ -21,7 +21,7 @@ exports.index = function(req, res){
     }
     if(type != undefined && type != ''){
         query.type = type;
-        limit = 30
+        limit = 10
     }
     var dateTime = {}, i = 0;
     while(i<4){
@@ -54,7 +54,7 @@ exports.index = function(req, res){
 }
 exports.add = function(req, res){
     var date = {},i=0;
-    while(i<4){
+    while(i<8){
         var d = moment().add('days', i).format('YYYY-MM-DD');
         date['d' + i] = d;
         i++;
@@ -65,7 +65,7 @@ exports.add = function(req, res){
 }
 exports.detail = function(req, res){
     var date = {},i=0;
-    while(i<4){
+    while(i<8){
         var d = moment().add('days', i).format('YYYY-MM-DD');
         date['d' + i] = d;
         i++;
@@ -94,6 +94,7 @@ api.add = function(req, res){
         talk: req.body.talk,
         share_total: req.body.share_total,
         collect_total: req.body.collect_total,
+        sale_total: req.body.sale_total,
         comments: [],
         date: date
     }
@@ -177,8 +178,7 @@ api.buy = function(req, res){
     var id = req.body.id;
 
     Item.getItemById(id, function(err, item){
-        var random = Math.floor(Math.random() * 15) + 1;
-        item.buy_total += random;
+        item.buy_total++;
         item.save();
 
         res.json({code: 0, total: item.buy_total});
@@ -203,9 +203,9 @@ api.share = function(req, res){
 }
 
 api.clear = function(req, res){
-    var date = moment().add('day',1).format('YYYY-MM-DD');
+    var date = moment().add('day',-7).format('YYYY-MM-DD');
 
-    Item.getItemByQuery({date:{$gte:date}}, {},{sort:{id:-1}}, function(err, itemList){
+    Item.getItemByQuery({date:{$lte:date}}, {},{sort:{id:-1}}, function(err, itemList){
         if(itemList.length==0){
             res.json( {code:-1, msg:'暂无数据需要清理！'} );
         }
@@ -224,4 +224,21 @@ api.clear = function(req, res){
             });
         })
     })
+}
+
+api.updateImg = function(req, res){
+    var id = req.params.id, path = config.uploadItemDir + id + '.jpg';
+
+    fs.exists(path, function(exists){
+        if(exists){
+            fs.unlink(path, function(err){
+                var oldPath = req.files.img.path, newPath;
+                newPath = config.uploadItemDir + id + '.jpg';
+                fs.rename(oldPath, newPath, function(err) {
+                    res.json( Util.resJson(err) );
+
+                });
+            });
+        }
+    });
 }

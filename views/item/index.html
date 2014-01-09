@@ -4,7 +4,8 @@
 	<% include ../inc/inc.head.html %>
 
     <style type="text/css">
-        .batch-del{position: absolute;right:30px;top:70px;}
+        .batch-del{text-align: right;}
+        .file{position: absolute;opacity: 0;width:100px;height:40px;cursor: pointer}
     </style>
 </head>
 <body>
@@ -15,36 +16,38 @@
 
     <div class="g-mn">
         <div class="g-top">
-            <div class="g-btn">
-                <a href="/item/add" class="btn btn-primary"><i class="fa fa-plus"></i>添加</a>
-            </div>
-            <div class="g-search">
-                <form class="form-inline" role="form" method="get" action="/item" style="float: left">
-                    <div class="btn-group">
-                        <button type="button" class="btn btn-primary <%= req.query.date == '' ? 'active':''%> j-btn" val="">全部</button>
-                        <button type="button" class="btn btn-primary <%= req.query.date == date.d0 ? 'active':''%> j-btn" val="<%= date.d0%>">今天</button>
-                        <button type="button" class="btn btn-primary <%= req.query.date == date.d1 ? 'active':''%> j-btn" val="<%= date.d1%>">明天</button>
-                        <button type="button" class="btn btn-primary <%= req.query.date == date.d2 ? 'active':''%> j-btn" val="<%= date.d2%>">后天</button>
-                        <button type="button" class="btn btn-primary <%= req.query.date == date.d3 ? 'active':''%> j-btn" val="<%= date.d3%>">3天后</button>
-                    </div>
-
-                    <input type="hidden" name="type" value="<%= req.query.type == undefined ? '' : req.query.type %>">
-                    <input type="hidden" name="date" id="dateTime" value="">
-                </form>
-                <form class="form-inline" role="form" method="get" action="/item" style="float: right">
-                    <div >
-                        <div class="form-group" >
-                            <label class="sr-only" for="date">发布时间</label>
-                            <input type="text" name="date" class="form-control j-date" id="date" placeholder="YYYY-MM-DD" value="<%= req.query.date == undefined ? '' : req.query.date %>">
+            <div class="row">
+                <div class="g-btn col-md-1">
+                    <a href="/item/add" class="btn btn-primary"><i class="fa fa-plus"></i>添加</a>
+                </div>
+                <div class="g-search col-md-9">
+                    <form class="form-inline col-md-4" role="form" method="get" action="/item">
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-primary <%= req.query.date == '' ? 'active':''%> j-btn" val="">全部</button>
+                            <button type="button" class="btn btn-primary <%= req.query.date == date.d0 ? 'active':''%> j-btn" val="<%= date.d0%>">今天</button>
+                            <button type="button" class="btn btn-primary <%= req.query.date == date.d1 ? 'active':''%> j-btn" val="<%= date.d1%>">明天</button>
+                            <button type="button" class="btn btn-primary <%= req.query.date == date.d2 ? 'active':''%> j-btn" val="<%= date.d2%>">后天</button>
+                            <button type="button" class="btn btn-primary <%= req.query.date == date.d3 ? 'active':''%> j-btn" val="<%= date.d3%>">3天后</button>
                         </div>
-                        <button type="submit" class="btn btn-primary">搜索</button>
-                    </div>
-                    <input type="hidden" name="type" value="<%= req.query.type == undefined ? '' : req.query.type %>">
-                </form>
+
+                        <input type="hidden" name="type" value="<%= req.query.type == undefined ? '' : req.query.type %>">
+                        <input type="hidden" name="date" id="dateTime" value="">
+                    </form>
+                    <form class="form-inline" role="form" method="get" action="/item">
+                        <div >
+                            <div class="form-group" >
+                                <label class="sr-only" for="date">发布时间</label>
+                                <input type="text" name="date" class="form-control j-date" id="date" placeholder="YYYY-MM-DD" value="<%= req.query.date == undefined ? '' : req.query.date %>">
+                            </div>
+                            <button type="submit" class="btn btn-primary">搜索</button>
+                        </div>
+                        <input type="hidden" name="type" value="<%= req.query.type == undefined ? '' : req.query.type %>">
+                    </form>
+                </div>
+                <div class="batch-del col-md-2">
+                    <button type="button" class="btn btn-danger j-clear">删除7天前的数据</button>
+                </div>
             </div>
-        </div>
-        <div class="batch-del">
-            <button type="button" class="btn btn-danger j-clear">删除7天前的数据</button>
         </div>
         <ul class="nav nav-tabs">
             <li class="<%= req.query.type == undefined ? 'active' : '' %>"><a href="/item?date=<%= req.query.date == undefined ? '' : req.query.date %>">全部（<%= total.t0%>）</a></li>
@@ -76,7 +79,10 @@
                             <img src="/item/<%= item._id %>/img" class="img" />
                         </a>
                         <div class="img-btn">
-                            <button class="btn btn-success">修改图片</button>
+                            <form class="form-horizontal j-uploadForm"  role="form" action="/api/updateImg/<%= item._id %>" method="post" enctype="multipart/form-data">
+                                <input type="file" name="img" class="file j-file">
+                                <button class="btn btn-success">修改图片</button>
+                            </form>
                         </div>
                     </div>
                 </td>
@@ -119,6 +125,17 @@
             $('#dateTime').attr('value', val);
             $(this).parents('form').submit();
         });
+
+        $('.j-file').bind('change', function(){
+            var form = $(this).parent('.j-uploadForm');
+            form.data('opt',{
+                fn: function(){
+                    window.location.reload();
+                }
+            })
+            form.submit();
+        })
+
     });
 
 </script>

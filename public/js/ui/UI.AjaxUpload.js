@@ -59,8 +59,11 @@
 
             w.iframe.bind('load', function(){
                 var body = this.contentWindow.document.body;
-                var o = JSON.parse( $(body).text() || "{}");
-                w.success && w.success(o, w.el);
+                if($(body).text() !='' ){
+                    var o = JSON.parse( $(body).text() || "{}");
+                    w.success && w.success(o, w.el);
+                }
+
             })
         }
 

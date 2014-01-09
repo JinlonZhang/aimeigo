@@ -158,7 +158,7 @@
 
         clearClick: function(dom){
 
-            if(window.confirm('确定删除？')){
+            if(window.confirm('确定清除7天之前的数据？')){
                 $.ajax({
                     type: 'post',
                     url: '/api/item/clear',

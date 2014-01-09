@@ -20,6 +20,7 @@ exports.add = function (o, fn) {
     item.talk = o.talk;
     item.share_total = o.share_total;
     item.collect_total = o.collect_total;
+    item.sale_total = o.sale_total;
     item.comments = o.comments;
     item.date = o.date;
 
@@ -64,4 +65,7 @@ exports.getItemTotalByQuery = function(query, fn){
 
 }
 
-
+//增加sale_total字段
+exports.updateItem = function(id, o, fn){
+    Item.findByIdAndUpdate(id, {$set: o}, fn);
+}

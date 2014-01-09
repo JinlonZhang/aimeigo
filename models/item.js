@@ -14,8 +14,9 @@ var ItemSchema = new Schema({
     price2: String,
     talk: String,
 
-    collect_total: {type: Number, default: 0},    //收藏计数
-    share_total: {type: Number, default: 0},    //分享计数
+    collect_total: {type: Number, default: 0},    //收藏
+    share_total: {type: Number, default: 0},    //分享
+    sale_total: {type: Number, default: 0},  //销量
     buy_total: {type: Number, default: 0},  //点击“去看看“的计数
     comments: [],
 
