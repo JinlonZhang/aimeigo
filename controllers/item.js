@@ -10,9 +10,10 @@ var User = proxy.User;
 var EventProxy = require('eventproxy');
 var moment = require('moment');
 var _ = require('underscore');
+var gm = require('gm');
 
 exports.index = function(req, res){
-    var type = req.query.type, date = new Date(req.query.date);
+    var type = req.query.type, date = new Date(req.query.date), page = parseInt(req.query.p)  || 1;
     var query = {}, limit = 10, query2 = {};
 
     if(req.query.date != undefined && req.query.date != ''){
@@ -30,25 +31,32 @@ exports.index = function(req, res){
         i++;
     }
     var ep = new EventProxy();
-    ep.assign('list', 't0', 't1','t2','t3','t4','t5','t6','t7','t8', function(list, t0,t1, t2, t3, t4, t5, t6, t7, t8){
+    ep.assign('list','pages', 't0', 't1','t2','t3','t4','t5','t6','t7','t8', function(list, p, t0,t1, t2, t3, t4, t5, t6, t7, t8){
         var total= {t0:t0,t1:t1,t2:t2,t3:t3,t4:t4,t5:t5,t6:t6,t7:t7,t8:t8};
 
-        res.render('item', {itemList:list, total:total, date:dateTime});
+        res.render('item', {itemList:list, total:total, date:dateTime, page:page, totalPages:p});
     })
 
-    Item.getItemByQuery(query, {},{sort: {_id: -1}, limit: limit}, function(err, itemList){
+    Item.getItemByQuery(query, {},{sort: {date:-1, _id: -1},skip:(page-1)*limit, limit: limit}, function(err, itemList){
+
         ep.emit('list',itemList);
+
+    });
+    Item.getItemTotalByQuery(query, function(err, count){
+        var totalPages = Math.ceil(count / limit);
+        ep.emit('pages',totalPages);
+
     });
 
-    Item.getItemTotalByQuery(query2,ep.done('t0'))
-    Item.getItemTotalByQuery(_.extend(query2,{type:1}),ep.done('t1'))
-    Item.getItemTotalByQuery(_.extend(query2,{type:2}),ep.done('t2'))
-    Item.getItemTotalByQuery(_.extend(query2,{type:3}),ep.done('t3'))
-    Item.getItemTotalByQuery(_.extend(query2,{type:4}),ep.done('t4'))
-    Item.getItemTotalByQuery(_.extend(query2,{type:5}),ep.done('t5'))
-    Item.getItemTotalByQuery(_.extend(query2,{type:6}),ep.done('t6'))
-    Item.getItemTotalByQuery(_.extend(query2,{type:7}),ep.done('t7'))
-    Item.getItemTotalByQuery(_.extend(query2,{type:8}),ep.done('t8'))
+    Item.getItemTotalByQuery(query2,ep.done('t0'));
+    Item.getItemTotalByQuery(_.extend(query2,{type:1}),ep.done('t1'));
+    Item.getItemTotalByQuery(_.extend(query2,{type:2}),ep.done('t2'));
+    Item.getItemTotalByQuery(_.extend(query2,{type:3}),ep.done('t3'));
+    Item.getItemTotalByQuery(_.extend(query2,{type:4}),ep.done('t4'));
+    Item.getItemTotalByQuery(_.extend(query2,{type:5}),ep.done('t5'));
+    Item.getItemTotalByQuery(_.extend(query2,{type:6}),ep.done('t6'));
+    Item.getItemTotalByQuery(_.extend(query2,{type:7}),ep.done('t7'));
+    Item.getItemTotalByQuery(_.extend(query2,{type:8}),ep.done('t8'));
 
 
 }
@@ -115,15 +123,27 @@ api.add = function(req, res){
             res.json( Util.resJson(err) );
         })
     }else{
+
         var oldPath = req.files.img.path, newPath;
         Item.add(o, function(err, item){
             newPath = config.uploadItemDir + item._id + '.jpg';
+            var sImgPath = config.uploadItemDir + item._id + '_small.jpg';
+
+
             fs.rename(oldPath, newPath, function(err) {
-                res.json( Util.resJson(err) );
+                //res.json( Util.resJson(err) );
+                //fs.createReadStream(newPath).pipe(fs.createWriteStream(sImgPath));
+                gm(newPath)
+                    .resize(100, 100, '!')
+                    .autoOrient()
+                    .write(sImgPath, function (err) {
+                        res.json( Util.resJson(err) );
+                    });
+
             });
+
         })
     }
-
 
 
 }
@@ -133,32 +153,44 @@ api.delete = function(req, res){
 
     Item.deleteById(id, function(err){
 
-        var path = config.uploadItemDir + id + '.jpg';
-        fs.exists(path, function(exists){
-            if(exists){
-                fs.unlinkSync(path);
-            }
-            res.json( Util.resJson(err) );
-        });
+        var path1 = config.uploadItemDir + id + '.jpg', path2 = config.uploadItemDir + id + '_small.jpg' ;
+        var path = [path1, path2];
+        path.forEach(function(p){
+            fs.exists(p, function(exists){
+                if(exists){
+                    fs.unlinkSync(p);
+                }
+                res.json( Util.resJson(err) );
+            });
+        })
 
     });
 }
 
 
 api.getImg = function(req, res){
-    var id = req.params.id, path = config.uploadItemDir + id + '.jpg';
+    var id = req.params.id, path = config.uploadItemDir + id + '_small.jpg';
     var normal = config.uploadDir + 'normal.jpg';
 
+//    if(type && type =='small'){
+//        var path = config.uploadItemDir + id + '_small.jpg'
+//    }else{
+//        var path = config.uploadItemDir + id + '.jpg'
+//    }
 
     fs.exists(path, function(exists){
         if(!exists){
-            /*
-            fs.readFile(normal, 'binary', function(err, file){
-                res.writeHead(200, {"Content-Type": "image/jpg"});
-                res.write(file, "binary");
-                res.end();
+            var p = config.uploadItemDir + id + '.jpg'
+            fs.readFile(p, 'binary', function(err, file){
+                if(err){
+                    res.writeHead(500, {'Content-Type': 'text/plain'});
+                    res.end()
+                }else{
+                    res.writeHead(200, {"Content-Type": "image/jpg"});
+                    res.write(file, "binary");
+                    res.end();
+                }
             })
-            */
         }else{
             fs.readFile(path, 'binary', function(err, file){
                 if(err){
@@ -210,16 +242,19 @@ api.clear = function(req, res){
             res.json( {code:-1, msg:'暂无数据需要清理！'} );
         }
         itemList.forEach(function(item){
-            var id = item._id;var path = config.uploadItemDir + id + '.jpg';
-            //console.log(id);
+            var id = item._id;var path1 = config.uploadItemDir + id + '.jpg', path2 = config.uploadItemDir + id + '_small.jpg';
+            var path = [path1, path2];
             Item.deleteById(id, function(err){
                 //console.log(path);
-                fs.exists(path, function(exists){
-                    if(exists){
-                        fs.unlinkSync(path);
-                    }
-                    res.json( Util.resJson(err) );
-                });
+                path.forEach(function(p, i){
+                    fs.exists(p, function(exists){
+                        if(exists){
+                            fs.unlinkSync(p);
+                        }
+                        res.json( Util.resJson(err) );
+                    });
+                })
+
 
             });
         })
@@ -227,18 +262,26 @@ api.clear = function(req, res){
 }
 
 api.updateImg = function(req, res){
-    var id = req.params.id, path = config.uploadItemDir + id + '.jpg';
-
-    fs.exists(path, function(exists){
-        if(exists){
-            fs.unlink(path, function(err){
-                var oldPath = req.files.img.path, newPath;
-                newPath = config.uploadItemDir + id + '.jpg';
-                fs.rename(oldPath, newPath, function(err) {
-                    res.json( Util.resJson(err) );
+    var id = req.params.id, path1 = config.uploadItemDir + id + '.jpg', path2 = config.uploadItemDir + id + '_small.jpg';
+    var path = [path1,path2];
+    path.forEach(function(p, i){
+        fs.exists(p, function(exists){
+            if(exists){
+                fs.unlink(p, function(err){
+                    var oldPath = req.files.img.path, newPath, sImgPath;
+                    newPath = config.uploadItemDir + id + '.jpg';
+                    sImgPath = config.uploadItemDir + id + '_small.jpg';
+                    fs.rename(oldPath, newPath, function(err) {
+                        gm(newPath)
+                            .resize(100, 100, '!')
+                            .autoOrient()
+                            .write(sImgPath, function (err) {
+                                res.json( Util.resJson(err) );
+                            });
+                    });
 
                 });
-            });
-        }
-    });
+            }
+        });
+    })
 }

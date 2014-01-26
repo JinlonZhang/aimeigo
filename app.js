@@ -56,7 +56,7 @@ app.use(function(req, res, next){
         moment: moment,
         req: req,
         util: util,
-        uri:'http://www.aimeigo.cn'
+        uri:'http://' + config.host + ':' + config.port
     });
 
     if(url == '/'){

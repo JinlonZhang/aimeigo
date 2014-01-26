@@ -31,5 +31,7 @@ if(dev == 1){
 }else{
     o = onlineConfig
 }
-
+o.port = 3000;
+o.dbName = 'aimeigo';
+o.cookieSecret = 'aimeigo';
 module.exports = o;

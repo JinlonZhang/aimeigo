@@ -58,10 +58,7 @@ exports.getItemByDate = function(date, fn){
 }
 
 exports.getItemTotalByQuery = function(query, fn){
-//    Item.count(query, {},{}, fn);
-    Item.find(query, {_id:1}, {}, function(err, itemList){
-        return fn(err, itemList.length);
-    });
+    Item.count(query, fn);
 
 }
 

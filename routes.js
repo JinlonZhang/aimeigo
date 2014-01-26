@@ -26,7 +26,7 @@ module.exports = function(app){
 
     //新增的功能
     app.post('/api/item/clear', auth.userRequired, item.api.clear);
-    app.post('/api/updateImg/:id', auth.userRequired, item.api.updateImg)
+    app.post('/api/item/:id/updateImg', auth.userRequired, item.api.updateImg)
 
 
     //用户

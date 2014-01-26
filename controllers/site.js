@@ -22,14 +22,14 @@ exports.index = function(req, res){
         list = [].concat(a, b, c, d, e, f, g, h);
         res.render('website', {itemList: list});
     })
-    Item.getItemByQuery({type: '1',date:{$lte: now}}, {}, {sort: {date: -1}, limit: 10}, ep.done('1'));
-    Item.getItemByQuery({type: '2',date:{$lte: now}}, {}, {sort: {date: -1}, limit: 5}, ep.done('2'));
-    Item.getItemByQuery({type: '3',date:{$lte: now}}, {}, {sort: {date: -1}, limit: 5}, ep.done('3'));
-    Item.getItemByQuery({type: '4',date:{$lte: now}}, {}, {sort: {date: -1}, limit: 5}, ep.done('4'));
-    Item.getItemByQuery({type: '5',date:{$lte: now}}, {}, {sort: {date: -1}, limit: 5}, ep.done('5'));
-    Item.getItemByQuery({type: '6',date:{$lte: now}}, {}, {sort: {date: -1}, limit: 5}, ep.done('6'));
-    Item.getItemByQuery({type: '7',date:{$lte: now}}, {}, {sort: {date: -1}, limit: 5}, ep.done('7'));
-    Item.getItemByQuery({type: '8',date:{$lte: now}}, {}, {sort: {date: -1}, limit: 5}, ep.done('8'));
+    Item.getItemByQuery({type: '1',date:{$lte: now}}, {}, {sort: {date: -1, _id:-1}, limit: 10}, ep.done('1'));
+    Item.getItemByQuery({type: '2',date:{$lte: now}}, {}, {sort: {date: -1, _id:-1}, limit: 5}, ep.done('2'));
+    Item.getItemByQuery({type: '3',date:{$lte: now}}, {}, {sort: {date: -1, _id:-1}, limit: 5}, ep.done('3'));
+    Item.getItemByQuery({type: '4',date:{$lte: now}}, {}, {sort: {date: -1, _id:-1}, limit: 5}, ep.done('4'));
+    Item.getItemByQuery({type: '5',date:{$lte: now}}, {}, {sort: {date: -1, _id:-1}, limit: 5}, ep.done('5'));
+    Item.getItemByQuery({type: '6',date:{$lte: now}}, {}, {sort: {date: -1, _id:-1}, limit: 5}, ep.done('6'));
+    Item.getItemByQuery({type: '7',date:{$lte: now}}, {}, {sort: {date: -1, _id:-1}, limit: 10}, ep.done('7'));
+    Item.getItemByQuery({type: '8',date:{$lte: now}}, {}, {sort: {date: -1, _id:-1}, limit: 5}, ep.done('8'));
 
 }
 

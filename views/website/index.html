@@ -33,7 +33,7 @@
         .it{overflow:hidden;padding:24px 20px;height: 320px;position: relative}
         .tit{margin-bottom: 15px;font-size:14px;}
         .img-wp{float: left;width:280px;height:280px;background: #000;}
-        .img{width: 280px;height: 280px;background: #fff;}
+        .img{width: 280px;height: 280px;background: #fff url('/img/roll_loading.gif') center no-repeat;}
         .con{margin-left:305px;}
         .talk{}
         .auth{color:#E63;font-weight: normal;}
@@ -124,14 +124,14 @@
         <li class="j-nav" t="3"><a href="javascript://"><i class="ico ico-3 ico-16 ico-l"></i>包包</a></li>
         <li class="j-nav" t="4"><a href="javascript://" ><i class="ico ico-4 ico-16 ico-l"></i>配饰</a></li>
         <li class="j-nav" t="5"><a href="javascript://" ><i class="ico ico-5 ico-16 ico-l"></i>美妆</a></li>
-        <li class="j-nav" t="6"><a href="javascript://" ><i class="ico ico-6 ico-16 ico-l"></i>家居</a></li>
+        <!--<li class="j-nav" t="6"><a href="javascript://" ><i class="ico ico-6 ico-16 ico-l"></i>家居</a></li>-->
         <li class="j-nav" t="8"><a href="javascript://" ><i class="ico ico-8 ico-16 ico-l"></i>零食</a></li>
         <li class="j-nav" t="7"><a href="javascript://" ><i class="ico ico-7 ico-16 ico-l"></i>9.9包邮</a></li>
     </ul>
 </div>
 
 <div class="main">
-    <% itemList.forEach(function(item){ %>
+    <% itemList.forEach(function(item, i){ %>
     <div class="it j-it" t="<%= item.type %>" _id="<%= item._id %>">
         <div class="tit">
             <a href="<%= item.href %>" target="_blank">
@@ -143,7 +143,11 @@
         </div>
         <div class="img-wp">
             <a href="<%= item.href %>" target="_blank">
-                <img src="/pic/<%= item._id %>.jpg" class="img"  />
+                <% if(i <= 2){ %>
+					<img class="img" src="<%= uri %>/pic/<%= item._id %>.jpg" />
+				<% }else{ %>
+					<img src="/img/s.gif" class="img j-img" url="<%= uri %>/pic/<%= item._id %>.jpg" />
+				<% } %>
             </a>
         </div>
         <div class="con">
@@ -220,9 +224,12 @@
 
             w.nav = $('.j-nav');
             w.item = $('.j-it');
-            w.fixed();
+            w.img = $('.j-img');
+            w.scroll();
             w.goTop();
             w.initEvent();
+
+
         },
 
         initEvent: function(){
@@ -240,10 +247,23 @@
             });
         },
 
+        loadImg:function(x){
+            var w = this,height = $(window).height();
+
+            w.img.each(function(i){
+                var top = $(this).offset().top;
+                if((x + height) > top){
+                    $(this).attr('src',$(this).attr('url'));
+                }
+            })
+
+
+        },
+
         navClick: function(dom){
             var w = this;
-
             var d = $(dom), t = d.attr('t');
+
 
             if(t == ""){
                 w.item.show();
@@ -253,6 +273,7 @@
                 }).show();
             }
 
+            w.loadImg(0);
             w.nav.removeClass('now');
             d.addClass('now');
         },
@@ -316,7 +337,7 @@
             }
         },
 
-        fixed:function(){
+        scroll:function(){
             var w = this;
 
             window.onscroll = w.throttle(function(){
@@ -331,6 +352,8 @@
                         position: "relative"
                     });
                 }
+
+                w.loadImg(x);
             })
         },
 
