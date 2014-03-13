@@ -1,11 +1,10 @@
 <div class="g-sd">
     <ul class="nav nav-pills nav-stacked">
         <li><a href="/admin">首页</a></li>
-        <li><a href="/item">导购网站</a></li>
-        <li><a href="/lyric">一句话歌词</a></li>
-        <li><a href="#">一张截图电影</a></li>
-        <li><a href="#">娱乐八卦说</a></li>
-        <li><a href="#">每日星座说</a></li>
+        <li><a href="/item?date=<%= util.dateFormat(new Date())%>">导购网站</a></li>
+        <li><a href="/prize">抽奖商品</a></li>
+        <li><a href="/ranking?date=<%= util.dateFormat(new Date())%>">宝贝点击排行榜</a></li>
+        <li><a href="/QQuser">QQ用户列表</a></li>
 		<% if(req.session.user.type == 0){ %>
 		    <li><a href="/user">用户</a></li>
 		<% } %>

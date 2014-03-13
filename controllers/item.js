@@ -13,12 +13,13 @@ var _ = require('underscore');
 var gm = require('gm');
 
 exports.index = function(req, res){
-    var type = req.query.type, date = new Date(req.query.date), page = parseInt(req.query.p)  || 1;
+    var type = req.query.type, date = new Date(req.query.date), page = {};
+    page.current = parseInt(req.query.p)  || 1;
     var query = {}, limit = 10, query2 = {};
 
     if(req.query.date != undefined && req.query.date != ''){
-        query.date = date;
-        query2.date = date;
+        query.date = {$lt: moment(date).add('days', 1).format('YYYY-MM-DD'), $gte: date};
+        query2.date = {$lt: moment(date).add('days', 1).format('YYYY-MM-DD'), $gte: date};
     }
     if(type != undefined && type != ''){
         query.type = type;
@@ -33,11 +34,11 @@ exports.index = function(req, res){
     var ep = new EventProxy();
     ep.assign('list','pages', 't0', 't1','t2','t3','t4','t5','t6','t7','t8', function(list, p, t0,t1, t2, t3, t4, t5, t6, t7, t8){
         var total= {t0:t0,t1:t1,t2:t2,t3:t3,t4:t4,t5:t5,t6:t6,t7:t7,t8:t8};
-
-        res.render('item', {itemList:list, total:total, date:dateTime, page:page, totalPages:p});
+        page.total = p;
+        res.render('item', {itemList:list, total:total, date:dateTime, page:page});
     })
 
-    Item.getItemByQuery(query, {},{sort: {date:-1, _id: -1},skip:(page-1)*limit, limit: limit}, function(err, itemList){
+    Item.getItemByQuery(query, {},{sort: {date:-1, _id: -1},skip:(page.current-1)*limit, limit: limit}, function(err, itemList){
 
         ep.emit('list',itemList);
 
@@ -57,7 +58,6 @@ exports.index = function(req, res){
     Item.getItemTotalByQuery(_.extend(query2,{type:6}),ep.done('t6'));
     Item.getItemTotalByQuery(_.extend(query2,{type:7}),ep.done('t7'));
     Item.getItemTotalByQuery(_.extend(query2,{type:8}),ep.done('t8'));
-
 
 }
 exports.add = function(req, res){
@@ -84,14 +84,126 @@ exports.detail = function(req, res){
 
 }
 
+exports.ranking = function(req, res){
+    var page = {}, limit = 12, query = {},query2 = {},date = new Date(req.query.date),type = req.query.type;
+    page.current = parseInt(req.query.p) || 1;
 
+    var dateTime = {},i = 0;
+    while(i < 2){
+        var d = moment().add('days', -i).format('YYYY-MM-DD');
+        dateTime['d' + i] = d;
+        i++;
+    }
+    if(req.query.date != undefined && req.query.date != ''){
+        query.date = {$lt: moment(date).add('days', 1).format('YYYY-MM-DD'), $gte: date};
+        query2.date = {$lt: moment(date).add('days', 1).format('YYYY-MM-DD'), $gte: date};
+    }
+    if(type != undefined && type != ''){
+        query2.type = type;
+    }
+
+    var ep = new EventProxy();
+    ep.assign('list', 'total','t0','t1','t2','t3','t4','t5','t7', function(list, total, t0,t1,t2,t3,t4,t5,t7){
+
+        page.total = total;
+        var clickTotal = {t0:t0,t1:t1,t2:t2,t3:t3,t4:t4,t5:t5,t7:t7};
+        res.render('item/ranking',{list:list,page:page, date:dateTime, clickTotal:clickTotal});
+    })
+
+    Item.getItemByQuery(query2,{},{sort:{buy_total:-1, date:-1}, skip:(page.current-1) * limit, limit:limit}, function(err, list){
+
+        if(!err){
+            ep.emit('list',list);
+        }
+    })
+    Item.getItemTotalByQuery(query2,function(err, count){
+        if(!err){
+            var total = Math.ceil(count / limit);
+            ep.emit('total', total);
+        }
+    })
+
+    Item.getItemByQuery(query,{},{sort:{_id:-1}}, function(err, list){
+        var t0 = 0;
+        if(!err){
+            list.forEach(function(item){
+                var buy_total = item.buy_total || 0;
+                t0 += buy_total;
+            })
+            ep.emit('t0', t0)
+        }
+    });
+
+    Item.getItemByQuery(_.extend(query,{type:1}),{},{sort:{_id:-1}}, function(err, list){
+        var t1 = 0;
+        if(!err){
+            list.forEach(function(item){
+                var buy_total = item.buy_total || 0;
+                t1 += buy_total;
+            })
+            ep.emit('t1', t1)
+        }
+    });
+    Item.getItemByQuery(_.extend(query,{type:2}),{},{sort:{_id:-1}}, function(err, list){
+        var t2 = 0;
+        if(!err){
+            list.forEach(function(item){
+                var buy_total = item.buy_total || 0;
+                t2 += buy_total;
+            })
+            ep.emit('t2', t2)
+        }
+    });
+    Item.getItemByQuery(_.extend(query,{type:3}),{},{sort:{_id:-1}}, function(err, list){
+        var t3 = 0;
+        if(!err){
+            list.forEach(function(item){
+                var buy_total = item.buy_total || 0;
+                t3 += buy_total;
+            })
+            ep.emit('t3', t3)
+        }
+    });
+    Item.getItemByQuery(_.extend(query,{type:4}),{},{sort:{_id:-1}}, function(err, list){
+        var t4 = 0;
+        if(!err){
+            list.forEach(function(item){
+                var buy_total = item.buy_total || 0;
+                t4 += buy_total;
+            })
+            ep.emit('t4', t4)
+        }
+    });
+    Item.getItemByQuery(_.extend(query,{type:5}),{},{sort:{_id:-1}}, function(err, list){
+        var t5 = 0;
+        if(!err){
+            list.forEach(function(item){
+                var buy_total = item.buy_total || 0;
+                t5 += buy_total;
+            })
+            ep.emit('t5', t5)
+        }
+    });
+    Item.getItemByQuery(_.extend(query,{type:7}),{},{sort:{_id:-1}}, function(err, list){
+        var t7 = 0;
+        if(!err){
+            list.forEach(function(item){
+                var buy_total = item.buy_total || 0;
+                t7 += buy_total;
+            })
+            ep.emit('t7', t7)
+        }
+    });
+
+
+}
 
 /* API */
 var api = {}
 exports.api = api;
 
 api.add = function(req, res){
-    var img = req.files.img, id = req.body.id, date = req.body.date;
+    var img = req.files.img || '', id = req.body.id, date = req.body.date, url =  req.body.url || '';
 
     var o = {
         type: req.body.type,
@@ -104,7 +216,8 @@ api.add = function(req, res){
         collect_total: req.body.collect_total,
         sale_total: req.body.sale_total,
         comments: [],
-        date: date
+        date: date,
+        url: url
     }
     if(o.name == ""){
         return res.json( Util.resJson(-1, {msg: '宝贝名称不能为空。'}) )
@@ -123,26 +236,34 @@ api.add = function(req, res){
             res.json( Util.resJson(err) );
         })
     }else{
+        //console.log(img)
+        if(img.size == 0){
+             Item.add(o, function(err){
+                res.json( Util.resJson(err) );
+             })
+        }else{
+            var oldPath = img.path, newPath;
+            Item.add(o, function(err, item){
+                newPath = config.uploadItemDir + item._id + '.jpg';
+                var sImgPath = config.uploadItemDir + item._id + '_small.jpg';
 
-        var oldPath = req.files.img.path, newPath;
-        Item.add(o, function(err, item){
-            newPath = config.uploadItemDir + item._id + '.jpg';
-            var sImgPath = config.uploadItemDir + item._id + '_small.jpg';
+                fs.rename(oldPath, newPath, function(err) {
+                    //res.json( Util.resJson(err) );
+                    //fs.createReadStream(newPath).pipe(fs.createWriteStream(sImgPath));
+                    gm(newPath)
+                        .resize(100, 100, '!')
+                        .autoOrient()
+                        .write(sImgPath, function (err) {
+                            res.json( Util.resJson(err) );
+                        });
+
+                });
+
+            })
+        }
 
 
-            fs.rename(oldPath, newPath, function(err) {
-                //res.json( Util.resJson(err) );
-                //fs.createReadStream(newPath).pipe(fs.createWriteStream(sImgPath));
-                gm(newPath)
-                    .resize(100, 100, '!')
-                    .autoOrient()
-                    .write(sImgPath, function (err) {
-                        res.json( Util.resJson(err) );
-                    });
 
-            });
-
-        })
     }
 
 
@@ -172,11 +293,13 @@ api.getImg = function(req, res){
     var id = req.params.id, path = config.uploadItemDir + id + '_small.jpg';
     var normal = config.uploadDir + 'normal.jpg';
 
-//    if(type && type =='small'){
-//        var path = config.uploadItemDir + id + '_small.jpg'
-//    }else{
-//        var path = config.uploadItemDir + id + '.jpg'
-//    }
+    var type = req.query.type;
+    //console.log('type===========' + type)
+    if(type && type =='big'){
+        path = config.uploadItemDir + id + '.jpg'
+    }else{
+        path = config.uploadItemDir + id + '_small.jpg'
+    }
 
     fs.exists(path, function(exists){
         if(!exists){
@@ -283,5 +406,17 @@ api.updateImg = function(req, res){
                 });
             }
         });
+    })
+}
+
+api.setTop = function(req, res){
+    var id = req.params.id, time = new Date();
+    console.log('time---------' + time)
+    Item.getItemById(id, function(err, item){
+
+        item.date = time;
+        item.save();
+
+        res.json({code: 0, msg: '修改成功！'});
     })
 }

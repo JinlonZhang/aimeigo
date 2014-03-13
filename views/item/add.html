@@ -12,7 +12,7 @@
 
     <div class="g-mn">
         <div class="g-btn">
-            <a href="/item" class="btn btn-default"><i class="fa fa-arrow-left"></i>返回</a>
+            <a href="/item" class="btn btn-default"><i class="fa fa-l fa-arrow-left"></i>返回</a>
         </div>
         <div class="alert alert-warning" id="msg" style="display:none;">
 
@@ -26,16 +26,16 @@
                     <label><input type="radio" name="type" value="3" >包包</label>
                     <label><input type="radio" name="type" value="4" >配饰</label>
                     <label><input type="radio" name="type" value="5" >美妆</label>
-                    <label><input type="radio" name="type" value="6" >家具</label>
-                    <label><input type="radio" name="type" value="8" >零食</label>
+                    <!--<label><input type="radio" name="type" value="6" >家具</label>
+                    <label><input type="radio" name="type" value="8" >零食</label>-->
                     <label><input type="radio" name="type" value="7" >9.9包邮</label>
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-sm-2 control-label">发布时间</label>
                 <div class="col-sm-10" id="date">
-                    <label><input type="radio" name="date" value="<%= date.d0%>" checked>今天</label>
-                    <label><input type="radio" name="date" value="<%= date.d1%>" >明天</label>
+                    <label><input type="radio" name="date" value="<%= date.d0%>">今天</label>
+                    <label><input type="radio" name="date" value="<%= date.d1%>" checked>明天</label>
                     <label><input type="radio" name="date" value="<%= date.d2%>" >后天</label>
                     <label><input type="radio" name="date" value="<%= date.d3%>" >大后天</label>
                     <label><input type="radio" name="date" value="<%= date.d4%>" ><%= date.d4%></label>
@@ -60,7 +60,8 @@
             <div class="form-group">
                 <label class="col-sm-2 control-label">宝贝图片</label>
                 <div class="col-sm-10">
-                    <input type="file" name="img" class="">
+                    <input type="file" name="img" class="" style="margin-bottom:10px;">
+                    <input type="text" name="url" class="form-control" placeholder="宝贝图片链接">
                 </div>
             </div>
             <div class="form-group">
@@ -92,10 +93,10 @@
                     <button type="button" id="randomShare" class="btn btn-default">随机</button>
                 </div>
                 <div class="col-sm-2">
-                    <input type="text" name="share_total" class="form-control" value="<%= Math.floor(Math.random() * 600) + 200 %>" />
+                    <input type="text" name="share_total" class="form-control" value="<%= Math.floor(Math.random() * 600) + 500 %>" />
                 </div>
                 <div class="col-sm-2">
-                    <input type="text" name="collect_total" class="form-control" value="<%= Math.floor(Math.random() * 300) + 200 %>" />
+                    <input type="text" name="collect_total" class="form-control" value="<%= Math.floor(Math.random() * 300) + 500 %>" />
                 </div>
             </div>
             <div class="form-group">

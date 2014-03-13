@@ -18,10 +18,10 @@
         <div class="g-top">
             <div class="row">
                 <div class="g-btn col-md-1">
-                    <a href="/item/add" class="btn btn-primary"><i class="fa fa-plus"></i>添加</a>
+                    <a href="/item/add" class="btn btn-primary"><i class="fa fa-l fa-plus"></i>添加</a>
                 </div>
-                <div class="g-search col-md-9">
-                    <form class="form-inline col-md-4" role="form" method="get" action="/item">
+                <div class="g-search col-md-11">
+                    <form class="form-inline col-md-5" role="form" method="get" action="/item">
                         <div class="btn-group">
                             <button type="button" class="btn btn-primary <%= req.query.date == '' ? 'active':''%> j-btn" val="">全部</button>
                             <button type="button" class="btn btn-primary <%= req.query.date == date.d0 ? 'active':''%> j-btn" val="<%= date.d0%>">今天</button>
@@ -44,9 +44,9 @@
                         <input type="hidden" name="type" value="<%= req.query.type == undefined ? '' : req.query.type %>">
                     </form>
                 </div>
-                <div class="batch-del col-md-2">
+                <!--<div class="batch-del col-md-2">
                     <button type="button" class="btn btn-danger j-clear">删除7天前的数据</button>
-                </div>
+                </div>-->
             </div>
         </div>
         <ul class="nav nav-tabs">
@@ -56,8 +56,8 @@
             <li class="<%= req.query.type == '3' ? 'active' : '' %>"><a href="/item?type=3&date=<%= req.query.date == undefined ? '' : req.query.date %>">包包（<%= total.t3%>）</a></li>
             <li class="<%= req.query.type == '4' ? 'active' : '' %>"><a href="/item?type=4&date=<%= req.query.date == undefined ? '' : req.query.date %>">配饰（<%= total.t4%>）</a></li>
             <li class="<%= req.query.type == '5' ? 'active' : '' %>"><a href="/item?type=5&date=<%= req.query.date == undefined ? '' : req.query.date %>">美妆（<%= total.t5%>）</a></li>
-            <li class="<%= req.query.type == '6' ? 'active' : '' %>"><a href="/item?type=6&date=<%= req.query.date == undefined ? '' : req.query.date %>">家居（<%= total.t6%>）</a></li>
-            <li class="<%= req.query.type == '8' ? 'active' : '' %>"><a href="/item?type=8&date=<%= req.query.date == undefined ? '' : req.query.date %>">零食（<%= total.t8%>）</a></li>
+            <!--<li class="<%= req.query.type == '6' ? 'active' : '' %>"><a href="/item?type=6&date=<%= req.query.date == undefined ? '' : req.query.date %>">家居（<%= total.t6%>）</a></li>-->
+            <!--<li class="<%= req.query.type == '8' ? 'active' : '' %>"><a href="/item?type=8&date=<%= req.query.date == undefined ? '' : req.query.date %>">零食（<%= total.t8%>）</a></li>-->
             <li class="<%= req.query.type == '7' ? 'active' : '' %>"><a href="/item?type=7&date=<%= req.query.date == undefined ? '' : req.query.date %>">9.9包邮（<%= total.t7%>）</a></li>
         </ul>
         <table class="table table-striped">
@@ -68,7 +68,7 @@
                 <th style="width: 100px;">现价 / 原价</th>
                 <th style="width: 100px;">发布时间</th>
                 <th>小编点评</th>
-                <th style="width: 100px;">操作</th>
+                <th style="width: 150px;text-align: center">操作</th>
             </thead>
             <tbody>
             <% itemList.forEach(function(item, i){ %>
@@ -76,14 +76,18 @@
                 <td>
                     <div class="img-wp">
                         <a href="<%= item.href %>" target="_blank">
+                            <% if(item.url) {%>
+                            <img src="<%= item.url %>" class="img" />
+                            <% }else{ %>
                             <img src="/item/<%= item._id %>/img" class="img" />
+                            <% } %>
                         </a>
-                        <div class="img-btn">
-                            <form class="form-horizontal j-uploadForm"  role="form" action="/api/item/<%= item._id %>/updateImg" method="post" enctype="multipart/form-data">
-                                <input type="file" name="img" class="file j-file">
-                                <button class="btn btn-success">修改图片</button>
-                            </form>
-                        </div>
+                        <!--<div class="img-btn">-->
+                            <!--<form class="form-horizontal j-uploadForm"  role="form" action="/api/item/<%= item._id %>/updateImg" method="post" enctype="multipart/form-data">-->
+                                <!--<input type="file" name="img" class="file j-file">-->
+                                <!--<button class="btn btn-success">修改图片</button>-->
+                            <!--</form>-->
+                        <!--</div>-->
                     </div>
                 </td>
 
@@ -104,6 +108,7 @@
                 <td>
                     <a href="/item/<%= item._id %>" class="btn btn-primary btn-sm" ><i class="fa fa-pencil"></i></a>
                     <a href="/api/item/<%= item._id %>" class="btn btn-danger btn-sm j-delete" ><i class="fa fa-trash-o"></i></a>
+                    <a href="javascript://" url="/api/item/setTop/<%= item._id %>" class="btn btn-primary btn-sm j-top" title="置顶" ><i class="fa fa-arrow-up"></i></a>
 
                 </td>
             </tr>
@@ -111,26 +116,18 @@
 
             </tbody>
         </table>
-        <div class="g-pg">
-            <ul class="pagination">
-                <% if(page==1){ %>
-                    <li class="disabled">
-                        <a href="javascript://">&laquo;</a>
-                    </li>
+            <ul class="pager">
+                <li><em><%= page.current %></em>/<em><%= page.total %></em></li>
+                <% if(page.current==1){ %>
+                    <li class="disabled"><span>上一页</span></li>
                 <% }else{ %>
-                    <li><a href="/item?type=<%= req.query.type == undefined ? '' : req.query.type %>&date=<%= req.query.date == undefined ? '' : req.query.date %>&p=<%= page-1 %>">&laquo;</a></li>
+                    <li><a href="/item?type=<%= req.query.type == undefined ? '' : req.query.type %>&date=<%= req.query.date == undefined ? '' : req.query.date %>&p=<%= page.current-1 %>">上一页</a></li>
                 <% } %>
-                    <!--<li><a href="#">1</a></li>
-                    <li><a href="javascript://">2</a></li>
-                    <li><a href="#">3</a></li>
-                    <li><a href="#">4</a></li>-->
-                    <li><span><%= page%><span class="sr-only"></span></span></a></li>
-                <% if(page==totalPages){ %>
-                    <li class="disabled">
-                        <a href="javascript://">&raquo;</a>
-                    </li>
+
+                <% if(page.current==page.total){ %>
+                    <li class="disabled"><span>下一页</span></li>
                 <% }else{ %>
-                    <li><a href="/item?type=<%= req.query.type == undefined ? '' : req.query.type %>&date=<%= req.query.date == undefined ? '' : req.query.date %>&p=<%= page+1 %>">&raquo;</a></li>
+                    <li><a href="/item?type=<%= req.query.type == undefined ? '' : req.query.type %>&date=<%= req.query.date == undefined ? '' : req.query.date %>&p=<%= page.current+1 %>">下一页</a></li>
                 <% } %>
             </ul>
         </div>

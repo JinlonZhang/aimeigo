@@ -56,7 +56,7 @@ app.use(function(req, res, next){
         moment: moment,
         req: req,
         util: util,
-        uri:'http://' + config.host + ':' + config.port
+        uri:'http://' + config.uri
     });
 
     if(url == '/'){

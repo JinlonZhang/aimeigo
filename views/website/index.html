@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>爱美购</title>
+    <title>爱美网</title>
     <link rel='stylesheet' href='/css/font/font.css' />
     <style type="text/css">
 
@@ -20,7 +20,7 @@
 
         .wrap{width:100%;}
         .head{width:100%;height:65px;border-bottom: 2px solid #fc4148;background:#d12974 url("img/head_bg.jpg") center no-repeat}
-        .logo{width:800px;height:100%;background:url("img/ico.png") no-repeat 0px 3px;margin:0 auto;}
+        .logo{width:800px;height:100%;background:url("img/ico.png") no-repeat 0px 8px;margin:0 auto;}
         .nav{background-color: #141313;width:100%;height:36px;position:relative;z-index: 99;box-shadow: 0 1px 3px rgba(0,0,0,0.5)}
         .nav ul{width:800px;margin:0 auto;overflow: hidden;}
         .nav ul li{float: left;width:88px;height:36px;line-height: 36px;text-align: center}
@@ -125,7 +125,7 @@
         <li class="j-nav" t="4"><a href="javascript://" ><i class="ico ico-4 ico-16 ico-l"></i>配饰</a></li>
         <li class="j-nav" t="5"><a href="javascript://" ><i class="ico ico-5 ico-16 ico-l"></i>美妆</a></li>
         <!--<li class="j-nav" t="6"><a href="javascript://" ><i class="ico ico-6 ico-16 ico-l"></i>家居</a></li>-->
-        <li class="j-nav" t="8"><a href="javascript://" ><i class="ico ico-8 ico-16 ico-l"></i>零食</a></li>
+        <!--<li class="j-nav" t="8"><a href="javascript://" ><i class="ico ico-8 ico-16 ico-l"></i>零食</a></li>-->
         <li class="j-nav" t="7"><a href="javascript://" ><i class="ico ico-7 ico-16 ico-l"></i>9.9包邮</a></li>
     </ul>
 </div>
@@ -143,11 +143,19 @@
         </div>
         <div class="img-wp">
             <a href="<%= item.href %>" target="_blank">
-                <% if(i <= 2){ %>
-					<img class="img" src="<%= uri %>/pic/<%= item._id %>.jpg" />
-				<% }else{ %>
-					<img src="/img/s.gif" class="img j-img" url="<%= uri %>/pic/<%= item._id %>.jpg" />
-				<% } %>
+                <% if(i <= 2){
+                    if(item.url){ %>
+                        <img src="<%= item.url %>" width="300" height="300">
+                    <% }else{ %>
+					    <img class="img" src="<%= uri %>/pic/<%= item._id %>.jpg" />
+				    <% }
+                }else{
+                    if(item.url){ %>
+                        <img src="/img/s.gif" class="img j-img" url="<%= item.url %>">
+                    <% }else{ %>
+                        <img src="/img/s.gif" class="img j-img" url="<%= uri %>/pic/<%= item._id %>.jpg" />
+                    <% }
+				 } %>
             </a>
         </div>
         <div class="con">
@@ -159,7 +167,7 @@
             <div class="comm">
                 <% item.comments.forEach(function(comm){ %>
                 <p>
-                    <img src="/avatar/<%= comm.img %>.jpg" class="comm-img" />
+                    <img src="<%= uri %>/avatar/<%= comm.img %>.jpg" class="comm-img" />
                     <%= comm.text %>
                 </p>
                 <% }) %>
@@ -199,7 +207,7 @@
 </div>
 <div class="foot">
     <div class="foot-i">
-        <p>Copyright © 云清科技 2012-2013 联系我们QQ:1805378995 </p>
+        <p>Copyright © 云清科技 浙ICP备12037164号-2 联系我们QQ:1805378995 </p>
     </div>
 </div>
 <div class="go-top" id="top">

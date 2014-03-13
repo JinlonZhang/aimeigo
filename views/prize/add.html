@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <% include ../inc/inc.head.html %>
+</head>
+<body>
+
+<div class="g-bd">
+    <% include ../mod/mod.head.html %>
+
+    <% include ../mod/mod.side.html %>
+
+    <div class="g-mn">
+        <div class="g-btn">
+            <a href="/prize" class="btn btn-default"><i class="fa fa-l fa-arrow-left"></i>返回</a>
+        </div>
+        <div class="alert alert-warning" id="msg" style="display:none;">
+        </div>
+        <form class="form-horizontal j-uploadForm" role="form" srcPage = "prize" action="/api/prize" method="post">
+            <div class="form-group">
+                <label class="col-sm-2 control-label">奖品名称</label>
+                <div class="col-sm-10">
+                    <input type="text" name="name" class="form-control">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">链接</label>
+                <div class="col-sm-10">
+                    <input type="text" name="href" class="form-control">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">奖品图片</label>
+                <div class="col-sm-10">
+                    <input type="text" name="url" class="form-control">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">市场价</label>
+                <div class="col-sm-10">
+                    <input type="text" name="price" class="form-control">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2"></label>
+                <div class="col-sm-10">
+                    <button type="submit" class="btn btn-primary">提交</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<% include ../inc/inc.foot.html %>
+<% include ../mod/mod.script.html %>
+</body>
+</html>

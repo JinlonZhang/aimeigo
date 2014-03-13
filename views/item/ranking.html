@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <% include ../inc/inc.head.html %>
+
+    <style type="text/css">
+        .title{font-size: 16px;color: #0073b6;font-weight: bold}
+        .it-wp{width: 100%;display:inline;display:inline-block;*zoom:1;margin-top:20px;}
+        .it-wp ul{overflow: hidden;}
+        .it-wp ul li{float: left;margin:20px 20px 0 0;position: relative;overflow: hidden;}
+        .it-wp ul li:hover .tit{
+            bottom:0;
+            -moz-transition: bottom 0.5s ease-out;
+            -webkit-transition: bottom 0.5s ease-out;
+            -o-transition: bottom 0.5s ease-out;
+            transition: bottom 0.5s ease-out;}
+        .tit{display:block;width:100%;line-height: 36px;
+            text-indent: 1em;overflow:hidden;white-space: nowrap;text-overflow: ellipsis;font-size: 14px;
+            position: absolute;bottom:-50px;left:0;background: #333;color: #FFF;background: rgba(0,0,0,0.6)}
+        .it-wp ul li em{right:5px;position: absolute;border-radius:3px;padding:3px 8px;background-color: #00adee;color: #FFF;font-size: 12px;}
+        .total{top:5px;}
+        .price{top:35px;}
+    </style>
+</head>
+<body>
+
+<div class="g-bd">
+    <% include ../mod/mod.head.html %>
+
+    <% include ../mod/mod.side.html %>
+
+    <div class="g-mn">
+        <div class="g-top">
+            <div class="title col-md-2">宝贝点击排行</div>
+            <form class="form-inline col-md-3" role="form" method="get" action="/ranking">
+                <div class="btn-group">
+                    <button type="button" class="btn btn-primary <%= req.query.date == '' ? 'active':''%> j-btn" val="">全部</button>
+                    <button type="button" class="btn btn-primary <%= req.query.date == date.d1 ? 'active':''%> j-btn" val="<%= date.d1%>">昨天</button>
+                    <button type="button" class="btn btn-primary <%= req.query.date == date.d0 ? 'active':''%> j-btn" val="<%= date.d0%>">今天</button>
+                </div>
+                <input type="hidden" name="date" id="dateTime" value="">
+            </form>
+            <div class="col-md-3">
+                <form class="form-inline" role="form" method="get" action="/ranking">
+                    <div >
+                        <div class="form-group" >
+                            <label class="sr-only" for="date">发布时间</label>
+                            <input type="text" name="date" class="form-control j-date" id="date" placeholder="YYYY-MM-DD" value="<%= req.query.date == undefined ? '' : req.query.date %>">
+                        </div>
+                        <button type="submit" class="btn btn-primary">搜索</button>
+                    </div>
+                </form>
+            </div>
+            <div class="col-md-3">
+                点击总数：<em><%=clickTotal.t0 %></em>
+            </div>
+        </div>
+        <div class="it-wp">
+            <ul class="nav nav-tabs">
+                <li class="<%= req.query.type == undefined ? 'active' : '' %>"><a href="/ranking?date=<%= req.query.date == undefined ? '' : req.query.date %>">全部（<%= clickTotal.t0%>）</a></li>
+                <li class="<%= req.query.type == '1' ? 'active' : '' %>"><a href="/ranking?type=1&date=<%= req.query.date == undefined ? '' : req.query.date %>" >女装（<%= clickTotal.t1%>）</a></li>
+                <li class="<%= req.query.type == '2' ? 'active' : '' %>"><a href="/ranking?type=2&date=<%= req.query.date == undefined ? '' : req.query.date %>">鞋子（<%= clickTotal.t2%>）</a></li>
+                <li class="<%= req.query.type == '3' ? 'active' : '' %>"><a href="/ranking?type=3&date=<%= req.query.date == undefined ? '' : req.query.date %>">包包（<%= clickTotal.t3%>）</a></li>
+                <li class="<%= req.query.type == '4' ? 'active' : '' %>"><a href="/ranking?type=4&date=<%= req.query.date == undefined ? '' : req.query.date %>">配饰（<%= clickTotal.t4%>）</a></li>
+                <li class="<%= req.query.type == '5' ? 'active' : '' %>"><a href="/ranking?type=5&date=<%= req.query.date == undefined ? '' : req.query.date %>">美妆（<%= clickTotal.t5%>）</a></li>
+                <li class="<%= req.query.type == '7' ? 'active' : '' %>"><a href="/ranking?type=7&date=<%= req.query.date == undefined ? '' : req.query.date %>">9.9包邮（<%= clickTotal.t7%>）</a></li>
+            </ul>
+            <ul>
+                <% list.forEach(function(item, i){ %>
+                <li>
+                    <em class="total"><%= item.buy_total %></em>
+                    <em class="price">￥<%= item.price2 %></em>
+                    <a href="<%= item.href%>" target="_blank">
+                        <% if(item.url) {%>
+                        <img src="<%= item.url %>" style="width:280px;height:280px;" />
+                        <% }else{ %>
+                        <img src="/item/<%= item._id %>/img?type=big" style="width:280px;height:280px;" />
+                        <% } %>
+                    </a>
+                    <a href="<%= item.href%>" target="_blank" class="tit"><%= item.name%></a>
+                </li>
+                <% }) %>
+            </ul>
+        </div>
+        <div class="g-pg">
+            <ul class="pager">
+                <li><em><%= page.current%></em>/<em><%= page.total%></em></li>
+                <% if(page.current==1 ){ %>
+                <li class="disabled"><span>上一页</span></li>
+                <% }else{ %>
+                <li><a href="/ranking?type=<%= req.query.type == undefined ? '' : req.query.type %>&date=<%= req.query.date == undefined ? '' : req.query.date %>&p=<%= page.current - 1%>">上一页</a></li>
+                <% } %>
+                <% if(page.current==page.total ){ %>
+                <li class="disabled"><span>下一页</span></li>
+                <% }else{ %>
+                <li><a href="/ranking?type=<%= req.query.type == undefined ? '' : req.query.type %>&date=<%= req.query.date == undefined ? '' : req.query.date %>&p=<%= page.current + 1%>">下一页</a></li>
+                <% } %>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<% include ../inc/inc.foot.html %>
+<% include ../mod/mod.script.html %>
+
+<script>
+    $(function(){
+        $(".j-date").each(function(){
+            $(this).datepicker();
+        })
+
+        $('.j-btn').click(function(){
+            var val = $(this).attr('val');
+            $('#dateTime').attr('value', val);
+            $(this).parents('form').submit();
+        });
+
+    });
+
+</script>
+</body>
+</html>

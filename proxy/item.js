@@ -23,6 +23,7 @@ exports.add = function (o, fn) {
     item.sale_total = o.sale_total;
     item.comments = o.comments;
     item.date = o.date;
+    item.url = o.url;
 
     item.save(fn);
 };

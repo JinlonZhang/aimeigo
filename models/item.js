@@ -13,6 +13,7 @@ var ItemSchema = new Schema({
     price: String,
     price2: String,
     talk: String,
+    url:String,  //图片的淘宝链接；
 
     collect_total: {type: Number, default: 0},    //收藏
     share_total: {type: Number, default: 0},    //分享

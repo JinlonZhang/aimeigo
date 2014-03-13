@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <% include ../inc/inc.head.html %>
+
+    <style type="text/css">
+        .img{}
+        .file{position: absolute;opacity: 0;width:100px;height:40px;cursor: pointer}
+    </style>
+</head>
+<body>
+<div class="g-bd">
+    <% include ../mod/mod.head.html %>
+
+    <% include ../mod/mod.side.html %>
+
+    <div class="g-mn">
+        <div class="g-top">
+            <div class="row">
+                <div class="g-btn col-md-1">
+                    <a href="/prize/add" class="btn btn-primary"><i class="fa fa-l fa-plus"></i>添加</a>
+                </div>
+                <form class="form-inline col-md-3" role="form" method="get" action="/prize">
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-primary <%= req.query.date == '' ? 'active':''%> j-btn" val="">全部</button>
+                        <button type="button" class="btn btn-primary <%= req.query.date == date.d0 ? 'active':''%> j-btn" val="<%= date.d0%>">今天</button>
+                        <button type="button" class="btn btn-primary <%= req.query.date == date.d1 ? 'active':''%> j-btn" val="<%= date.d1%>">明天</button>
+                    </div>
+                    <input type="hidden" name="date" id="dateTime" value="">
+                </form>
+                <!--<form class="form-inline col-md-3" role="form" method="get" action="/prize">
+                    <div >
+                        <div class="form-group" >
+                            <label class="sr-only" for="date">发布时间</label>
+                            <input type="text" name="date" class="form-control j-date" id="date" placeholder="YYYY-MM-DD" value="<%= req.query.date == undefined ? '' : req.query.date %>">
+                        </div>
+                        <button type="submit" class="btn btn-primary">搜索</button>
+                    </div>
+                </form>-->
+                <div class="g-btn col-md-2">
+                    <button type="button" class="btn btn-primary" id="add">添加中奖人昵称</button>
+                </div>
+                <div class=" col-md-2">
+                    <p>奖品池奖品剩余：<em style="color: #f15da2; font-size: 18px"><%= pool%></em></p>
+                </div>
+                <!--<form class="form-horizontal col-md-4" role="form" method="post" action="#">
+                    <div class="form-group">
+                        <label for="winner" class="col-sm-3 control-label">中奖人昵称</label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control" id="winner">
+                        </div>
+                        <button type="button" class="btn btn-primary col-sm-2" id="add">添加</button>
+                    </div>
+                </form>-->
+            </div>
+        </div>
+        <table class="table table-striped">
+            <thead>
+            <th style="width: 110px;">图片</th>
+            <th>名称</th>
+            <th style="width: 200px;">抽奖时间</th>
+            <th style="width: 200px;">中奖人</th>
+            <th style="width: 100px;">市场价</th>
+            <th style="width: 100px;">所需积分</th>
+            <th style="width: 150px;text-align: center">操作</th>
+            </thead>
+            <tbody>
+                <% prizeList.forEach(function(prize, i){ %>
+                <tr class="j-tr">
+                    <td>
+                        <div class="img-wp">
+                            <a href="<%= prize.href %>" target="_blank">
+                                <img src="<%= prize.url %>" class="img" />
+                            </a>
+                        </div>
+                    </td>
+                    <td>
+                        <a href="<%= prize.href %>" target="_blank">
+                            <%= prize.name %>
+                        </a>
+                    </td>
+                    <td><%= prize.date ? util.dateFormat(prize.date) : '' %></td>
+                    <td><%= prize.winner %></td>
+                    <td><%= prize.price %></td>
+                    <td><%= prize.score %></td>
+                    <td style="text-align: center">
+                        <a href="/prize/<%= prize._id %>" class="btn btn-primary btn-sm" ><i class="fa fa-pencil" title="编辑"></i></a>
+                        <a href="/api/prize/<%= prize._id %>" class="btn btn-danger btn-sm j-delete" ><i class="fa fa-trash-o" title="删除"></i></a>
+                    </td>
+                </tr>
+                <% }) %>
+            </tbody>
+        </table>
+        <div class="g-pg">
+            <ul class="pager">
+                <li><em><%= page.current%></em>/<em><%= page.total%></em></li>
+                <% if(page.current==1 ){ %>
+                <li class="disabled"><span>上一页</span></li>
+                <% }else{ %>
+                <li><a href="/prize?date=<%= req.query.date == undefined ? '' : req.query.date %>&p=<%= page.current - 1%>">上一页</a></li>
+                <% } %>
+                <% if(page.current==page.total ){ %>
+                <li class="disabled"><span>下一页</span></li>
+                <% }else{ %>
+                <li><a href="/prize?date=<%= req.query.date == undefined ? '' : req.query.date %>&p=<%= page.current + 1%>">下一页</a></li>
+                <% } %>
+            </ul>
+        </div>
+    </div>
+</div>
+<% include ../inc/inc.foot.html %>
+<script>
+    $(function(){
+        $(".j-date").each(function(){
+            $(this).datepicker();
+        })
+
+        $('.j-btn').click(function(){
+            var val = $(this).attr('val');
+            $('#dateTime').attr('value', val);
+
+            $(this).parents('form').submit();
+        });
+
+        $('#add').click(function(){
+            var val = $('#winner').val();
+
+            $.ajax({
+                type:'post',
+                url:'/api/prize/winner',
+                dataType:'json',
+                success:function(data){
+                    if(data.code==0){
+                        window.location.reload();
+                    }else{
+                        alert('昨天的中奖用户已添加完毕');
+                    }
+                }
+            })
+        })
+
+    });
+</script>
+</body>
+</html>

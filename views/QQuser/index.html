@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <% include ../inc/inc.head.html %>
+
+    <style type="text/css">
+        .title{font-size: 16px;color: #0073b6;font-weight: bold}
+    </style>
+</head>
+<body>
+
+<div class="g-bd">
+    <% include ../mod/mod.head.html %>
+
+    <% include ../mod/mod.side.html %>
+
+    <div class="g-mn">
+        <div class="g-top">
+            <div class="title">今日签到人数：<%= signTotal%></div>
+        </div>
+        <table class="table table-hover">
+            <thead>
+                <th style="width: 110px;">头像</th>
+                <th style="">昵称</th>
+                <th style="width: 100px;">
+                    <a href="javascript://" class="j-sort" opt={"sort":"score","turn":"<%= req.query.turn %>"}>
+                        积分
+                    </a>
+                </th>
+                <th style="width: 100px;">
+                    <a href="javascript://"class="j-sort" opt={"sort":"signDays","turn":"<%= req.query.turn %>"}>
+                        签到天数
+                    </a>
+                </th>
+                <th style="width:200px">
+                    <a href="javascript://" class="j-sort" opt={"sort":"lastSign","turn":"<%= req.query.turn %>"}>
+                        上一次签到的时间
+                    </a>
+                </th>
+                <th style="width:100px">今天是否签到</th>
+                <th style="width:150px">抽奖的商品数</th>
+            </thead>
+            <tbody>
+                <% userList.forEach(function(user, i){ %>
+                <tr>
+                    <td><img src="<%= user.figureurl %>" width="50" height="50"/></td>
+                    <td><%= user.nickname %></td>
+                    <td><%= user.score %></td>
+                    <td><%= user.signDays %></td>
+                    <td><%= util.dateFormat(user.lastSign)%></td>
+                    <td><%= user.signStatus %></td>
+                    <% if(user.gifts != undefined){%>
+                    <td><%= user.gifts.length%></td>
+                    <%}else{%>
+                    <td>未参加抽奖</td>
+                    <%}%>
+                </tr>
+                <%})%>
+            </tbody>
+        </table>
+        <div class="g-pg">
+            <ul class="pager">
+                <li><em><%= page.current%></em>/<em><%= page.total%></em></li>
+                <% if(page.current==1 ){ %>
+                <li class="disabled"><span>上一页</span></li>
+                <% }else{ %>
+                <li><a href="/QQuser?p=<%= page.current - 1%>&sort=<%=req.query.sort %>&turn=<%=req.query.turn %>">上一页</a></li>
+                <% } %>
+                <% if(page.current==page.total ){ %>
+                <li class="disabled"><span>下一页</span></li>
+                <% }else{ %>
+                <li><a href="/QQuser?p=<%= page.current + 1%>&sort=<%=req.query.sort %>&turn=<%=req.query.turn %>">下一页</a></li>
+                <% } %>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<% include ../inc/inc.foot.html %>
+<% include ../mod/mod.script.html %>
+
+<script>
+    $(function(){
+        var url = '/QQuser?sort=';
+        $('.j-sort').bind('click', function(){
+            var self = $(this);
+            var opt = JSON.parse(self.attr('opt'));
+            var s = opt.sort, t = opt.turn;
+            t = t == -1 ? 1 : -1;
+
+            //alert(t)
+            self.attr('href', url + s + '&turn=' + t +'&p=' + <%= page.current %>);
+        })
+
+    });
+
+</script>
+</body>
+</html>

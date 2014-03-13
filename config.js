@@ -14,16 +14,20 @@ var devConfig = {
     cookieSecret: 'aimeigo',
     uploadDir: '../upload/',
     uploadItemDir: '../upload/item/',
-    avatarDir:'../upload/avatar/'
+    uri:'localhost:3000',
+    avatarDir:'../upload/avatar/',
+    txt:'../upload/txt/'
 }
 var onlineConfig = {
-    db: 'mongodb://10.221.152.189/aimeigo',
+    db: 'mongodb://10.232.50.80/aimeigo',
     dbName: 'aimeigo',
-    host: '10.221.152.189',
+    host: '10.232.50.80',
     cookieSecret: 'aimeigo',
     uploadDir: '/data/',
     uploadItemDir: '/data/item/',
-    avatarDir:'/data/avatar/'
+    uri:'img.aimeigo.cn',
+    avatarDir:'/avatar/',
+    txt:'/data/txt/'
 }
 
 if(dev == 1){

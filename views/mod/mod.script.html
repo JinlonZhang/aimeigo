@@ -34,6 +34,8 @@
                 '真的蛮修身的~'
         ],
 
+        name:['一个人的节日','等後、那場雪 ','狠、不落风采','米修','艾米','饭饭','粥粥','蘤落夏茉','can','小稻草'],
+
         init: function(){
             var w = this;
 
@@ -43,10 +45,11 @@
 
         initHTML: function(){
             var w = this;
+            var src = $('.j-uploadForm').attr('srcPage') || 'item';
 
             $('.j-uploadForm').data('opt', {
                 fn: function(){
-                    window.location.href = '/item'
+                    window.location.href = '/'+ src;
                 }
             });
 
@@ -68,6 +71,12 @@
                 $('[name="share_total"]').val( Math.floor( Math.random() * 600 ) + 200 );
                 $('[name="collect_total"]').val( Math.floor( Math.random() * 200 ) + 300 );
             });
+            var win = $('[name="winners"]');
+            $('.j-random').click(function(){
+                win.each(function(){
+                    this.value = w.name[ Math.floor( Math.random() * (w.name.length-1) ) ];
+                })
+            })
 
         }
     }

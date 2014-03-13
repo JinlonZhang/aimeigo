@@ -17,6 +17,7 @@
             w.uploadForm = $('.j-uploadForm');
             w.del = $('.j-delete');
             w.clear = $('.j-clear');
+            w.top = $('.j-top');
 
             w.action = $('.j-action');
             w.pop = $('.j-pop');
@@ -105,7 +106,7 @@
                 fn: function(){
                     window.location.reload();
                 }
-            })
+            });
             w.del.bind('click', function(){
                 w.delClick( $(this) );
                 return false;
@@ -121,6 +122,16 @@
             w.clear.bind('click', function(){
                 w.clearClick($(this));
                 return false;
+            });
+
+            w.top.data('opt', {
+                text: '置顶成功！',
+                fn: function(){
+                    window.location.reload();
+                }
+            });
+            w.top.bind('click', function(){
+                w.setTop($(this));
             })
 
         },
@@ -168,6 +179,19 @@
                     }
                 })
             }
+        },
+
+        setTop:function(dom){
+            var w = this, url = dom.attr('url');
+
+            $.ajax({
+                type: 'post',
+                url: url,
+                dataType: 'json',
+                success: function(o){
+                    app.common.ajaxCallBack(o, dom);
+                }
+            })
         }
 
     })

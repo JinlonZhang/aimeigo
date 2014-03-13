@@ -9,6 +9,7 @@ var Util = require('../lib').Util;
 var proxy = require('../proxy');
 var Item = proxy.Item;
 var User = proxy.User;
+var Prize = proxy.Prize;
 var EventProxy = require('eventproxy');
 var moment = require('moment');
 
@@ -18,18 +19,18 @@ exports.index = function(req, res){
     console.log('now' + now);
     var ep = new EventProxy();
 
-    ep.assign('1','2','3','4','5','6','7','8', function(a, b, c, d, e, f, g, h){
-        list = [].concat(a, b, c, d, e, f, g, h);
+    ep.assign('1','2','3','4','5','7', function(a, b, c, d, e, g){
+        list = [].concat(a, b, c, d, e, g);
         res.render('website', {itemList: list});
     })
-    Item.getItemByQuery({type: '1',date:{$lte: now}}, {}, {sort: {date: -1, _id:-1}, limit: 10}, ep.done('1'));
+    Item.getItemByQuery({type: '1',date:{$lte: now}}, {}, {sort: {date: -1, _id:-1}, limit: 15}, ep.done('1'));
     Item.getItemByQuery({type: '2',date:{$lte: now}}, {}, {sort: {date: -1, _id:-1}, limit: 5}, ep.done('2'));
     Item.getItemByQuery({type: '3',date:{$lte: now}}, {}, {sort: {date: -1, _id:-1}, limit: 5}, ep.done('3'));
     Item.getItemByQuery({type: '4',date:{$lte: now}}, {}, {sort: {date: -1, _id:-1}, limit: 5}, ep.done('4'));
     Item.getItemByQuery({type: '5',date:{$lte: now}}, {}, {sort: {date: -1, _id:-1}, limit: 5}, ep.done('5'));
-    Item.getItemByQuery({type: '6',date:{$lte: now}}, {}, {sort: {date: -1, _id:-1}, limit: 5}, ep.done('6'));
+    /*Item.getItemByQuery({type: '6',date:{$lte: now}}, {}, {sort: {date: -1, _id:-1}, limit: 5}, ep.done('6'));*/
     Item.getItemByQuery({type: '7',date:{$lte: now}}, {}, {sort: {date: -1, _id:-1}, limit: 10}, ep.done('7'));
-    Item.getItemByQuery({type: '8',date:{$lte: now}}, {}, {sort: {date: -1, _id:-1}, limit: 5}, ep.done('8'));
+    /*Item.getItemByQuery({type: '8',date:{$lte: now}}, {}, {sort: {date: -1, _id:-1}, limit: 5}, ep.done('8'));*/
 
 }
 
@@ -39,7 +40,10 @@ exports.del = function(req, res){
 }
 
 exports.admin = function(req, res){
-    res.render('index');
+    Prize.getPrizeTotalByQuery({date:null},function(err, count){
+        res.render('index', {total:count});
+    })
+
 }
 
 exports.login = function(req, res){

@@ -18,8 +18,12 @@ mongoose.connect(config.db, function (err) {
 // models
 require('./item');
 require('./user');
-require('./lyric')
+require('./lyric');
+require('./prize');
+require('./QQuser');
 
 exports.Item = mongoose.model('Item');
 exports.User = mongoose.model('User');
 exports.Lyric = mongoose.model('Lyric');
+exports.Prize = mongoose.model('Prize');
+exports.QQUser = mongoose.model('QQUser');
