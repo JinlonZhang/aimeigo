@@ -31,7 +31,6 @@
 
     <div class="g-mn">
         <div class="g-top">
-            <div class="title col-md-2">宝贝点击排行</div>
             <form class="form-inline col-md-3" role="form" method="get" action="/ranking">
                 <div class="btn-group">
                     <button type="button" class="btn btn-primary <%= req.query.date == '' ? 'active':''%> j-btn" val="">全部</button>
@@ -45,14 +44,11 @@
                     <div >
                         <div class="form-group" >
                             <label class="sr-only" for="date">发布时间</label>
-                            <input type="text" name="date" class="form-control j-date" id="date" placeholder="YYYY-MM-DD" value="<%= req.query.date == undefined ? '' : req.query.date %>">
+                            <input type="text" size="10" name="date" class="form-control j-date" id="date" placeholder="YYYY-MM-DD" value="<%= req.query.date == undefined ? '' : req.query.date %>">
                         </div>
                         <button type="submit" class="btn btn-primary">搜索</button>
                     </div>
                 </form>
-            </div>
-            <div class="col-md-3">
-                点击总数：<em><%=clickTotal.t0 %></em>
             </div>
         </div>
         <div class="it-wp">

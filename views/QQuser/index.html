@@ -16,7 +16,7 @@
 
     <div class="g-mn">
         <div class="g-top">
-            <div class="title">今日签到人数：<%= signTotal%></div>
+            <div class="title">今日签到人数：<%= signTotal %></div>
         </div>
         <table class="table table-hover">
             <thead>
@@ -37,7 +37,6 @@
                         上一次签到的时间
                     </a>
                 </th>
-                <th style="width:100px">今天是否签到</th>
                 <th style="width:150px">抽奖的商品数</th>
             </thead>
             <tbody>
@@ -48,11 +47,10 @@
                     <td><%= user.score %></td>
                     <td><%= user.signDays %></td>
                     <td><%= util.dateFormat(user.lastSign)%></td>
-                    <td><%= user.signStatus %></td>
                     <% if(user.gifts != undefined){%>
-                    <td><%= user.gifts.length%></td>
+                        <td><%= user.gifts.length%></td>
                     <%}else{%>
-                    <td>未参加抽奖</td>
+                        <td>未参加抽奖</td>
                     <%}%>
                 </tr>
                 <%})%>

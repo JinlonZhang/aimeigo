@@ -272,25 +272,6 @@
         btnClick: function(dom, id){
             var w = this, total = dom.find('.j-total'), type = dom.attr('t');
 
-            /*
-             分享对话框。必须要上线后才可以调用
-             fusion2.dialog.sendStory({
-             title :"我的星佳城市升级了！",
-             img:"http://app24341.qzoneapp.com/app24341/feed_clown.png",
-             summary :"2011年全球游戏巨制《星佳城市》—自由发展农工商，铺路盖楼有理想，全球玩家都在玩，快来星佳做市长！",
-             msg:"我的星佳城市已经升到80级了，快来一起当市长吧！",
-             button :"进入应用",
-             source :"ref=story&act=default",
-             context:"send-story-12345",
-             onShown : function (opt)
-             {
-             alert("Shown");
-             },
-             onSuccess : function (opt){
-             alert("Succeeded: " + opt.context);
-             }
-             });
-             */
             $.ajax({
                 type: 'post',
                 url: w.url.share,
@@ -311,7 +292,7 @@
                 dataType: 'json',
                 data: {id: id},
                 success: function(o){
-                    $(dom).parents('.j-it').find('.j-buyTotal').text(o.total);
+
                 }
             })
         },

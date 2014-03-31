@@ -49,9 +49,7 @@ exports.index = function(req, res){
 
     var date = moment().format('YYYY-MM-DD');
 
-    QQUser.getQQUserTotal({lastSign:date, signStatus:true},function(err,count){
-        if(!err){
-            ep.emit('sign', count);
-        }
+    QQUser.getQQUserTotal({lastSign:date},function(err,count){
+        ep.emit('sign', count);
     })
 }
