@@ -18,7 +18,7 @@ var _ = require('underscore');
 exports.index = function(req, res){
     var p = parseInt(req.query.p), limit = 10, page = {};
     page.current  = p || 1;
-    var sort = {} ,s = 'score', t = -1;
+    var sort = {} ,s = 'lastSign', t = -1;
     if(req.query.sort && req.query.sort != 'undefined'){
         s = req.query.sort;
     }
@@ -35,21 +35,19 @@ exports.index = function(req, res){
     })
 
     QQUser.getQQUserByQuery({},{sort:sort,skip:(page.current-1)*limit, limit: limit},function(err, list){
-        if(!err){
-
-            ep.emit('list', list);
-        }
+        ep.emit('list', list);
     })
     QQUser.getQQUserTotal({},function(err, count){
-        if(!err){
-            var totalPage = Math.ceil(count/limit);
-            ep.emit('total', totalPage);
-        }
+
+        var totalPage = Math.ceil(count/limit);
+        ep.emit('total', totalPage);
+
     })
 
-    var date = moment().format('YYYY-MM-DD');
+    var start = moment().hour(0).minute(0).second(0), end = moment().hour(23).minute(59).second(59);
+    var query = {lastSign: {$gte: new Date(start), $lte: new Date(end)}};
 
-    QQUser.getQQUserTotal({lastSign:date},function(err,count){
+    QQUser.getQQUserTotal(query,function(err,count){
         ep.emit('sign', count);
     })
 }

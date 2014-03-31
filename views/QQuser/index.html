@@ -46,7 +46,7 @@
                     <td><%= user.nickname %></td>
                     <td><%= user.score %></td>
                     <td><%= user.signDays %></td>
-                    <td><%= util.dateFormat(user.lastSign)%></td>
+                    <td><%= moment(user.lastSign).format('MM-DD HH:mm') %></td>
                     <% if(user.gifts != undefined){%>
                         <td><%= user.gifts.length%></td>
                     <%}else{%>
