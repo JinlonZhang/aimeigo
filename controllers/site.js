@@ -15,8 +15,12 @@ var moment = require('moment');
 
 exports.index = function(req, res){
     var list = [], now = new Date();
-    //now.hour(0);now.minute(0);now.second(0);
-    console.log('now' + now);
+now.setHours(23);
+now.setMinutes(59);
+now.setSeconds(59);
+now.setMilliseconds(999);    
+//now.hour(0);now.minute(0);now.second(0);
+    console.log('now:' + now);
     var ep = new EventProxy();
 
     ep.assign('1','2','3','4','5','7', function(a, b, c, d, e, g){
@@ -28,9 +32,9 @@ exports.index = function(req, res){
     Item.getItemByQuery({type: '3',date:{$lte: now}}, {}, {sort: {date: -1, _id:-1}, limit: 5}, ep.done('3'));
     Item.getItemByQuery({type: '4',date:{$lte: now}}, {}, {sort: {date: -1, _id:-1}, limit: 5}, ep.done('4'));
     Item.getItemByQuery({type: '5',date:{$lte: now}}, {}, {sort: {date: -1, _id:-1}, limit: 5}, ep.done('5'));
-    /*Item.getItemByQuery({type: '6',date:{$lte: now}}, {}, {sort: {date: -1, _id:-1}, limit: 5}, ep.done('6'));*/
+    /*Item.getItemByQuery({type: '6',date:{$lte: now}}, {}, {sort: {_id:-1}, limit: 5}, ep.done('6'));*/
     Item.getItemByQuery({type: '7',date:{$lte: now}}, {}, {sort: {date: -1, _id:-1}, limit: 10}, ep.done('7'));
-    /*Item.getItemByQuery({type: '8',date:{$lte: now}}, {}, {sort: {date: -1, _id:-1}, limit: 5}, ep.done('8'));*/
+    /*Item.getItemByQuery({type: '8',date:{$lte: now}}, {}, {sort: {_id:-1}, limit: 5}, ep.done('8'));*/
 
 }
 

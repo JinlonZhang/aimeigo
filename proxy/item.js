@@ -18,10 +18,6 @@ exports.add = function (o, fn) {
     item.price = o.price;
     item.price2 = o.price2;
     item.talk = o.talk;
-    item.share_total = o.share_total;
-    item.collect_total = o.collect_total;
-    item.sale_total = o.sale_total;
-    item.comments = o.comments;
     item.date = o.date;
     item.url = o.url;
 

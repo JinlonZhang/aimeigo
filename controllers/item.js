@@ -2,6 +2,8 @@
  * Created by allen.xu on 13-12-17.
  */
 var fs = require('fs');
+var URL = require('url');
+var http = require('http');
 var Util = require('../lib').Util;
 var config = require('../config');
 var proxy = require('../proxy');
@@ -212,23 +214,11 @@ api.add = function(req, res){
         price: req.body.price,
         price2: req.body.price2,
         talk: req.body.talk,
-        share_total: req.body.share_total,
-        collect_total: req.body.collect_total,
-        sale_total: req.body.sale_total,
-        comments: [],
         date: date,
         url: url
     }
     if(o.name == ""){
         return res.json( Util.resJson(-1, {msg: '宝贝名称不能为空。'}) )
-    }
-
-    for (var i = 0; i < req.body.comments.length; i++) {
-        var obj = req.body.comments[i];
-        o.comments.push({
-            text: obj,
-            img: Math.floor( Math.random() * 700 )
-        })
     }
 
     if(id){
@@ -261,12 +251,7 @@ api.add = function(req, res){
 
             })
         }
-
-
-
     }
-
-
 }
 
 api.delete = function(req, res){
@@ -359,7 +344,7 @@ api.share = function(req, res){
 
 api.clear = function(req, res){
     var date = moment().add('day',-7).format('YYYY-MM-DD');
-
+    return;
     Item.getItemByQuery({date:{$lte:date}}, {},{sort:{id:-1}}, function(err, itemList){
         if(itemList.length==0){
             res.json( {code:-1, msg:'暂无数据需要清理！'} );
