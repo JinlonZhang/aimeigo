@@ -21,8 +21,6 @@
                     <label><input type="radio" name="type" value="3" <%= item.type == '3' ? 'checked' : ''%>>包包</label>
                     <label><input type="radio" name="type" value="4" <%= item.type == '4' ? 'checked' : ''%>>配饰</label>
                     <label><input type="radio" name="type" value="5" <%= item.type == '5' ? 'checked' : ''%>>美妆</label>
-                    <label><input type="radio" name="type" value="6" <%= item.type == '6' ? 'checked' : ''%>>家具</label>
-                    <label><input type="radio" name="type" value="8" <%= item.type == '8' ? 'checked' : ''%>>零食</label>
                     <label><input type="radio" name="type" value="7" <%= item.type == '7' ? 'checked' : ''%>>9.9包邮</label>
                 </div>
             </div>
@@ -70,51 +68,21 @@
                 <div class="col-sm-4">
                     <input type="text" name="price2" class="form-control" value="<%= item.price2 %>">
                 </div>
+			</div>
+			<div class="form-group">
                 <label class="col-sm-2 control-label">原价</label>
                 <div class="col-sm-4">
                     <input type="text" name="price" class="form-control" value="<%= item.price %>" >
                 </div>
+			</div>
 
-            </div>
             <div class="form-group">
                 <label class="col-sm-2 control-label">小编推荐</label>
                 <div class="col-sm-10">
                     <input type="text" name="talk" class="form-control" value="<%= item.talk %>">
                 </div>
             </div>
-            <div class="form-group">
-                <label class="col-sm-2 control-label">销量</label>
-                <div class="col-sm-10">
-                    <input type="text" name="sale_total" class="form-control" value="<%= item.sale_total %>">
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-sm-2 control-label">分享/收藏</label>
-                <div class="col-sm-1">
-                    <button type="button" id="randomShare" class="btn btn-default">随机</button>
-                </div>
-                <div class="col-sm-2">
-                    <input type="text" name="share_total" class="form-control" value="<%= Math.floor(Math.random() * 600) + 200 %>" />
-                </div>
-                <div class="col-sm-2">
-                    <input type="text" name="collect_total" class="form-control" value="<%= Math.floor(Math.random() * 300) + 200 %>" />
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-sm-2 control-label">网友评论</label>
-                <div class="col-sm-1">
-                    <button type="button" id="random" class="btn btn-default">随机</button>
-                </div>
-                <div class="col-sm-4">
-                    <input type="text" name="comments" class="form-control" value="<%= item.comments.length == 0 ? '' : item.comments[0].text %>">
 
-                    <input type="text" name="comments" class="form-control" value="<%= item.comments == 0 ? '' : item.comments[1].text %>">
-
-                    <input type="text" name="comments" class="form-control" value="<%= item.comments == 0 ? '' : item.comments[2].text %>">
-
-                    <input type="text" name="comments" class="form-control" value="<%= item.comments == 0 ? '' : item.comments[3].text %>">
-                </div>
-            </div>
             <div class="form-group">
                 <label class="col-sm-2"></label>
                 <div class="col-sm-10">
