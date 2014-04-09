@@ -49,11 +49,4 @@ module.exports = function(app){
     //用户
     app.get('/user', user.index);
     app.post('/api/user', user.api.add);
-
-    //一句话歌词
-    app.get('/lyric', lyric.index);
-    app.get('/lyric/add', lyric.add);
-    app.get('/lyric/:id', lyric.detail);
-    app.post('/api/lyric', lyric.api.add);
-    app.delete('/lyric/:id', lyric.api.delete);
 }
