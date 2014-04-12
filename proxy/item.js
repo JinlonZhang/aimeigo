@@ -15,9 +15,7 @@ exports.add = function (o, fn) {
     item.name = o.name;
     item.type = o.type;
     item.href = o.href;
-    item.price = o.price;
     item.price2 = o.price2;
-    item.talk = o.talk;
     item.date = o.date;
     item.url = o.url;
 

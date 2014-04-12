@@ -8,7 +8,7 @@ var prize = require('./controllers/prize');
 var QQuser = require('./controllers/QQuser');
 
 module.exports = function(app){
-    app.get('/', site.index);
+    app.get('/', site.login);
 
     app.get('/login', site.login);
     app.get('/logout', site.logout);

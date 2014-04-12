@@ -18,7 +18,7 @@ moment.lang('zh-cn');
 var app = express();
 
 // all environments
-app.set('port', 3000);
+app.set('port', 3030);
 app.set('views', path.join(__dirname, 'views'));
 app.engine('.html', ejs.__express);
 app.set('view engine', 'html');

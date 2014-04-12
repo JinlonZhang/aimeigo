@@ -56,19 +56,16 @@
             <li class="<%= req.query.type == '3' ? 'active' : '' %>"><a href="/item?type=3&date=<%= req.query.date == undefined ? '' : req.query.date %>">包包（<%= total.t3%>）</a></li>
             <li class="<%= req.query.type == '4' ? 'active' : '' %>"><a href="/item?type=4&date=<%= req.query.date == undefined ? '' : req.query.date %>">配饰（<%= total.t4%>）</a></li>
             <li class="<%= req.query.type == '5' ? 'active' : '' %>"><a href="/item?type=5&date=<%= req.query.date == undefined ? '' : req.query.date %>">美妆（<%= total.t5%>）</a></li>
-            <!--<li class="<%= req.query.type == '6' ? 'active' : '' %>"><a href="/item?type=6&date=<%= req.query.date == undefined ? '' : req.query.date %>">家居（<%= total.t6%>）</a></li>-->
-            <!--<li class="<%= req.query.type == '8' ? 'active' : '' %>"><a href="/item?type=8&date=<%= req.query.date == undefined ? '' : req.query.date %>">零食（<%= total.t8%>）</a></li>-->
+
             <li class="<%= req.query.type == '7' ? 'active' : '' %>"><a href="/item?type=7&date=<%= req.query.date == undefined ? '' : req.query.date %>">9.9包邮（<%= total.t7%>）</a></li>
         </ul>
         <table class="table table-striped">
             <thead>
                 <th style="width: 110px;">图片</th>
-                <th style="width: 300px;">名称</th>
-
-                <th style="width: 100px;">现价 / 原价</th>
+                <th>名称</th>
+                <th style="width: 100px;">现价</th>
                 <th style="width: 100px;">发布时间</th>
-                <th>小编点评</th>
-                <th style="width: 150px;text-align: center">操作</th>
+                <th style="width: 150px;">操作</th>
             </thead>
             <tbody>
             <% itemList.forEach(function(item, i){ %>
@@ -77,17 +74,11 @@
                     <div class="img-wp">
                         <a href="<%= item.href %>" target="_blank">
                             <% if(item.url) {%>
-                            <img src="<%= item.url %>" class="img" />
+                            	<img src="<%= item.url %>" class="img" />
                             <% }else{ %>
-                            <img src="/item/<%= item._id %>/img" class="img" />
+                            	<img src="/item/<%= item._id %>/img" class="img" />
                             <% } %>
                         </a>
-                        <!--<div class="img-btn">-->
-                            <!--<form class="form-horizontal j-uploadForm"  role="form" action="/api/item/<%= item._id %>/updateImg" method="post" enctype="multipart/form-data">-->
-                                <!--<input type="file" name="img" class="file j-file">-->
-                                <!--<button class="btn btn-success">修改图片</button>-->
-                            <!--</form>-->
-                        <!--</div>-->
                     </div>
                 </td>
 
@@ -97,14 +88,10 @@
                     </a>
                 </td>
                 <td>
-                    <i class="ch-lg"><%= item.price2 %> /</i>
-
-                    <i class="ch-line ch-info"><%= item.price %></i>
+                    <i class="ch-lg"><%= item.price2 %></i>
                 </td>
 
                 <td><%= util.dateFormat(item.date) %></td>
-
-                <td><%= item.talk %></td>
                 <td>
                     <a href="/item/<%= item._id %>" class="btn btn-primary btn-sm" ><i class="fa fa-pencil"></i></a>
                     <a href="/api/item/<%= item._id %>" class="btn btn-danger btn-sm j-delete" ><i class="fa fa-trash-o"></i></a>

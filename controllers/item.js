@@ -211,9 +211,7 @@ api.add = function(req, res){
         type: req.body.type,
         name: req.body.name,
         href: req.body.href,
-        price: req.body.price,
         price2: req.body.price2,
-        talk: req.body.talk,
         date: date,
         url: url
     }
