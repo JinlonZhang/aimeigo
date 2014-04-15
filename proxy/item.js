@@ -20,6 +20,7 @@ exports.add = function (o, fn) {
     item.talk = o.talk;
     item.date = o.date;
     item.url = o.url;
+    item.buy_total = 0;
 
     item.save(fn);
 };
