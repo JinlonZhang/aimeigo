@@ -4,6 +4,7 @@
         <li><a href="/item?date=<%= util.dateFormat(new Date())%>">导购网站</a></li>
         <li><a href="/prize">抽奖商品</a></li>
         <li><a href="/ranking?date=<%= util.dateFormat(new Date())%>">宝贝点击排行榜</a></li>
+		<li><a href="/hot">热卖精选</a></li>
         <li><a href="/QQuser">QQ用户列表</a></li>
 		<% if(req.session.user.type == 0){ %>
 		    <li><a href="/user">用户</a></li>

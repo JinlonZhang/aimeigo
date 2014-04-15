@@ -19,7 +19,6 @@ var ItemSchema = new Schema({
     share_total: {type: Number, default: 0},    //分享
     sale_total: {type: Number, default: 0},  //销量
     buy_total: {type: Number, default: 0},  //点击“去看看“的计数
-    comments: [],
     date: Date
 })
 
