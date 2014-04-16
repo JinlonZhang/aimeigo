@@ -201,15 +201,24 @@ exports.ranking = function(req, res){
 }
 
 exports.hot = function(req, res){
+    var query = {};
     var hot = {
         start: moment(),
         end: moment()
     }
 
+
     hot.start.add('days', -16).hours(0).minutes(0).seconds(0).milliseconds(0);
     hot.end.hours(23).minutes(59).seconds(59).milliseconds(999);
 
-    Item.getItemByQuery({date:{$gte:new Date(hot.start), $lte: new Date(hot.end)}}, {}, {sort: {buy_total: -1, _id:-1}, limit: 36}, function(err, list){
+    if(req.query.name){
+        query.name = new RegExp(req.query.name)
+    }else{
+        query.date = {$gte:new Date(hot.start), $lte: new Date(hot.end)}
+    }
+
+
+    Item.getItemByQuery(query, {}, {sort: {buy_total: -1, _id:-1}, limit: 36}, function(err, list){
         res.render('item/hot', {list: list});
     });
 }

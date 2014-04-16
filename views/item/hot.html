@@ -8,15 +8,16 @@
         .it-wp{width: 100%;display:inline;display:inline-block;*zoom:1;margin-top:20px;}
         .it-wp ul{overflow: hidden;}
         .it-wp ul li{float: left;margin:20px 20px 0 0;position: relative;overflow: hidden;}
-        .it-wp ul li:hover .tit{
-            bottom:0;
-            -moz-transition: bottom 0.5s ease-out;
-            -webkit-transition: bottom 0.5s ease-out;
-            -o-transition: bottom 0.5s ease-out;
-            transition: bottom 0.5s ease-out;}
-        .tit{display:block;width:100%;line-height: 36px;
-            text-indent: 1em;overflow:hidden;white-space: nowrap;text-overflow: ellipsis;font-size: 14px;
-            position: absolute;bottom:-50px;left:0;background: #333;color: #FFF;background: rgba(0,0,0,0.6)}
+        .it-wp ul li:hover .tit{top:140px;}
+        .tit{position: absolute;left:0;top:280px;width:280px;height: 280px;
+            overflow:hidden;white-space: nowrap;text-overflow: ellipsis;
+            background:#333;color: #FFF;background: rgba(0,0,0,0.6);
+			-moz-transition: all 0.5s ease;
+			-webkit-transition: all 0.5s ease;
+			-o-transition: all 0.5s ease;
+			transition: all 0.5s ease;
+		}
+		.tit-inner{padding:8px;}
         .it-wp ul li em{right:5px;position: absolute;border-radius:3px;padding:3px 8px;background-color: #00adee;color: #FFF;font-size: 12px;}
         .total{top:5px;}
         .price{top:50px;}
@@ -31,11 +32,12 @@
 
     <div class="g-mn">
         <div class="g-top">
-            <form class="form-inline col-md-3" role="form" method="get" action="/ranking">
+            <form class="form-inline col-md-12" role="form" method="get" action="/hot">
                 <div class="btn-group">
-
+					<input type="text" class="form-control" name="name" placeholder="宝贝名称" value="<%= req.query.name ? req.query.name : '' %>"/>
                 </div>
-                <input type="hidden" name="date" id="dateTime" value="">
+				<button class="btn btn-primary">查询</button>
+				<a class="btn btn-default" href="/hot">清除</a>
             </form>
         </div>
         <div class="it-wp">
@@ -58,7 +60,16 @@
 								<img src="/item/<%= item._id %>/img?type=big" style="width:280px;height:280px;" />
 							<% } %>
 						</a>
-						<a href="<%= item.href%>" target="_blank" class="tit"><%= item.name%></a>
+						<div class="tit">
+							<div class="tit-inner">
+								<form role="form">
+									<p>
+										<%= util.dateFormNow(item.date, 15) %>
+									</p>
+									<%= item.name %>
+								</form>
+							</div>
+						</div>
 					</li>
                 <% }) %>
             </ul>
