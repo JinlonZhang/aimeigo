@@ -1,9 +1,95 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title></title>
+    <% include ../inc/inc.head.html %>
+
+    <style type="text/css">
+        .title{font-size: 16px;color: #0073b6;font-weight: bold}
+        .it-wp{width: 100%;display:inline;display:inline-block;*zoom:1;margin-top:20px;}
+        .it-wp ul{overflow: hidden;}
+        .it-wp ul li{float: left;margin:20px 20px 0 0;position: relative;overflow: hidden;}
+        .it-wp ul li:hover .tit{top:140px;}
+        .tit{position: absolute;left:0;top:280px;width:280px;height: 280px;
+            overflow:hidden;white-space: nowrap;text-overflow: ellipsis;
+            background:#333;color: #FFF;background: rgba(0,0,0,0.6);
+			-moz-transition: all 0.5s ease;
+			-webkit-transition: all 0.5s ease;
+			-o-transition: all 0.5s ease;
+			transition: all 0.5s ease;
+		}
+		.tit-inner{padding:8px;}
+        .it-wp ul li em{right:5px;position: absolute;border-radius:3px;padding:3px 8px;background-color: #00adee;color: #FFF;font-size: 12px;}
+        .total{top:5px;}
+        .price{top:50px;}
+    </style>
 </head>
 <body>
 
+<div class="g-bd">
+    <% include ../mod/mod.head.html %>
+
+    <% include ../mod/mod.side.html %>
+
+    <div class="g-mn">
+        <div class="g-top">
+            <form class="form-inline col-md-12" role="form" method="get" action="/hot">
+                <div class="btn-group">
+					<input type="text" class="form-control" name="name" placeholder="宝贝名称" value="<%= req.query.name ? req.query.name : '' %>"/>
+                </div>
+				<button class="btn btn-primary">查询</button>
+				<a class="btn btn-default" href="/hot">清除</a>
+            </form>
+        </div>
+        <div class="it-wp">
+            <ul>
+                <% list.forEach(function(item, i){ %>
+					<li>
+						<em class="total">
+							<form class="j-form form-inline" role="form" method="post" action="/api/hot/<%= item._id %>">
+								<div class="form-group">
+									<input type="text" size="6" name="num" class="form-control" value="<%= item.buy_total %>">
+								</div>
+								<button type="submit" class="btn btn-primary">修改</button>
+							</form>
+						</em>
+						<em class="price">￥<%= item.price2 %></em>
+						<a href="<%= item.href%>" target="_blank">
+							<% if(item.url) {%>
+								<img src="<%= item.url %>" style="width:280px;height:280px;" />
+							<% }else{ %>
+								<img src="/item/<%= item._id %>/img?type=big" style="width:280px;height:280px;" />
+							<% } %>
+						</a>
+						<div class="tit">
+							<div class="tit-inner">
+								<form role="form">
+									<p>
+										<%= util.dateFormNow(item.date, 15) %>
+									</p>
+									<%= item.name %>
+								</form>
+							</div>
+						</div>
+					</li>
+                <% }) %>
+            </ul>
+        </div>
+
+    </div>
+</div>
+
+<% include ../inc/inc.foot.html %>
+<% include ../mod/mod.script.html %>
+
+<script>
+    $(function(){
+		$('.j-form').data('opt',{
+			fn: function(){
+				window.location.reload();
+			}
+		})
+    });
+
+</script>
 </body>
 </html>

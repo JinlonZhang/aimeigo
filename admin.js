@@ -48,7 +48,8 @@ app.use('/avatar', express.static(config.avatarDir));
 
 app.use(function(req, res, next){
     var util = {
-        dateFormat: Util.dateFormat
+        dateFormat: Util.dateFormat,
+        dateFormNow: Util.dateFormNow
     };
     var url = req.originalUrl;
     res.locals({

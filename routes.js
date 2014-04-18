@@ -3,12 +3,11 @@ var auth = require('./controllers/common').auth;
 var site = require('./controllers/site');
 var item = require('./controllers/item');
 var user = require('./controllers/user');
-var lyric = require('./controllers/lyric');
 var prize = require('./controllers/prize');
 var QQuser = require('./controllers/QQuser');
 
 module.exports = function(app){
-    app.get('/', site.index);
+    app.get('/', site.login);
 
     app.get('/login', site.login);
     app.get('/logout', site.logout);
@@ -27,7 +26,6 @@ module.exports = function(app){
     app.post('/api/item/share', item.api.share);
 
     //新增的功能
-    app.post('/api/item/clear', auth.userRequired, item.api.clear);
     app.post('/api/item/:id/updateImg', auth.userRequired, item.api.updateImg)
     app.post('/api/item/setTop/:id', auth.userRequired, item.api.setTop);
 
@@ -42,6 +40,10 @@ module.exports = function(app){
 
     //宝贝点击排行榜
     app.get('/ranking', item.ranking);
+
+    //热门精选
+    app.get('/hot', item.hot);
+    app.post('/api/hot/:id', auth.userRequired, item.api.setBuyTotal);
 
     //QQ用户列表
     app.get('/QQuser', QQuser.index)

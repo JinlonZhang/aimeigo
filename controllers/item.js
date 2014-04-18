@@ -200,6 +200,29 @@ exports.ranking = function(req, res){
 
 }
 
+exports.hot = function(req, res){
+    var query = {};
+    var hot = {
+        start: moment(),
+        end: moment()
+    }
+
+
+    hot.start.add('days', -16).hours(0).minutes(0).seconds(0).milliseconds(0);
+    hot.end.hours(23).minutes(59).seconds(59).milliseconds(999);
+
+    if(req.query.name){
+        query.name = new RegExp(req.query.name)
+    }else{
+        query.date = {$gte:new Date(hot.start), $lte: new Date(hot.end)}
+    }
+
+
+    Item.getItemByQuery(query, {}, {sort: {buy_total: -1, _id:-1}, limit: 36}, function(err, list){
+        res.render('item/hot', {list: list});
+    });
+}
+
 /* API */
 var api = {}
 exports.api = api;
@@ -211,9 +234,7 @@ api.add = function(req, res){
         type: req.body.type,
         name: req.body.name,
         href: req.body.href,
-        price: req.body.price,
         price2: req.body.price2,
-        talk: req.body.talk,
         date: date,
         url: url
     }
@@ -342,33 +363,6 @@ api.share = function(req, res){
     })
 }
 
-api.clear = function(req, res){
-    var date = moment().add('day',-7).format('YYYY-MM-DD');
-    return;
-    Item.getItemByQuery({date:{$lte:date}}, {},{sort:{id:-1}}, function(err, itemList){
-        if(itemList.length==0){
-            res.json( {code:-1, msg:'暂无数据需要清理！'} );
-        }
-        itemList.forEach(function(item){
-            var id = item._id;var path1 = config.uploadItemDir + id + '.jpg', path2 = config.uploadItemDir + id + '_small.jpg';
-            var path = [path1, path2];
-            Item.deleteById(id, function(err){
-                //console.log(path);
-                path.forEach(function(p, i){
-                    fs.exists(p, function(exists){
-                        if(exists){
-                            fs.unlinkSync(p);
-                        }
-                        res.json( Util.resJson(err) );
-                    });
-                })
-
-
-            });
-        })
-    })
-}
-
 api.updateImg = function(req, res){
     var id = req.params.id, path1 = config.uploadItemDir + id + '.jpg', path2 = config.uploadItemDir + id + '_small.jpg';
     var path = [path1,path2];
@@ -394,9 +388,21 @@ api.updateImg = function(req, res){
     })
 }
 
+api.setBuyTotal = function(req, res){
+    var id = req.params.id, num = req.body.num;
+
+    Item.getItemById(id, function(err, item){
+
+        item.buy_total = num;
+        item.save();
+
+        res.json({code: 0, msg: '修改成功！'});
+    })
+}
+
 api.setTop = function(req, res){
     var id = req.params.id, time = new Date();
-    console.log('time---------' + time)
+
     Item.getItemById(id, function(err, item){
 
         item.date = time;

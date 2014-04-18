@@ -15,11 +15,11 @@ var moment = require('moment');
 
 exports.index = function(req, res){
     var list = [], now = new Date();
-now.setHours(23);
-now.setMinutes(59);
-now.setSeconds(59);
-now.setMilliseconds(999);    
-//now.hour(0);now.minute(0);now.second(0);
+    now.setHours(23);
+    now.setMinutes(59);
+    now.setSeconds(59);
+    now.setMilliseconds(999);
+    //now.hour(0);now.minute(0);now.second(0);
     console.log('now:' + now);
     var ep = new EventProxy();
 
@@ -47,7 +47,6 @@ exports.admin = function(req, res){
     Prize.getPrizeTotalByQuery({date:null},function(err, count){
         res.render('index', {total:count});
     })
-
 }
 
 exports.login = function(req, res){
