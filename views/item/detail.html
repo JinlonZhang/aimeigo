@@ -27,10 +27,11 @@
             <div class="form-group">
                 <label class="col-sm-2 control-label">发布时间</label>
                 <div class="col-sm-10" id="date">
-                    <% if(util.dateFormat(item.date) < date.d0){ %>
+                    <% if(util.dateFormat(item.date) < date['d-1']){ %>
                     <label><input type="radio" name="date" value="<%= util.dateFormat(item.date)%>" checked><%= util.dateFormat(item.date)%></label>
 
                     <% } %>
+                    <label><input type="radio" name="date" value="<%= date['d-1']%>" <%=util.dateFormat(item.date) == date['d-1'] ? 'checked':'' %> >昨天</label>
                     <label><input type="radio" name="date" value="<%= date.d0%>" <%=util.dateFormat(item.date) == date.d0 ? 'checked':'' %> >今天</label>
                     <label><input type="radio" name="date" value="<%= date.d1%>" <%=util.dateFormat(item.date) == date.d1 ? 'checked':'' %> >明天</label>
                     <label><input type="radio" name="date" value="<%= date.d2%>" <%=util.dateFormat(item.date) == date.d2 ? 'checked':'' %> >后天</label>

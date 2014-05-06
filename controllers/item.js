@@ -69,6 +69,7 @@ exports.add = function(req, res){
         date['d' + i] = d;
         i++;
     }
+    date['d-1'] = moment().add('days', -1).format('YYYY-MM-DD');
     //console.log(date);
     res.render('item/add',{date:date});
 
@@ -80,6 +81,7 @@ exports.detail = function(req, res){
         date['d' + i] = d;
         i++;
     }
+    date['d-1'] = moment().add('days', -1).format('YYYY-MM-DD');
     Item.getItemById(req.params.id, function(err, item){
         res.render('item/detail', {item: item,date: date});
     })
