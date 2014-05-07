@@ -18,7 +18,7 @@
         <div class="g-top">
             <div class="row">
                 <div class="g-btn col-md-1">
-                    <a href="/item/add" class="btn btn-primary"><i class="fa fa-l fa-plus"></i>添加</a>
+                    <a href="/item/add?type=<%= req.query.type %>&date=<%= req.query.date %>" class="btn btn-primary"><i class="fa fa-l fa-plus"></i>添加</a>
                 </div>
                 <div class="g-search col-md-11">
                     <form class="form-inline col-md-5" role="form" method="get" action="/item">
@@ -27,7 +27,7 @@
                             <button type="button" class="btn btn-primary <%= req.query.date == date.d0 ? 'active':''%> j-btn" val="<%= date.d0%>">今天</button>
                             <button type="button" class="btn btn-primary <%= req.query.date == date.d1 ? 'active':''%> j-btn" val="<%= date.d1%>">明天</button>
                             <button type="button" class="btn btn-primary <%= req.query.date == date.d2 ? 'active':''%> j-btn" val="<%= date.d2%>">后天</button>
-                            <button type="button" class="btn btn-primary <%= req.query.date == date.d3 ? 'active':''%> j-btn" val="<%= date.d3%>">3天后</button>
+                            <button type="button" class="btn btn-primary <%= req.query.date == date.d3 ? 'active':''%> j-btn" val="<%= date.d3%>">大后天</button>
                         </div>
 
                         <input type="hidden" name="type" value="<%= req.query.type == undefined ? '' : req.query.type %>">
@@ -50,7 +50,7 @@
             </div>
         </div>
         <ul class="nav nav-tabs">
-            <li class="<%= req.query.type == undefined ? 'active' : '' %>"><a href="/item?date=<%= req.query.date == undefined ? '' : req.query.date %>">全部（<%= total.t0%>）</a></li>
+            <li class="<%= req.query.type == undefined || req.query.type == '' ? 'active' : '' %>"><a href="/item?date=<%= req.query.date == undefined ? '' : req.query.date %>">全部（<%= total.t0%>）</a></li>
             <li class="<%= req.query.type == '1' ? 'active' : '' %>"><a href="/item?type=1&date=<%= req.query.date == undefined ? '' : req.query.date %>" >女装（<%= total.t1%>）</a></li>
             <li class="<%= req.query.type == '2' ? 'active' : '' %>"><a href="/item?type=2&date=<%= req.query.date == undefined ? '' : req.query.date %>">鞋子（<%= total.t2%>）</a></li>
             <li class="<%= req.query.type == '3' ? 'active' : '' %>"><a href="/item?type=3&date=<%= req.query.date == undefined ? '' : req.query.date %>">包包（<%= total.t3%>）</a></li>

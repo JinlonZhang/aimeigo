@@ -15,9 +15,7 @@ var ItemSchema = new Schema({
     talk: String,
     url:String,  //图片的淘宝链接；
 
-    collect_total: {type: Number, default: 0},    //收藏
-    share_total: {type: Number, default: 0},    //分享
-    sale_total: {type: Number, default: 0},  //销量
+    tag: [],
     buy_total: {type: Number, default: 0},  //点击“去看看“的计数
     date: Date
 })

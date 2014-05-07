@@ -4,7 +4,10 @@
     <% include ../inc/inc.head.html %>
 </head>
 <body>
-
+<%
+var req_date = req.query.date;
+var req_type = req.query.type;
+%>
 <div class="g-bd">
     <% include ../mod/mod.head.html %>
 
@@ -12,7 +15,7 @@
 
     <div class="g-mn">
         <div class="g-btn">
-            <a href="/item" class="btn btn-default"><i class="fa fa-l fa-arrow-left"></i>返回</a>
+            <a href="/item?type=<%= req_type %>&date=<%= req_date %>" class="btn btn-default"><i class="fa fa-l fa-arrow-left"></i>返回</a>
         </div>
         <div class="alert alert-warning" id="msg" style="display:none;">
 
@@ -22,13 +25,11 @@
                 <label class="col-sm-2 control-label">类目</label>
                 <div class="col-sm-10">
                     <label><input type="radio" name="type" value="1" checked>女装</label>
-                    <label><input type="radio" name="type" value="2" >鞋子</label>
-                    <label><input type="radio" name="type" value="3" >包包</label>
-                    <label><input type="radio" name="type" value="4" >配饰</label>
-                    <label><input type="radio" name="type" value="5" >美妆</label>
-                    <!--<label><input type="radio" name="type" value="6" >家具</label>
-                    <label><input type="radio" name="type" value="8" >零食</label>-->
-                    <label><input type="radio" name="type" value="7" >9.9包邮</label>
+                    <label><input type="radio" name="type" value="2" <%= req_type == 2 ? 'checked' : '' %> >鞋子</label>
+                    <label><input type="radio" name="type" value="3" <%= req_type == 3 ? 'checked' : '' %> >包包</label>
+                    <label><input type="radio" name="type" value="4" <%= req_type == 4 ? 'checked' : '' %> >配饰</label>
+                    <label><input type="radio" name="type" value="5" <%= req_type == 5 ? 'checked' : '' %> >美妆</label>
+                    <label><input type="radio" name="type" value="7" <%= req_type == 6 ? 'checked' : '' %> >9.9包邮</label>
                 </div>
             </div>
             <div class="form-group">
@@ -36,14 +37,12 @@
                 <div class="col-sm-10" id="date">
                     <label><input type="radio" name="date" value="<%= date['d-1']%>">昨天</label>
                     <label><input type="radio" name="date" value="<%= date.d0%>">今天</label>
-                    <label><input type="radio" name="date" value="<%= date.d1%>" checked>明天</label>
-                    <label><input type="radio" name="date" value="<%= date.d2%>" >后天</label>
-                    <label><input type="radio" name="date" value="<%= date.d3%>" >大后天</label>
-                    <label><input type="radio" name="date" value="<%= date.d4%>" ><%= date.d4%></label>
-                    <label><input type="radio" name="date" value="<%= date.d5%>" ><%= date.d5%></label>
-                    <label><input type="radio" name="date" value="<%= date.d6%>" ><%= date.d6%></label>
-                    <!--<label><input type="radio" name="date" value="" id="define" >自定义</label>-->
-                    <!--<label class="hide"><input type="text" name="date" style="display: inline" class="form-control j-date" readonly value=""></label>-->
+                    <label><input type="radio" name="date" value="<%= date.d1%>" <%= req_date == date.d1 || req_date == date.d0 ? 'checked' : '' %> >明天</label>
+                    <label><input type="radio" name="date" value="<%= date.d2%>" <%= req_date == date.d2 ? 'checked' : '' %> >后天</label>
+                    <label><input type="radio" name="date" value="<%= date.d3%>" <%= req_date == date.d3 ? 'checked' : '' %> >大后天</label>
+                    <label><input type="radio" name="date" value="<%= date.d4%>" <%= req_date == date.d4 ? 'checked' : '' %> ><%= date.d4%></label>
+                    <label><input type="radio" name="date" value="<%= date.d5%>" <%= req_date == date.d5 ? 'checked' : '' %> ><%= date.d5%></label>
+                    <label><input type="radio" name="date" value="<%= date.d6%>" <%= req_date == date.d6 ? 'checked' : '' %> ><%= date.d6%></label>
                 </div>
             </div>
             <div class="form-group">
@@ -66,12 +65,22 @@
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-sm-2 control-label">现价</label>
+                <label class="col-sm-2 control-label">价格</label>
                 <div class="col-sm-4">
                     <input type="text" name="price2" class="form-control">
                 </div>
 			</div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">类型</label>
+                <div class="col-sm-10">
 
+                    <label><input type="checkbox" name="tag" value="雪纺衫">雪纺衫</label>
+                    <label><input type="checkbox" name="tag" value="夏">夏</label>
+                    <label><input type="checkbox" name="tag" value="韩范">韩范</label>
+                    <label><input type="checkbox" name="tag" value="小清新">小清新</label>
+                    <label><input type="checkbox" name="tag" value="9.9包邮">9.9包邮</label>
+                </div>
+            </div>
             <div class="form-group">
                 <label class="col-sm-2"></label>
                 <div class="col-sm-10">
@@ -88,10 +97,11 @@
 <script>
 	var page = {
 
-		init: function(){
+		init: function(o){
 			var w = this;
 
-			w.getTB = $('#getTB');
+            w.req_type = o.req_type;
+            w.req_date = o.req_date;
 
 			w.initHTML();
 			w.initEvent();
@@ -99,11 +109,11 @@
 
 		initHTML: function(){
 			var w = this;
-			var src = $('.j-uploadForm').attr('srcPage') || 'item';
+			var src = '/item?type=' + w.req_type + '&date=' + w.req_date;
 
 			$('.j-uploadForm').data('opt', {
 				fn: function(){
-					window.location.href = '/'+ src;
+					window.location.href = src;
 				}
 			});
 
@@ -113,16 +123,14 @@
 
 		initEvent: function(){
 			var w = this;
-
-
-			w.getTB.click(function(){
-				w.getTBfn();
-			})
 		}
 	}
 
 	$(function(){
-		page.init();
+		page.init({
+            req_type: '<%= req_type %>',
+            req_date: '<%= req_date %>'
+        });
 	});
 
 </script>

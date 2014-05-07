@@ -238,6 +238,7 @@ api.add = function(req, res){
         href: req.body.href,
         price2: req.body.price2,
         date: date,
+        tag: req.body.tag,
         url: url
     }
     if(o.name == ""){
@@ -249,7 +250,7 @@ api.add = function(req, res){
             res.json( Util.resJson(err) );
         })
     }else{
-        //console.log(img)
+        o.buy_total = 0;
         if(img.size == 0){
              Item.add(o, function(err){
                 res.json( Util.resJson(err) );

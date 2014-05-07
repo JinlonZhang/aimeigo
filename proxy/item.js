@@ -18,6 +18,7 @@ exports.add = function (o, fn) {
     item.price2 = o.price2;
     item.date = o.date;
     item.url = o.url;
+    item.tag = o.tag;
     item.buy_total = 0;
 
     item.save(fn);

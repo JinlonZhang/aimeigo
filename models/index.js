@@ -20,8 +20,10 @@ require('./item');
 require('./user');
 require('./prize');
 require('./QQuser');
+require('./tag');
 
 exports.Item = mongoose.model('Item');
 exports.User = mongoose.model('User');
 exports.Prize = mongoose.model('Prize');
 exports.QQUser = mongoose.model('QQUser');
+exports.Tag = mongoose.model('Tag');
